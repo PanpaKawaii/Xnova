@@ -1,0 +1,43 @@
+.header-container {
+    margin: 0 40px;
+    padding: 20px 0;
+    height: 76px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    font-family: 'Quicksand', Arial, sans-serif;
+
+    .logo,
+    .login-signup {
+        display: flex;
+        align-items: center;
+        align-content: center;
+
+        i {
+            width: 40px;
+            font-size: 24px;
+            align-content: center;
+        }
+    }
+
+    .items {
+        width: 500px;
+        display: flex;
+        justify-content: space-around;
+        font-size: 18px;
+
+        .item {
+            color: #555;
+            display: flex;
+            align-items: center;
+
+        }
+
+        i {
+            width: 40px;
+            font-size: 24px;
+            align-content: center;
+        }
+    }
+}
