@@ -165,28 +165,28 @@ CREATE TABLE [Message] (
 );
 
 
---Type (Id, Name)
+--Type (Name)
 INSERT INTO [Type] VALUES (N'Football')
 INSERT INTO [Type] VALUES (N'Badminton')
 INSERT INTO [Type] VALUES (N'Pickleball')
 
 --User (Name, Email, Password, Image, Role, Description, PhoneNumber, Point, Type, Status)
-INSERT INTO [User] VALUES (N'Đặng Ngọc Hải Triều', N'dangngochaitrieu@gmail.com', N'123456', N'abc', N'Admin', N'abc', N'0123456789', 0, N'', 1)
-INSERT INTO [User] VALUES (N'Nguyễn Gia Huy', N'nguyengiahuy@gmail.com', N'123456', N'abc', N'Owner', N'abc', N'0123456789', 100000, N'', 1)
-INSERT INTO [User] VALUES (N'Nguyễn Gia Hoàng', N'nguyengiahoang@gmail.com', N'123456', N'abc', N'Owner', N'abc', N'0123456789', 200000, N'', 1)
-INSERT INTO [User] VALUES (N'Phạm Thành Danh', N'phamthanhdanh@gmail.com', N'123456', N'abc', N'Owner', N'abc', N'0123456789', 300000, N'', 1)
-INSERT INTO [User] VALUES (N'Nguyễn Thành Dương', N'nguyenthanhduong@gmail.com', N'123456', N'abc', N'Customer', N'abc', N'0123456789', 1000, N'', 1)
-INSERT INTO [User] VALUES (N'Lê Hữu Thành Tín', N'lehuuthanhtin@gmail.com', N'123456', N'abc', N'Customer', N'abc', N'0123456789', 2000, N'', 1)
-INSERT INTO [User] VALUES (N'Trương Kim Hằng', N'truongkimhang@gmail.com', N'123456', N'abc', N'Customer', N'abc', N'0123456789', 3000, N'', 1)
-INSERT INTO [User] VALUES (N'Lê Minh Khoa', N'leminhkhoa@gmail.com', N'123456', N'abc', N'Customer', N'abc', N'0123456789', 4000, N'', 1)
+INSERT INTO [User] VALUES (N'Đặng Ngọc Hải Triều', N'dangngochaitrieu@gmail.com', N'123456', N'abc', N'Admin', N'abc', N'0123456789', 0, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
+INSERT INTO [User] VALUES (N'Nguyễn Gia Huy', N'nguyengiahuy@gmail.com', N'123456', N'abc', N'Owner', N'abc', N'0123456789', 100000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
+INSERT INTO [User] VALUES (N'Nguyễn Gia Hoàng', N'nguyengiahoang@gmail.com', N'123456', N'abc', N'Owner', N'abc', N'0123456789', 200000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
+INSERT INTO [User] VALUES (N'Phạm Thành Danh', N'phamthanhdanh@gmail.com', N'123456', N'abc', N'Owner', N'abc', N'0123456789', 300000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
+INSERT INTO [User] VALUES (N'Nguyễn Thành Dương', N'nguyenthanhduong@gmail.com', N'123456', N'abc', N'Customer', N'abc', N'0123456789', 1000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
+INSERT INTO [User] VALUES (N'Lê Hữu Thành Tín', N'lehuuthanhtin@gmail.com', N'123456', N'abc', N'Customer', N'abc', N'0123456789', 2000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
+INSERT INTO [User] VALUES (N'Trương Kim Hằng', N'truongkimhang@gmail.com', N'123456', N'abc', N'Customer', N'abc', N'0123456789', 3000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
+INSERT INTO [User] VALUES (N'Lê Minh Khoa', N'leminhkhoa@gmail.com', N'123456', N'abc', N'Customer', N'abc', N'0123456789', 4000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
 
 --Venue (Name, Address, Contact, Status, UserId)
-INSERT INTO [Venue] VALUES (N'1aaaaaaaaaaaaaaaaaaaaaaa', N'aaaaaaaaaaaaaaaaaaaaaaa', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 2)--Huy
-INSERT INTO [Venue] VALUES (N'1bbbbbbbbbbbbbbbbbbbbbbb', N'bbbbbbbbbbbbbbbbbbbbbbb', N'bbbbbbbbbbbbbbbbbbbbbbb', 1, 3)--Hoang
-INSERT INTO [Venue] VALUES (N'2bbbbbbbbbbbbbbbbbbbbbbb', N'bbbbbbbbbbbbbbbbbbbbbbb', N'bbbbbbbbbbbbbbbbbbbbbbb', 1, 3)--Hoang
-INSERT INTO [Venue] VALUES (N'1ccccccccccccccccccccccc', N'ccccccccccccccccccccccc', N'ccccccccccccccccccccccc', 1, 4)--Danh
-INSERT INTO [Venue] VALUES (N'2ccccccccccccccccccccccc', N'ccccccccccccccccccccccc', N'ccccccccccccccccccccccc', 1, 4)--Danh
-INSERT INTO [Venue] VALUES (N'3ccccccccccccccccccccccc', N'ccccccccccccccccccccccc', N'ccccccccccccccccccccccc', 1, 4)--Danh
+INSERT INTO [Venue] VALUES (N'1aaaaaaaaaaaaaaaaaaaaaaa', N'aaaaaaaaaaaaaaaaaaaaaaa', N'0123456789', 1, 2)--Huy
+INSERT INTO [Venue] VALUES (N'1bbbbbbbbbbbbbbbbbbbbbbb', N'bbbbbbbbbbbbbbbbbbbbbbb', N'0123456789', 1, 3)--Hoang
+INSERT INTO [Venue] VALUES (N'2bbbbbbbbbbbbbbbbbbbbbbb', N'bbbbbbbbbbbbbbbbbbbbbbb', N'0123456789', 1, 3)--Hoang
+INSERT INTO [Venue] VALUES (N'1ccccccccccccccccccccccc', N'ccccccccccccccccccccccc', N'0123456789', 1, 4)--Danh
+INSERT INTO [Venue] VALUES (N'2ccccccccccccccccccccccc', N'ccccccccccccccccccccccc', N'0123456789', 1, 4)--Danh
+INSERT INTO [Venue] VALUES (N'3ccccccccccccccccccccccc', N'ccccccccccccccccccccccc', N'0123456789', 1, 4)--Danh
 
 --Image (Name, Link, Status, VenueId)
 INSERT INTO [Image] VALUES (N'Field 1', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 1)--Huy
@@ -407,13 +407,13 @@ INSERT INTO [BookingSlot] VALUES (8, 126)
 
 --Payment (Method, Amount, Note, Date, Status, BookingId)
 INSERT INTO [Payment] VALUES (N'VNPay', 100000, N'aaaaaaaaaaaaaaaaaaaaaaa', '2025-06-04 14:30:00', 1, 1)
-INSERT INTO [Payment] VALUES (N'VNPay', 100000, N'aaaaaaaaaaaaaaaaaaaaaaa', '2025-06-04 14:30:00', 1, 2)
-INSERT INTO [Payment] VALUES (N'VNPay', 100000, N'aaaaaaaaaaaaaaaaaaaaaaa', '2025-06-04 14:30:00', 1, 3)
-INSERT INTO [Payment] VALUES (N'Momo', 100000, N'aaaaaaaaaaaaaaaaaaaaaaa', '2025-06-04 14:30:00', 1, 4)
+INSERT INTO [Payment] VALUES (N'VNPay', 200000, N'aaaaaaaaaaaaaaaaaaaaaaa', '2025-06-04 14:30:00', 1, 2)
+INSERT INTO [Payment] VALUES (N'VNPay', 400000, N'aaaaaaaaaaaaaaaaaaaaaaa', '2025-06-04 14:30:00', 1, 3)
+INSERT INTO [Payment] VALUES (N'Momo', 300000, N'aaaaaaaaaaaaaaaaaaaaaaa', '2025-06-04 14:30:00', 1, 4)
 INSERT INTO [Payment] VALUES (N'Momo', 100000, N'aaaaaaaaaaaaaaaaaaaaaaa', '2025-06-04 14:30:00', 1, 5)
 INSERT INTO [Payment] VALUES (N'Momo', 100000, N'aaaaaaaaaaaaaaaaaaaaaaa', '2025-06-04 14:30:00', 1, 6)
 INSERT INTO [Payment] VALUES (N'VNPay', 100000, N'aaaaaaaaaaaaaaaaaaaaaaa', '2025-06-04 14:30:00', 1, 7)
-INSERT INTO [Payment] VALUES (N'VNPay', 100000, N'aaaaaaaaaaaaaaaaaaaaaaa', '2025-06-04 14:30:00', 1, 8)
+INSERT INTO [Payment] VALUES (N'VNPay', 200000, N'aaaaaaaaaaaaaaaaaaaaaaa', '2025-06-04 14:30:00', 1, 8)
 
 --Chatbox (Name, Status, UserId)
 INSERT INTO [Chatbox] VALUES (N'Supercalifragilisticexpialidocious AI', 1, 1)

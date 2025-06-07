@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import videoSrc from './Solid_Logo_Reveal_free.mp4';
 import './Video.css';
+import QuickSearch from '../QuickSearch/QuickSearch';
 
 export default function Video() {
+    console.log('Rerender');
     return (
         <div className='video-container'>
             <div className='video-content'>
@@ -10,6 +12,12 @@ export default function Video() {
                     <source src={videoSrc} type='video/mp4' />
                     Your browser does not support the video tag.
                 </video>
+                <div className='quicksearch-absolute'>
+                    <QuickSearch />
+                </div>
+            </div>
+            <div className='quicksearch-absolute'>
+                <QuickSearch />
             </div>
         </div>
     )

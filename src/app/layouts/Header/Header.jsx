@@ -10,7 +10,10 @@ export default function Header() {
                 <div className='item'><i className='fa-solid fa-user'></i>Book</div>
                 <div className='item'><i className='fa-solid fa-user'></i>Train</div>
             </div>
-            <div className='login-signup'><i className='fa-solid fa-user-circle'></i>Login/Signup</div>
+            <div className='left-bar'>
+                <input />
+                <div className='login-signup'><i className='fa-solid fa-user-circle'></i>Login/Signup</div>
+            </div>
         </div>
     )
 }

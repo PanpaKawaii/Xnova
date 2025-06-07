@@ -21,6 +21,11 @@
         }
     }
 
+    .left-bar {
+        display: flex;
+        gap: 20px;
+    }
+
     .items {
         width: 500px;
         display: flex;
