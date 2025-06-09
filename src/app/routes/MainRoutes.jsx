@@ -6,6 +6,7 @@ import ChatBox from '../pages/ChatBox/ChatBox'
 import Video from '../pages/Video/Video'
 import Home from '../pages/Home/Home'
 import Venue from '../pages/Venue/Venue'
+import VenueDetail from '../pages/Venue/VenueDetail'
 
 export default function MainRoutes() {
     return (
@@ -15,6 +16,7 @@ export default function MainRoutes() {
                 <Route path='/' element={<Home />} />
                 <Route path='/chatbox' element={<ChatBox />} />
                 <Route path='/venue' element={<Venue />} />
+                <Route path='/venue/:id' element={<VenueDetail />} />
                 <Route path='*' element={<></>} />
             </Routes>
             <></>

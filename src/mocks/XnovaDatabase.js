@@ -5,23 +5,23 @@ export const types = [
 ];
 
 export const users = [
-    { Id: 1, Name: 'Đặng Ngọc Hải Triều', Email: 'dangngochaitrieu@gmail.com', Password: '123456', Image: 'abc', Role: 'Admin', Description: 'abc', PhoneNumber: '0123456789', Point: 0, Type: 'aaaaaaaaaaaaaaaaaaaaaaa', Status: 1 },
-    { Id: 2, Name: 'Nguyễn Gia Huy', Email: 'nguyengiahuy@gmail.com', Password: '123456', Image: 'abc', Role: 'Owner', Description: 'abc', PhoneNumber: '0123456789', Point: 100000, Type: 'aaaaaaaaaaaaaaaaaaaaaaa', Status: 1 },
-    { Id: 3, Name: 'Nguyễn Gia Hoàng', Email: 'nguyengiahoang@gmail.com', Password: '123456', Image: 'abc', Role: 'Owner', Description: 'abc', PhoneNumber: '0123456789', Point: 200000, Type: 'aaaaaaaaaaaaaaaaaaaaaaa', Status: 1 },
-    { Id: 4, Name: 'Phạm Thành Danh', Email: 'phamthanhdanh@gmail.com', Password: '123456', Image: 'abc', Role: 'Owner', Description: 'abc', PhoneNumber: '0123456789', Point: 300000, Type: 'aaaaaaaaaaaaaaaaaaaaaaa', Status: 1 },
-    { Id: 5, Name: 'Nguyễn Thành Dương', Email: 'nguyenthanhduong@gmail.com', Password: '123456', Image: 'abc', Role: 'Customer', Description: 'abc', PhoneNumber: '0123456789', Point: 1000, Type: 'aaaaaaaaaaaaaaaaaaaaaaa', Status: 1 },
-    { Id: 6, Name: 'Lê Hữu Thành Tín', Email: 'lehuuthanhtin@gmail.com', Password: '123456', Image: 'abc', Role: 'Customer', Description: 'abc', PhoneNumber: '0123456789', Point: 2000, Type: 'aaaaaaaaaaaaaaaaaaaaaaa', Status: 1 },
-    { Id: 7, Name: 'Trương Kim Hằng', Email: 'truongkimhang@gmail.com', Password: '123456', Image: 'abc', Role: 'Customer', Description: 'abc', PhoneNumber: '0123456789', Point: 3000, Type: 'aaaaaaaaaaaaaaaaaaaaaaa', Status: 1 },
-    { Id: 8, Name: 'Lê Minh Khoa', Email: 'leminhkhoa@gmail.com', Password: '123456', Image: 'abc', Role: 'Customer', Description: 'abc', PhoneNumber: '0123456789', Point: 4000, Type: 'aaaaaaaaaaaaaaaaaaaaaaa', Status: 1 },
+    { Id: 1, Name: 'Đặng Ngọc Hải Triều', Email: 'dangngochaitrieu@gmail.com', Password: '123456', Image: 'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', Role: 'Admin', Description: 'abc', PhoneNumber: '0123456789', Point: 0, Type: 'aaaaaaaaaaaaaaaaaaaaaaa', Status: 1 },
+    { Id: 2, Name: 'Nguyễn Gia Huy', Email: 'nguyengiahuy@gmail.com', Password: '123456', Image: 'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', Role: 'Owner', Description: 'abc', PhoneNumber: '0123456789', Point: 100000, Type: 'aaaaaaaaaaaaaaaaaaaaaaa', Status: 1 },
+    { Id: 3, Name: 'Nguyễn Gia Hoàng', Email: 'nguyengiahoang@gmail.com', Password: '123456', Image: 'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', Role: 'Owner', Description: 'abc', PhoneNumber: '0123456789', Point: 200000, Type: 'aaaaaaaaaaaaaaaaaaaaaaa', Status: 1 },
+    { Id: 4, Name: 'Phạm Thành Danh', Email: 'phamthanhdanh@gmail.com', Password: '123456', Image: 'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', Role: 'Owner', Description: 'abc', PhoneNumber: '0123456789', Point: 300000, Type: 'aaaaaaaaaaaaaaaaaaaaaaa', Status: 1 },
+    { Id: 5, Name: 'Nguyễn Thành Dương', Email: 'nguyenthanhduong@gmail.com', Password: '123456', Image: 'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', Role: 'Customer', Description: 'abc', PhoneNumber: '0123456789', Point: 1000, Type: 'aaaaaaaaaaaaaaaaaaaaaaa', Status: 1 },
+    { Id: 6, Name: 'Lê Hữu Thành Tín', Email: 'lehuuthanhtin@gmail.com', Password: '123456', Image: 'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', Role: 'Customer', Description: 'abc', PhoneNumber: '0123456789', Point: 2000, Type: 'aaaaaaaaaaaaaaaaaaaaaaa', Status: 1 },
+    { Id: 7, Name: 'Trương Kim Hằng', Email: 'truongkimhang@gmail.com', Password: '123456', Image: 'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', Role: 'Customer', Description: 'abc', PhoneNumber: '0123456789', Point: 3000, Type: 'aaaaaaaaaaaaaaaaaaaaaaa', Status: 1 },
+    { Id: 8, Name: 'Lê Minh Khoa', Email: 'leminhkhoa@gmail.com', Password: '123456', Image: 'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', Role: 'Customer', Description: 'abc', PhoneNumber: '0123456789', Point: 4000, Type: 'aaaaaaaaaaaaaaaaaaaaaaa', Status: 1 },
 ];
 
 export const venues = [
-    { Id: 1, Name: '1aaaaaaaaaaaaaaaaaaaaaaa', Address: 'aaaaaaaaaaaaaaaaaaaaaaa', Contact: '0123456789', Status: 1, UserId: 2 }, // Huy
-    { Id: 2, Name: '1bbbbbbbbbbbbbbbbbbbbbbb', Address: 'bbbbbbbbbbbbbbbbbbbbbbb', Contact: '0123456789', Status: 1, UserId: 3 }, // Hoang
-    { Id: 3, Name: '2bbbbbbbbbbbbbbbbbbbbbbb', Address: 'bbbbbbbbbbbbbbbbbbbbbbb', Contact: '0123456789', Status: 1, UserId: 3 }, // Hoang
-    { Id: 4, Name: '1ccccccccccccccccccccccc', Address: 'ccccccccccccccccccccccc', Contact: '0123456789', Status: 1, UserId: 4 }, // Danh
-    { Id: 5, Name: '2ccccccccccccccccccccccc', Address: 'ccccccccccccccccccccccc', Contact: '0123456789', Status: 1, UserId: 4 }, // Danh
-    { Id: 6, Name: '3ccccccccccccccccccccccc', Address: 'ccccccccccccccccccccccc', Contact: '0123456789', Status: 1, UserId: 4 }, // Danh
+    { Id: 1, Name: 'Sunrise Sports Arena', Address: '123 Đường Hoa Phượng, Quận 7, TP. HCM', Longitude: '0', Latitude: '0', Contact: '0123456789', Status: 1, UserId: 2 }, // Huy
+    { Id: 2, Name: 'Green Field Center', Address: '456 Đường Nguyễn Văn Cừ, Quận 5, TP. HCM', Longitude: '0', Latitude: '0', Contact: '0123456789', Status: 1, UserId: 3 }, // Hoang
+    { Id: 3, Name: 'Victory Stadium', Address: '789 Đường Trần Hưng Đạo, Quận 1, TP. HCM', Longitude: '0', Latitude: '0', Contact: '0123456789', Status: 1, UserId: 3 }, // Hoang
+    { Id: 4, Name: 'Cityside Court', Address: '12 Đường Lê Văn Sỹ, Quận 3, TP. HCM', Longitude: '0', Latitude: '0', Contact: '0123456789', Status: 1, UserId: 4 }, // Danh
+    { Id: 5, Name: 'The Arena Zone', Address: '34 Đường Phan Xích Long, Phú Nhuận, TP. HCM', Longitude: '0', Latitude: '0', Contact: '0123456789', Status: 1, UserId: 4 }, // Danh
+    { Id: 6, Name: 'Mega Sports Hub', Address: '89 Đường Cộng Hòa, Tân Bình, TP. HCM', Longitude: '0', Latitude: '0', Contact: '0123456789', Status: 1, UserId: 4 }, // Danh
 ];
 
 export const images = [

@@ -69,6 +69,8 @@ CREATE TABLE [Venue] (
     Id          INT PRIMARY KEY IDENTITY(1,1),
     Name        NVARCHAR(255) NOT NULL,
     Address     NVARCHAR(255),
+    Longitude   NVARCHAR(255),
+    Latitude    NVARCHAR(255),
     Contact     NVARCHAR(255),
     Status      INT,
     UserId      INT,
@@ -171,22 +173,22 @@ INSERT INTO [Type] VALUES (N'Badminton')
 INSERT INTO [Type] VALUES (N'Pickleball')
 
 --User (Name, Email, Password, Image, Role, Description, PhoneNumber, Point, Type, Status)
-INSERT INTO [User] VALUES (N'Đặng Ngọc Hải Triều', N'dangngochaitrieu@gmail.com', N'123456', N'abc', N'Admin', N'abc', N'0123456789', 0, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
-INSERT INTO [User] VALUES (N'Nguyễn Gia Huy', N'nguyengiahuy@gmail.com', N'123456', N'abc', N'Owner', N'abc', N'0123456789', 100000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
-INSERT INTO [User] VALUES (N'Nguyễn Gia Hoàng', N'nguyengiahoang@gmail.com', N'123456', N'abc', N'Owner', N'abc', N'0123456789', 200000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
-INSERT INTO [User] VALUES (N'Phạm Thành Danh', N'phamthanhdanh@gmail.com', N'123456', N'abc', N'Owner', N'abc', N'0123456789', 300000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
-INSERT INTO [User] VALUES (N'Nguyễn Thành Dương', N'nguyenthanhduong@gmail.com', N'123456', N'abc', N'Customer', N'abc', N'0123456789', 1000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
-INSERT INTO [User] VALUES (N'Lê Hữu Thành Tín', N'lehuuthanhtin@gmail.com', N'123456', N'abc', N'Customer', N'abc', N'0123456789', 2000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
-INSERT INTO [User] VALUES (N'Trương Kim Hằng', N'truongkimhang@gmail.com', N'123456', N'abc', N'Customer', N'abc', N'0123456789', 3000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
-INSERT INTO [User] VALUES (N'Lê Minh Khoa', N'leminhkhoa@gmail.com', N'123456', N'abc', N'Customer', N'abc', N'0123456789', 4000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
+INSERT INTO [User] VALUES (N'Đặng Ngọc Hải Triều', N'dangngochaitrieu@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Admin', N'abc', N'0123456789', 0, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
+INSERT INTO [User] VALUES (N'Nguyễn Gia Huy', N'nguyengiahuy@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Owner', N'abc', N'0123456789', 100000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
+INSERT INTO [User] VALUES (N'Nguyễn Gia Hoàng', N'nguyengiahoang@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Owner', N'abc', N'0123456789', 200000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
+INSERT INTO [User] VALUES (N'Phạm Thành Danh', N'phamthanhdanh@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Owner', N'abc', N'0123456789', 300000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
+INSERT INTO [User] VALUES (N'Nguyễn Thành Dương', N'nguyenthanhduong@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Customer', N'abc', N'0123456789', 1000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
+INSERT INTO [User] VALUES (N'Lê Hữu Thành Tín', N'lehuuthanhtin@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Customer', N'abc', N'0123456789', 2000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
+INSERT INTO [User] VALUES (N'Trương Kim Hằng', N'truongkimhang@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Customer', N'abc', N'0123456789', 3000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
+INSERT INTO [User] VALUES (N'Lê Minh Khoa', N'leminhkhoa@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Customer', N'abc', N'0123456789', 4000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
 
---Venue (Name, Address, Contact, Status, UserId)
-INSERT INTO [Venue] VALUES (N'1aaaaaaaaaaaaaaaaaaaaaaa', N'aaaaaaaaaaaaaaaaaaaaaaa', N'0123456789', 1, 2)--Huy
-INSERT INTO [Venue] VALUES (N'1bbbbbbbbbbbbbbbbbbbbbbb', N'bbbbbbbbbbbbbbbbbbbbbbb', N'0123456789', 1, 3)--Hoang
-INSERT INTO [Venue] VALUES (N'2bbbbbbbbbbbbbbbbbbbbbbb', N'bbbbbbbbbbbbbbbbbbbbbbb', N'0123456789', 1, 3)--Hoang
-INSERT INTO [Venue] VALUES (N'1ccccccccccccccccccccccc', N'ccccccccccccccccccccccc', N'0123456789', 1, 4)--Danh
-INSERT INTO [Venue] VALUES (N'2ccccccccccccccccccccccc', N'ccccccccccccccccccccccc', N'0123456789', 1, 4)--Danh
-INSERT INTO [Venue] VALUES (N'3ccccccccccccccccccccccc', N'ccccccccccccccccccccccc', N'0123456789', 1, 4)--Danh
+--Venue (Name, Address, Longitude, Latitude, Contact, Status, UserId)
+INSERT INTO [Venue] VALUES (N'Sunrise Sports Arena', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', N'0', N'0', N'0123456789', 1, 2)--Huy
+INSERT INTO [Venue] VALUES (N'Green Field Center', N'456 Đường Nguyễn Văn Cừ, Quận 5, TP. HCM', N'0', N'0', N'0123456789', 1, 3)--Hoang
+INSERT INTO [Venue] VALUES (N'Victory Stadium', N'789 Đường Trần Hưng Đạo, Quận 1, TP. HCM', N'0', N'0', N'0123456789', 1, 3)--Hoang
+INSERT INTO [Venue] VALUES (N'Cityside Court', N'12 Đường Lê Văn Sỹ, Quận 3, TP. HCM', N'0', N'0', N'0123456789', 1, 4)--Danh
+INSERT INTO [Venue] VALUES (N'The Arena Zone', N'34 Đường Phan Xích Long, Phú Nhuận, TP. HCM', N'0', N'0', N'0123456789', 1, 4)--Danh
+INSERT INTO [Venue] VALUES (N'Mega Sports Hub', N'89 Đường Cộng Hòa, Tân Bình, TP. HCM', N'0', N'0', N'0123456789', 1, 4)--Danh
 
 --Image (Name, Link, Status, VenueId)
 INSERT INTO [Image] VALUES (N'Field 1', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 1)--Huy
