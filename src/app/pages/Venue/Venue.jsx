@@ -234,9 +234,10 @@ export default function Venue() {
                                         {/* <div>ID: {venue.Id}</div> */}
                                         <div className='venue-name'>{venue.Name}</div>
                                         {(venue.Rating && venue.Rating) > 0 ? (
-                                            <>
-                                                <span className='rating-value'>{venue.Rating.toFixed(1)}</span> <StarHalfFull Rating={venue.Rating} Size={'1.3em'} Color={'#ffd700'} />
-                                            </>
+                                            <div className='half-star'>
+                                                <span className='rating-value'>{venue.Rating.toFixed(1)}</span>
+                                                <StarHalfFull Rating={venue.Rating} Size={'1.3em'} Color={'#ffd700'} />
+                                            </div>
                                         ) : (
                                             <>
                                                 <StarRating Rating={5} Size={'1.3em'} Color={'#ffd700'} /> (Recommend)

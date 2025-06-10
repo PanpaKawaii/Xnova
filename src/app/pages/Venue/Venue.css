@@ -55,6 +55,8 @@
         }
 
         tr {
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
 
             th,
             td {
@@ -68,11 +70,18 @@
                     font-weight: bold;
                 }
 
-                .rating-value {
-                    color: #ffd700;
-                    text-shadow: 1px 1px 0 #db9a00;
-                    font-size: 32px;
-                    font-weight: bold;
+                .half-star {
+                    display: flex;
+                    align-items: end;
+                    gap: 8px;
+
+                    .rating-value {
+                        color: #ffd700;
+                        text-shadow: 1px 1px 0 #db9a00;
+                        font-size: 32px;
+                        font-weight: bold;
+                    }
+
                 }
 
                 img {

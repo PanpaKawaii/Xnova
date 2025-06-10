@@ -90,7 +90,6 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    font-weight: bold;
 
                     .favorite-title {
                         flex: 1;
@@ -99,14 +98,18 @@
                         align-items: center;
                         gap: 8px;
                         font-size: 20px;
+                        font-weight: bold;
                     }
 
                     .favorite-text {
                         flex: 2;
+                        font-weight: bold;
                     }
 
                     .favorite-rating {
                         flex: 1;
+                        display: flex;
+                        justify-content: center;
                     }
                 }
 

@@ -396,9 +396,10 @@ export default function VenueDetail() {
                                         {(Venue.Rating && Venue.Rating) > 0 ? (
                                             <StarHalfFull Rating={Venue.Rating} Size={'1.3em'} Color={'#ffd700'} />
                                         ) : (
-                                            <>
-                                                <StarRating Rating={5} Size={'1.3em'} Color={'#ffd700'} /> (Recommend)
-                                            </>
+                                            <div>
+                                                <StarRating Rating={5} Size={'1.3em'} Color={'#ffd700'} />
+                                                (Recommend)
+                                            </div>
                                         )}
                                     </div>
                                 </div>
