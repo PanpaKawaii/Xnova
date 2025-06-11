@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
 import StarRating from '../../components/StarRating.jsx';
 import StarHalfFull from '../../components/StarHalfFull.jsx';
+import BookingForm from './BookingForm.jsx';
 import VenueFeedback from './VenueFeedback.jsx';
 import './VenueDetail.css';
 
-import { types, venues, images, fields, bookings, slots } from '../../../mocks/XnovaDatabase.js';
+import { types, images, fields, bookings, slots } from '../../../mocks/XnovaDatabase.js';
 
 export default function VenueDetail() {
 
@@ -20,8 +21,6 @@ export default function VenueDetail() {
         setId(UserIdInt);
     }, [UserId]);
     const navigate = useNavigate();
-
-    const [VENUEs, setVENUEs] = useState(venues);
 
     const [BOOKINGs, setBOOKINGs] = useState(null);
     const [PODs, setPODs] = useState(null);
@@ -408,7 +407,9 @@ export default function VenueDetail() {
                                 <div>{Venue.Description}</div>
                             </div>
 
-                            <div className='payment-card'>
+                            <BookingForm Venue={Venue} />
+
+                            {/* <div className='payment-card'>
                                 <div className='card'>
                                     <div className='payment-card-title'>
                                         <h1><b>{AvailableSLOTs[0]?.price?.toLocaleString('vi-VN')}VND/slot</b></h1>
@@ -432,7 +433,6 @@ export default function VenueDetail() {
                                                     {date &&
                                                         <div className='form-group'>
                                                             <div className='row'>
-                                                                {/* {unbookedAvailableSLOTs.map((slot, index) => ( */}
                                                                 {AvailableSLOTs.map((slot, index) => (
                                                                     <div key={index} className='col'>
                                                                         <div
@@ -477,7 +477,7 @@ export default function VenueDetail() {
                                                         {(() => {
                                                             const selectedDate = new Date(date);
                                                             const currentDate = new Date();
-                                                            currentDate.setHours(0, 0, 0, 0); // Reset time to start of day for fair comparison
+                                                            currentDate.setHours(0, 0, 0, 0);
 
                                                             if (selectedDate < currentDate) {
                                                                 return (
@@ -505,7 +505,6 @@ export default function VenueDetail() {
                                                     </div>
 
                                                     <h2><b>Tổng: <span style={{ color: '#ee4f2e' }}>{Amount.toLocaleString('vi-VN')}đ</span></b></h2>
-                                                    {/* <h2><b>Tổng 2: <span style={{ color: '#ee4f2e' }}>{(SlotId.length * AvailableSLOTs[0].price).toLocaleString('vi-VN')}đ</span></b></h2> */}
                                                     {bookingsHaveTheSameDateAndSlot && bookingsHaveTheSameDateAndSlot.length !== 0 && <div style={{ color: '#ff0000' }}>Slot không khả dụng</div>}
                                                     {bookingsHaveTheSameDateAndSlot && bookingsHaveTheSameDateAndSlot.length === 0 &&
                                                         SlotId.length > 0 &&
@@ -519,7 +518,7 @@ export default function VenueDetail() {
                                         }
                                     </form>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
 
                         <hr />
