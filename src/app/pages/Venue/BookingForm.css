@@ -44,12 +44,25 @@
 
                     .row {
                         display: grid;
-                        grid-template-columns: repeat(2, minmax(0, 1fr));
+                        grid-template-columns: repeat(1, minmax(0, 1fr));
                         gap: 12px;
 
                         .col {
+                            cursor: pointer;
                             padding: 8px 4px;
                             border-radius: 4px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            gap: 12px;
+
+                            .price {
+                                padding: 4px 8px;
+                                color: #fff;
+                                background-color: #28a745;
+                                font-weight: bold;
+                                border-radius: 4px;
+                            }
                         }
                     }
                 }

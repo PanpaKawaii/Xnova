@@ -1,11 +1,14 @@
 .header-container {
-    margin: 0 40px;
-    padding: 20px 0;
+    padding: 20px 40px;
     height: 76px;
+    background-color: #ececec;
     font-weight: bold;
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    z-index: 100;
     font-family: 'Quicksand', Arial, sans-serif;
 
     .logo,
@@ -24,6 +27,13 @@
     .left-bar {
         display: flex;
         gap: 20px;
+
+        input {
+            outline: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
     }
 
     .items {
@@ -36,7 +46,6 @@
             color: #555;
             display: flex;
             align-items: center;
-
         }
 
         i {

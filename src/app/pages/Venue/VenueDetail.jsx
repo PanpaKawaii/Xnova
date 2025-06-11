@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
 import StarRating from '../../components/StarRating.jsx';
 import StarHalfFull from '../../components/StarHalfFull.jsx';
+import BackArrow from '../../components/BackArrow.jsx';
 import BookingForm from './BookingForm.jsx';
 import VenueFeedback from './VenueFeedback.jsx';
 import './VenueDetail.css';
@@ -353,9 +354,7 @@ export default function VenueDetail() {
                 </Link>
             </div> */}
 
-            <div className='back-button' style={{ position: 'absolute', top: '20px', left: '20px' }}>
-                <i className='fa-solid fa-arrow-left' style={{ color: '#fdbc7f', fontSize: '40px', cursor: 'pointer' }} onClick={() => navigate(-1)}></i>
-            </div>
+            <BackArrow />
 
             <div className='venuedetail-content'>
                 {Venue ? (
@@ -520,8 +519,6 @@ export default function VenueDetail() {
                                 </div>
                             </div> */}
                         </div>
-
-                        <hr />
 
                         <div className='big-rating'>
                             {(Venue.Rating && Venue.Rating > 0) ?

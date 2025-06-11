@@ -21,10 +21,16 @@ export default function BookingForm({ Venue }) {
     // Lấy những Slot có status là Đang hoạt động
     // const activeSLOTs = SLOTs ? SLOTs.filter(slot => slot.Status === 1) : [];
 
-    // Lấy những Slot của Pod đó
+    const seen = new Set();
     const AvailableSLOTs = SLOTs.filter(slot => {
         const field = fields.find(f => f.Id === slot.FieldId);
-        return field && field.VenueId === Venue.Id;
+        if (!field || field.VenueId !== Venue.Id) return false;
+
+        const key = `${slot.Name}|${slot.StartTime}|${slot.EndTime}|${slot.Price}|${slot.Status}`;
+        if (seen.has(key)) return false;
+
+        seen.add(key);
+        return true;
     });
 
     const handleBooking = async (e) => {
@@ -135,7 +141,6 @@ export default function BookingForm({ Venue }) {
                                                             }//
                                                         }}
                                                         style={{
-                                                            cursor: 'pointer',
                                                             color: unbookedAvailableSLOTs.some(s => s.Id === slot.Id) ? '#000000' : '#cccccc',
                                                             backgroundColor: slot.selected ? (bookingsHaveTheSameDateAndSlot.some(slotId => slotId.Id == slot.Id) ? '#fad7d9' : '#d3f9d8') : '#ffffff',
                                                             border: slot.selected ? (bookingsHaveTheSameDateAndSlot.some(slotId => slotId.Id == slot.Id) ? '1px solid #dc3545' : '1px solid #28a745') : '1px solid #cccccc',
@@ -143,7 +148,8 @@ export default function BookingForm({ Venue }) {
                                                             textAlign: 'center'
                                                         }}
                                                     >
-                                                        {`[${slot.Name}] ${slot.StartTime.substring(0, 5)} - ${slot.EndTime.substring(0, 5)}`}
+                                                        <div>{`[${slot.Name}] ${slot.StartTime.substring(0, 5)} - ${slot.EndTime.substring(0, 5)}`}</div>
+                                                        <div className='price'>{slot.Price.toLocaleString('vi-VN')} VND</div>
                                                     </div>
                                                 ))}
                                                 {unbookedAvailableSLOTs && unbookedAvailableSLOTs.length == 0 && <div>Không còn slot trống.</div>}
