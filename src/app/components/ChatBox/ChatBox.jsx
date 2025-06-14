@@ -4,8 +4,12 @@ import './ChatBox.css';
 export default function ChatBox() {
 
     const [Messages, setMessages] = useState([]);
+    const [WidthFull, setWidthFull] = useState(false);
     const [HeightFull, setHeightFull] = useState(false);
     const [DisplayChat, setDisplayChat] = useState(false);
+    // const handleSetHeight = (status) => {
+    //     setHeightFull(p => status);
+    // }
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -68,9 +72,26 @@ export default function ChatBox() {
         }
     }
 
+    const StyleNormal = {
+        width: '360px',
+        height: '440px',
+    }
+
+    const StyleHeight = {
+        width: '360px',
+        height: '90vh',
+    }
+
+    const StyleFull = {
+        width: 'calc(100% - 16px)',
+        height: '90vh',
+    }
+
     return (
         <div className='chat-box-container'>
 
+            {/* <div>HeightFull: {HeightFull ? 'TRUE' : 'FALSE'}</div>
+            <div>DisplayChat: {DisplayChat ? 'TRUE' : 'FALSE'}</div> */}
 
             {!DisplayChat &&
                 <div className='open-icon' onClick={() => setDisplayChat(true)}>
@@ -79,12 +100,21 @@ export default function ChatBox() {
             }
 
             {DisplayChat &&
-                <div className='chat-box' style={{ height: HeightFull ? '90vh' : '440px' }}>
+                <div className='chat-box' style={WidthFull ? StyleFull : (HeightFull ? StyleHeight : StyleNormal)}>
 
                     <div className='heading'>
-                        Xnova {Messages.length}
+                        <div className='name'>Xnova {Messages.length}</div>
                         <div>
-                            <i className='fa-solid fa-arrows-up-down' onClick={() => setHeightFull(p => !p)}></i>
+                            {WidthFull ?
+                                <i className='fa-solid fa-minimize' onClick={() => setWidthFull(false)}></i>
+                                :
+                                <i className='fa-solid fa-maximize' onClick={() => setWidthFull(true)}></i>
+                            }
+                            {HeightFull ?
+                                <i className='fa-solid fa-arrow-down' onClick={() => setHeightFull(false)}></i>
+                                :
+                                <i className='fa-solid fa-arrows-up-down' onClick={() => setHeightFull(true)}></i>
+                            }
                             <i className='fa-solid fa-xmark' onClick={() => setDisplayChat(false)}></i>
                         </div>
                     </div>
