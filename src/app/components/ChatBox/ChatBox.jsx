@@ -4,6 +4,8 @@ import './ChatBox.css';
 export default function ChatBox() {
 
     const [Messages, setMessages] = useState([]);
+    const [HeightFull, setHeightFull] = useState(false);
+    const [DisplayChat, setDisplayChat] = useState(false);
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -68,43 +70,57 @@ export default function ChatBox() {
 
     return (
         <div className='chat-box-container'>
-            <div className='chat-box'>
 
-                <div className='heading'>
-                    Xnova {Messages.length}
+
+            {!DisplayChat &&
+                <div className='open-icon' onClick={() => setDisplayChat(true)}>
+                    Xnova
                 </div>
+            }
 
-                <div
-                    ref={chatContainerRef}
-                    className='chat-content'
-                >
-                    {Messages.map((msg, idx) => (
-                        <div
-                            key={idx}
-                            className='message'
-                            style={{
-                                alignSelf: idx % 2 === 0 ? 'flex-end' : 'flex-start',
-                            }}
-                        >
-                            {msg}
+            {DisplayChat &&
+                <div className='chat-box' style={{ height: HeightFull ? '90vh' : '440px' }}>
+
+                    <div className='heading'>
+                        Xnova {Messages.length}
+                        <div>
+                            <i className='fa-solid fa-arrows-up-down' onClick={() => setHeightFull(p => !p)}></i>
+                            <i className='fa-solid fa-xmark' onClick={() => setDisplayChat(false)}></i>
                         </div>
-                    ))}
-                    {loading && <div
-                        className='message'
-                        style={{ alignSelf: 'flex-start' }}
-                    >
-                        ...
-                    </div>}
-                </div>
-
-                <form onSubmit={handleSend}>
-                    <div className='form-name form-group'>
-                        <input type='text' id='chat' name='chat' placeholder='Chat here' />
                     </div>
-                    <button>Send</button>
-                </form>
 
-            </div>
+                    <div
+                        ref={chatContainerRef}
+                        className='chat-content'
+                    >
+                        {Messages.map((msg, idx) => (
+                            <div
+                                key={idx}
+                                className='message'
+                                style={{
+                                    alignSelf: idx % 2 === 0 ? 'flex-end' : 'flex-start',
+                                }}
+                            >
+                                {msg}
+                            </div>
+                        ))}
+                        {loading && <div
+                            className='message'
+                            style={{ alignSelf: 'flex-start' }}
+                        >
+                            ...
+                        </div>}
+                    </div>
+
+                    <form onSubmit={handleSend}>
+                        <div className='form-name form-group'>
+                            <input type='text' id='chat' name='chat' placeholder='Chat here' />
+                        </div>
+                        <button className='btn'>Send</button>
+                    </form>
+
+                </div>
+            }
         </div>
     )
 }
