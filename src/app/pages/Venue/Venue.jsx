@@ -2,12 +2,13 @@ import React from 'react';
 import Select from 'react-select';
 import StarRating from '../../components/StarRating.jsx';
 import StarHalfFull from '../../components/StarHalfFull.jsx';
+import VenueFeedback from './VenueFeedback.jsx';
 import './Venue.css';
 
 import { useState, useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import { types, venues, images, fields, bookings, slots } from '../../../mocks/XnovaDatabase.js';
+import { types, users, venues, images, fields, bookings, slots } from '../../../mocks/XnovaDatabase.js';
 
 export default function Venue() {
 
@@ -123,12 +124,19 @@ export default function Venue() {
 
     const priceOptions = [100000, 200000, 300000, 500000, 1000000];
     const [price, setPrice] = useState('');
-    const [dropdownVisible , setDropdownVisible ] = useState(false);
+    const [dropdownVisible, setDropdownVisible] = useState(false);
     const handleChange = (e) => setPrice(e.target.value);
     const handleOptionClick = (value) => setPrice(value);
 
 
-
+    const [VenueShowFeedback, setVenueShowFeedback] = useState(null);
+    const handleVenueShowFeedback = (VenueId) => {
+        if (VenueId === VenueShowFeedback) {
+            setVenueShowFeedback(null);
+        } else {
+            setVenueShowFeedback(VenueId);
+        }
+    }
 
     // const filteredResults = filteredPods ? filteredPods.filter(pod =>
     //     (pod.storeId == StoreId.Id || !StoreId.Id) &&
@@ -319,47 +327,67 @@ export default function Venue() {
                     <tbody>
                         {filteredVenues.length > 0 ? (
                             filteredVenues.map((venue, index) => (
-                                <tr key={index}>
-                                    <td className='text-middle'>{index + 1}</td>
-                                    <td className='image-full'>
-                                        <img src={venue.Images[0]?.Link} alt={venue.Name} />
-                                    </td>
-                                    <td>
-                                        {/* <div>ID: {venue.Id}</div> */}
-                                        <div className='venue-name'>{venue.Name}</div>
-                                        {(venue.Rating && venue.Rating) > 0 ? (
-                                            <div className='half-star'>
-                                                <span className='rating-value'>{venue.Rating.toFixed(1)}</span>
-                                                <StarHalfFull Rating={venue.Rating} Size={'1.3em'} Color={'#ffd700'} />
+                                <React.Fragment key={index}>
+                                    <tr>
+                                        <td rowSpan='2' className='text-middle index-td'>{index + 1}</td>
+                                        <td className='image-full'>
+                                            <img src={venue.Images[0]?.Link} alt={venue.Name} />
+                                        </td>
+                                        <td>
+                                            {/* <div>ID: {venue.Id}</div> */}
+                                            <div className='venue-name'>{venue.Name}</div>
+                                            {(venue.Rating && venue.Rating) > 0 ? (
+                                                <div className='half-star'>
+                                                    <span className='rating-value'>{venue.Rating.toFixed(1)}</span>
+                                                    <StarHalfFull Rating={venue.Rating} Size={'1.3em'} Color={'#ffd700'} />
+                                                </div>
+                                            ) : (
+                                                <>
+                                                    <StarRating Rating={5} Size={'1.3em'} Color={'#ffd700'} /> (Recommend)
+                                                </>
+                                            )}
+                                            <div>
+                                                {venue.Prices.length ? Math.min(...venue.Prices).toLocaleString('vi-VN') : null} - {venue.Prices.length ? Math.max(...venue.Prices).toLocaleString('vi-VN') : null} VND/slot
                                             </div>
-                                        ) : (
-                                            <>
-                                                <StarRating Rating={5} Size={'1.3em'} Color={'#ffd700'} /> (Recommend)
-                                            </>
-                                        )}
-                                        <div>
-                                            {venue.Prices.length ? Math.min(...venue.Prices).toLocaleString('vi-VN') : null} - {venue.Prices.length ? Math.max(...venue.Prices).toLocaleString('vi-VN') : null} VND/slot
-                                        </div>
-                                    </td>
-                                    <td className='text-middle'>
-                                        {venue.Types?.map(type => (
-                                            <div key={type.Id}>{type.Name}</div>
-                                        ))}
-                                    </td>
-                                    <td>
-                                        <div>Phone: {venue.Contact}</div>
-                                        <div>Address: {venue.Address}</div>
-                                        <div>Longitude: {venue.Longitude} - Latitude: {venue.Latitude}</div>
-                                    </td>
-                                    <td>
-                                        <Link to={`../../../venue/${venue.Id}`} state={{ venue }}>
-                                            <button className='btn' >DETAIL</button>
-                                        </Link>
-                                    </td>
-                                </tr>
+                                            <button className='btn view-btn' onClick={() => handleVenueShowFeedback(venue.Id)}>View feedback</button>
+                                        </td>
+                                        <td className='text-middle'>
+                                            <div>
+                                                {venue.Types?.map(type => (
+                                                    <div key={type.Id}>{type.Name}</div>
+                                                ))}
+
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>Phone: {venue.Contact}</div>
+                                            <div>Address: {venue.Address}</div>
+                                            <div>Longitude: {venue.Longitude} - Latitude: {venue.Latitude}</div>
+                                        </td>
+                                        <td>
+                                            <Link to={`../../../venue/${venue.Id}`} state={{ venue }}>
+                                                <button className='btn' >DETAIL</button>
+                                            </Link>
+                                        </td>
+                                    </tr>
+                                    {venue.Id === VenueShowFeedback ?
+                                        <tr className={`box ${venue.Id === VenueShowFeedback ? 'display' : 'hidden'}`}>
+                                            <td colSpan='4'>
+                                                <VenueFeedback Venue={venue} Number={6} />
+                                            </td>
+                                            <td>
+                                                <Link to={`../../../venue/${venue.Id}`} state={{ venue }}>
+                                                    <button className='btn' >MORE</button>
+                                                </Link>
+                                            </td>
+                                        </tr>
+                                        :
+                                        <tr></tr>
+                                    }
+                                </React.Fragment>
                             ))
                         ) : (
-                            <tr><td colSpan='7'>No venues found.</td></tr>
+                            <tr><td colSpan='7'>Không tìm thấy khu vực nào.</td></tr>
                         )}
                     </tbody>
                 </table>

@@ -1,10 +1,31 @@
 .chat-box-container {
-    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    position: fixed;
+    right: 8px;
+    bottom: 8px;
+    align-content: end;
     font-family: 'Quicksand', Arial, sans-serif;
+    
+    .open-icon {
+        cursor: pointer;
+        pointer-events: all;
+        width: 80px;
+        height: 80px;
+        border: 6px solid #772fb6;
+        box-sizing: border-box;
+        border-radius: 100%;
+        color: #fff;
+        background-color: #9349d5;
+        text-align: center;
+        align-content: center;
+        font-weight: bold;
+    }
 
     .chat-box {
-        width: 1200px;
-        height: 800px;
+        pointer-events: all;
+        width: 360px;
+        min-height: 200px;
         background-color: #fdfdfd;
         display: flex;
         flex-direction: column;
@@ -16,12 +37,23 @@
         .heading {
             width: 100%;
             height: 40px;
+            box-sizing: border-box;
+            padding: 0 0 0 20px;
             color: #fff;
             font-weight: bold;
             background-color: #9349d5;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
+
+            i {
+                width: 36px;
+                height: 36px;
+                text-align: center;
+                align-content: center;
+                font-size: 24px;
+                cursor: pointer;
+            }
         }
 
         .chat-content {
@@ -64,10 +96,11 @@
                 }
             }
 
-            button {
+            .btn {
                 width: 60px;
                 height: 100%;
                 border: none;
+                border-radius: 0;
                 font-family: 'Quicksand', Arial, sans-serif;
                 font-weight: bold;
                 color: #fff;

@@ -536,8 +536,10 @@ export default function VenueDetail() {
                             }
                         </div>
 
-                        <VenueFeedback Venue={Venue} />
-
+                        <div className='venuefeedback-container'>
+                            <div className='feedback-title'>Feedback:</div>
+                            <VenueFeedback Venue={Venue} Number={100} />
+                        </div>
                     </>
                 ) : (
                     <span>Không tìm thấy sân nào.</span>
