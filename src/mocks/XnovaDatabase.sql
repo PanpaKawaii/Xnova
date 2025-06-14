@@ -7,6 +7,28 @@
 
 --USE Xnova
 
+IF OBJECT_ID('dbo.[UserVoucher]', 'U') IS NOT NULL
+    DROP TABLE dbo.[UserVoucher];
+    GO
+IF OBJECT_ID('dbo.[Voucher]', 'U') IS NOT NULL
+    DROP TABLE dbo.[Voucher];
+    GO
+IF OBJECT_ID('dbo.[UserInvitation]', 'U') IS NOT NULL
+    DROP TABLE dbo.[UserInvitation];
+    GO
+IF OBJECT_ID('dbo.[Invitation]', 'U') IS NOT NULL
+    DROP TABLE dbo.[Invitation];
+    GO
+IF OBJECT_ID('dbo.[Friend]', 'U') IS NOT NULL
+    DROP TABLE dbo.[Friend];
+    GO
+IF OBJECT_ID('dbo.[Relationship]', 'U') IS NOT NULL
+    DROP TABLE dbo.[Relationship];
+    GO
+IF OBJECT_ID('dbo.[SaveField]', 'U') IS NOT NULL
+    DROP TABLE dbo.[SaveField];
+    GO
+
 
 IF OBJECT_ID('dbo.[Message]', 'U') IS NOT NULL
     DROP TABLE dbo.[Message];
@@ -164,6 +186,82 @@ CREATE TABLE [Message] (
     Status      INT,
     ChatboxId   INT,
     FOREIGN KEY (ChatboxId) REFERENCES [Chatbox](Id)
+);
+
+
+
+
+
+CREATE TABLE [SaveField] (
+    Id          INT PRIMARY KEY IDENTITY(1,1),
+    SetDate     DATETIME,
+    UserId      INT,
+    FieldId     INT,
+    FOREIGN KEY (UserId) REFERENCES [User](Id),
+    FOREIGN KEY (FieldId) REFERENCES [Field](Id)
+);
+
+CREATE TABLE [Relationship] (
+    Id          INT PRIMARY KEY IDENTITY(1,1),
+    Name        NVARCHAR(255) NOT NULL
+);
+
+CREATE TABLE [Friend] (
+    Id          INT PRIMARY KEY IDENTITY(1,1),
+    FriendId    INT,
+    UserId      INT,
+    RelationshipId  INT,
+    FOREIGN KEY (FriendId) REFERENCES [User](Id),
+    FOREIGN KEY (UserId) REFERENCES [User](Id),
+    FOREIGN KEY (RelationshipId) REFERENCES [Relationship](Id)
+);
+
+CREATE TABLE [Voucher] (
+    Id          INT PRIMARY KEY IDENTITY(1,1),
+    Name        NVARCHAR(255) NOT NULL,
+    Type        NVARCHAR(255) NOT NULL,
+    Amount      INT,
+    MinEffect   INT,
+    MaxEffect   INT,
+    Status      INT
+);
+
+CREATE TABLE [UserVoucher] (
+    Id          INT PRIMARY KEY IDENTITY(1,1),
+    ReceiveDate DATETIME,
+    UserId      INT,
+    VoucherId   INT,
+    FOREIGN KEY (UserId) REFERENCES [User](Id),
+    FOREIGN KEY (VoucherId) REFERENCES [Voucher](Id)
+);
+
+CREATE TABLE [Invitation] (
+    Id              INT PRIMARY KEY IDENTITY(1,1),
+    Name            NVARCHAR(255) NOT NULL,
+    Booked          INT,
+    JoiningCost     INT,
+    NumberOfPlayer  INT,
+    Standard        NVARCHAR(255),
+    KindOfSport     NVARCHAR(255),
+    Location        NVARCHAR(255),
+    Date            DATE,
+    StartTime       TIME,
+    EndTime         TIME,
+    Status          INT,
+    UserId          INT,
+    BookingId       INT,
+    FOREIGN KEY (UserId) REFERENCES [User](Id),
+    FOREIGN KEY (BookingId) REFERENCES [Booking](Id)
+);
+
+CREATE TABLE [UserInvitation] (
+    Id              INT PRIMARY KEY IDENTITY(1,1),
+    JoinDate        DATETIME,
+    Status          INT,
+    UserId          INT,
+    InvitationId    INT,
+    FOREIGN KEY (UserId) REFERENCES [User](Id),
+    FOREIGN KEY (InvitationId) REFERENCES [Invitation](Id)
 );
 
 
@@ -435,6 +533,58 @@ INSERT INTO [Message] VALUES (N'Hello, my name is Khoa!', '2025-06-04 14:30:00',
 
 
 
+--SaveField (SetDate, UserId, FieldId)
+INSERT INTO [SaveField] VALUES ('2025-06-04 14:30:00', 5, 16)
+INSERT INTO [SaveField] VALUES ('2025-06-04 14:30:00', 5, 20)
+INSERT INTO [SaveField] VALUES ('2025-06-04 14:30:00', 6, 14)
+INSERT INTO [SaveField] VALUES ('2025-06-04 14:30:00', 7, 9)
+INSERT INTO [SaveField] VALUES ('2025-06-04 14:30:00', 7, 10)
+INSERT INTO [SaveField] VALUES ('2025-06-04 14:30:00', 7, 11)
+
+--Relationship (Name)
+INSERT INTO [Relationship] VALUES (N'Friend')
+INSERT INTO [Relationship] VALUES (N'Best Friend')
+INSERT INTO [Relationship] VALUES (N'Teammate')
+INSERT INTO [Relationship] VALUES (N'Lover')
+INSERT INTO [Relationship] VALUES (N'Important')
+INSERT INTO [Relationship] VALUES (N'Other')
+
+--Friend (FriendId, UserId, RelationshipId)
+INSERT INTO [Friend] VALUES (2, 3, 5)
+INSERT INTO [Friend] VALUES (4, 5, 3)
+INSERT INTO [Friend] VALUES (4, 6, 3)
+INSERT INTO [Friend] VALUES (5, 6, 3)
+INSERT INTO [Friend] VALUES (7, 8, 2)
+
+--Voucher (Name, Type, Amount, MinEffect, MaxEffect, Status)
+INSERT INTO [Voucher] VALUES (N'Phiếu giảm giá 5%', N'Percent', 5, 10000, 5000, 1)
+INSERT INTO [Voucher] VALUES (N'Phiếu giảm giá 10%', N'Percent', 10, 20000, 10000, 1)
+INSERT INTO [Voucher] VALUES (N'Phiếu giảm giá 15%', N'Percent', 15, 30000, 15000, 1)
+INSERT INTO [Voucher] VALUES (N'Phiếu giảm giá 20%', N'Percent', 20, 40000, 20000, 1)
+INSERT INTO [Voucher] VALUES (N'Phiếu giảm giá 5.000 đồng', N'Value', 5000, 5000, 5000, 1)
+INSERT INTO [Voucher] VALUES (N'Phiếu giảm giá 10.000 đồng', N'Value', 10000, 10000, 10000, 1)
+INSERT INTO [Voucher] VALUES (N'Phiếu giảm giá 15.000 đồng', N'Value', 15000, 15000, 15000, 1)
+INSERT INTO [Voucher] VALUES (N'Phiếu giảm giá 20.000 đồng', N'Value', 20000, 20000, 20000, 1)
+
+--UserVoucher (ReceiveDate, UserId, VoucherId)
+INSERT INTO [UserVoucher] VALUES ('2025-06-04 14:30:00', 5, 2)
+INSERT INTO [UserVoucher] VALUES ('2025-06-04 14:30:00', 5, 6)
+INSERT INTO [UserVoucher] VALUES ('2025-06-04 14:30:00', 6, 3)
+INSERT INTO [UserVoucher] VALUES ('2025-06-04 14:30:00', 7, 8)
+
+--Invitation (Name, Booked, JoiningCost, NumberOfPlayer, Standard, KindOfSport, Location, Date, StartTime, EndTime, Status, UserId, BookingId)
+INSERT INTO [Invitation] VALUES (N'Find more player', 0, 60000, 2, N'Pro', N'Pickleball', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', '2025-06-04', '07:00:00', '09:00:00', 1, 5, null)
+INSERT INTO [Invitation] VALUES (N'Free to play', 1, 0, 2, N'New', null, null, null, '07:00:00', '09:00:00', 1, 5, 3)
+INSERT INTO [Invitation] VALUES (N'Need to find a team to play together', 0, 80000, 5, N'Fair play', N'Soccer', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', '2025-06-04', '07:00:00', '09:00:00', 1, 6, null)
+
+--UserInvitation (JoinDate, Status, UserId, InvitationId)
+INSERT INTO [UserInvitation] VALUES ('2025-06-04 14:30:00', 1, 6, 1)
+INSERT INTO [UserInvitation] VALUES ('2025-06-04 14:30:00', 1, 7, 1)
+INSERT INTO [UserInvitation] VALUES ('2025-06-04 14:30:00', 1, 7, 3)
+
+
+
+
 
 
 
@@ -470,3 +620,11 @@ SELECT * FROM [BookingSlot]
 SELECT * FROM [Payment]
 SELECT * FROM [Chatbox]
 SELECT * FROM [Message]
+
+SELECT * FROM [SaveField]
+SELECT * FROM [Relationship]
+SELECT * FROM [Friend]
+SELECT * FROM [Voucher]
+SELECT * FROM [UserVoucher]
+SELECT * FROM [Invitation]
+SELECT * FROM [UserInvitation]
