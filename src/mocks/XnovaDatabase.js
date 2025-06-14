@@ -275,3 +275,59 @@ export const messages = [
     { Id: 4, Content: 'Hello, my name is Hang!', Date: '2025-06-04 14:30:00', Status: 1, ChatboxId: 4 },
     { Id: 5, Content: 'Hello, my name is Khoa!', Date: '2025-06-04 14:30:00', Status: 1, ChatboxId: 5 },
 ];
+
+export const saveFields = [
+    { Id: 1, SetDate: '2025-06-04 14:30:00', UserId: 5, FieldId: 16 },
+    { Id: 2, SetDate: '2025-06-04 14:30:00', UserId: 5, FieldId: 20 },
+    { Id: 3, SetDate: '2025-06-04 14:30:00', UserId: 6, FieldId: 14 },
+    { Id: 4, SetDate: '2025-06-04 14:30:00', UserId: 7, FieldId: 9 },
+    { Id: 5, SetDate: '2025-06-04 14:30:00', UserId: 7, FieldId: 10 },
+    { Id: 6, SetDate: '2025-06-04 14:30:00', UserId: 7, FieldId: 11 },
+];
+
+export const relationships = [
+    { Id: 1, Name: 'Friend' },
+    { Id: 2, Name: 'Best Friend' },
+    { Id: 3, Name: 'Teammate' },
+    { Id: 4, Name: 'Lover' },
+    { Id: 5, Name: 'Important' },
+    { Id: 6, Name: 'Other' },
+];
+
+export const friends = [
+    { Id: 1, FriendId: 2, UserId: 3, RelationshipId: 5 },
+    { Id: 2, FriendId: 4, UserId: 5, RelationshipId: 3 },
+    { Id: 3, FriendId: 4, UserId: 6, RelationshipId: 3 },
+    { Id: 4, FriendId: 5, UserId: 6, RelationshipId: 3 },
+    { Id: 5, FriendId: 7, UserId: 8, RelationshipId: 2 },
+];
+
+export const vouchers = [
+    { Id: 1, Name: 'Phiếu giảm giá 5%', Type: 'Percent', Amount: 5, MinEffect: 10000, MaxEffect: 5000, Status: 1 },
+    { Id: 2, Name: 'Phiếu giảm giá 10%', Type: 'Percent', Amount: 10, MinEffect: 20000, MaxEffect: 10000, Status: 1 },
+    { Id: 3, Name: 'Phiếu giảm giá 15%', Type: 'Percent', Amount: 15, MinEffect: 30000, MaxEffect: 15000, Status: 1 },
+    { Id: 4, Name: 'Phiếu giảm giá 20%', Type: 'Percent', Amount: 20, MinEffect: 40000, MaxEffect: 20000, Status: 1 },
+    { Id: 5, Name: 'Phiếu giảm giá 5.000 đồng', Type: 'Value', Amount: 5000, MinEffect: 5000, MaxEffect: 5000, Status: 1 },
+    { Id: 6, Name: 'Phiếu giảm giá 10.000 đồng', Type: 'Value', Amount: 10000, MinEffect: 10000, MaxEffect: 10000, Status: 1 },
+    { Id: 7, Name: 'Phiếu giảm giá 15.000 đồng', Type: 'Value', Amount: 15000, MinEffect: 15000, MaxEffect: 15000, Status: 1 },
+    { Id: 8, Name: 'Phiếu giảm giá 20.000 đồng', Type: 'Value', Amount: 20000, MinEffect: 20000, MaxEffect: 20000, Status: 1 },
+];
+
+export const userVouchers = [
+    { Id: 1, ReceiveDate: '2025-06-04 14:30:00', UserId: 5, VoucherId: 2 },
+    { Id: 2, ReceiveDate: '2025-06-04 14:30:00', UserId: 5, VoucherId: 6 },
+    { Id: 3, ReceiveDate: '2025-06-04 14:30:00', UserId: 6, VoucherId: 3 },
+    { Id: 4, ReceiveDate: '2025-06-04 14:30:00', UserId: 7, VoucherId: 8 },
+];
+
+export const invitations = [
+    { Id: 1, Name: 'Find more player', Booked: 0, JoiningCost: 60000, NumberOfPlayer: 2, Standard: 'Pro', KindOfSport: 'Pickleball', Location: '123 Đường Hoa Phượng, Quận 7, TP. HCM', Date: '2025-06-04', StartTime: '07:00:00', EndTime: '09:00:00', Status: 1, UserId: 5, BookingId: null },
+    { Id: 2, Name: 'Free to play', Booked: 1, JoiningCost: 0, NumberOfPlayer: 2, Standard: 'New', KindOfSport: null, Location: null, Date: null, StartTime: '07:00:00', EndTime: '09:00:00', Status: 1, UserId: 5, BookingId: 3 },
+    { Id: 3, Name: 'Need to find a team to play together', Booked: 0, JoiningCost: 80000, NumberOfPlayer: 5, Standard: 'Fair play', KindOfSport: 'Soccer', Location: '123 Đường Hoa Phượng, Quận 7, TP. HCM', Date: '2025-06-04', StartTime: '07:00:00', EndTime: '09:00:00', Status: 1, UserId: 6, BookingId: null },
+];
+
+export const userInvitations = [
+    { Id: 1, JoinDate: '2025-06-04 14:30:00', Status: 1, UserId: 6, InvitationId: 1 },
+    { Id: 2, JoinDate: '2025-06-04 14:30:00', Status: 1, UserId: 7, InvitationId: 1 },
+    { Id: 3, JoinDate: '2025-06-04 14:30:00', Status: 1, UserId: 7, InvitationId: 3 },
+];

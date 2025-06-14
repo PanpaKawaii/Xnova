@@ -1,4 +1,5 @@
 import React from 'react';
+import Select from 'react-select';
 import StarRating from '../../components/StarRating.jsx';
 import StarHalfFull from '../../components/StarHalfFull.jsx';
 import './Venue.css';
@@ -98,13 +99,43 @@ export default function Venue() {
     });
 
     const [selectedType, setSelectedType] = useState('');
-    const filteredVenues = selectedType
-        ? venuesWithPrice.filter(venue =>
-            venue.Types.some(type => type.Id === Number(selectedType))
-        )
-        : venuesWithPrice;
+    const [selectedMinPrice, setSelectedMinPrice] = useState('');
+    const [selectedMaxPrice, setSelectedMaxPrice] = useState('');
+    // const filteredVenues = selectedType
+    //     ? venuesWithPrice.filter(venue =>
+    //         venue.Types.some(type => type.Id === Number(selectedType))
+    //     )
+    //     : venuesWithPrice;
+
+    // const filteredVenues = venuesWithPrice.filter(venue =>
+    //     venue.Types.some(type => type.Id === Number(selectedType) || !selectedType)
+    // );
+
+    const filteredVenues = venuesWithPrice.filter(venue => {
+        const matchType = !selectedType || venue.Types.some(type => type.Id === Number(selectedType));
+
+        const matchPrice =
+            (!selectedMinPrice || venue.Prices.some(p => p >= Number(selectedMinPrice))) &&
+            (!selectedMaxPrice || venue.Prices.some(p => p <= Number(selectedMaxPrice)));
+
+        return matchType && matchPrice;
+    });
+
+    const priceOptions = [100000, 200000, 300000, 500000, 1000000];
+    const [price, setPrice] = useState('');
+    const [dropdownVisible , setDropdownVisible ] = useState(false);
+    const handleChange = (e) => setPrice(e.target.value);
+    const handleOptionClick = (value) => setPrice(value);
 
 
+
+
+    // const filteredResults = filteredPods ? filteredPods.filter(pod =>
+    //     (pod.storeId == StoreId.Id || !StoreId.Id) &&
+    //     (pod.storeId == selectedStore || !selectedStore) &&
+    //     (pod.typeId.toString() === selectedType.toString() || !selectedType.toString()) &&
+    //     STOREs.filter(store => store.status === 'Đang hoạt động').some(store => store.id === pod.storeId)
+    // ) : [];
 
 
 
@@ -190,7 +221,7 @@ export default function Venue() {
 
             <div className='search'>
                 <form onSubmit={handleSubmit}>
-                    <div className='form-group'>
+                    <div className='form-group form-type'>
                         <select
                             className='form-control'
                             value={selectedType}
@@ -204,6 +235,69 @@ export default function Venue() {
                             ))}
                         </select>
                     </div>
+                    <div className='form-group form-min-price'>
+                        <input
+                            list="price-options"
+                            className="form-control"
+                            placeholder="Minimum price"
+                            value={selectedMinPrice}
+                            onChange={(e) => setSelectedMinPrice(e.target.value)}
+                        />
+                        <datalist id="price-options">
+                            <option value="100000" />
+                            <option value="200000" />
+                            <option value="300000" />
+                        </datalist>
+                    </div>
+                    <div className='form-group form-max-price'>
+                        <input
+                            list="price-options"
+                            className="form-control"
+                            placeholder="Maximum price"
+                            value={selectedMaxPrice}
+                            onChange={(e) => setSelectedMaxPrice(e.target.value)}
+                        />
+                        <datalist id="price-options">
+                            <option value="100000" />
+                            <option value="200000" />
+                            <option value="300000" />
+                        </datalist>
+                    </div>
+
+                    <div style={{ position: 'relative', width: '200px' }}>
+                        <input
+                            type="number"
+                            className="form-control"
+                            placeholder="Nhập hoặc chọn giá"
+                            value={price}
+                            onChange={handleChange}
+                            onFocus={() => setDropdownVisible(true)}
+                            onBlur={() => setTimeout(() => setDropdownVisible(false), 200)} // delay để click được dropdown
+                        />
+                        {dropdownVisible && (
+                            <ul style={{
+                                listStyle: 'none',
+                                margin: 0,
+                                padding: '5px',
+                                border: '1px solid #ccc',
+                                position: 'absolute',
+                                width: '100%',
+                                backgroundColor: 'white',
+                                zIndex: 1000
+                            }}>
+                                {priceOptions.map((p, i) => (
+                                    <li
+                                        key={i}
+                                        onMouseDown={() => handleOptionClick(p)}
+                                        style={{ padding: '5px', cursor: 'pointer' }}
+                                    >
+                                        {p.toLocaleString()} VND
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+
                     <button type='reset' className='btn' onClick={handleReset}>RESET</button>
                 </form>
                 {id ? <Link to={`../user/booking`}><button className='btn'>BOOKED FIELD</button></Link> : <></>}

@@ -26,6 +26,8 @@
                 font-family: Arial, sans-serif;
                 border-radius: 4px;
                 background-color: #fff;
+                border: 1px solid #ccc;
+                box-sizing: border-box;
             }
 
             .form-control:focus {
