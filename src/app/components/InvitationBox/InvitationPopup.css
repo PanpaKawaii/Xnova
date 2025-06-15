@@ -1,0 +1,254 @@
+.invitation-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.invitation-popup {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.invitation-popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+}
+
+.team-members-section {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.team-dropdown-header {
+  padding: 15px;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+.team-dropdown-header h4 {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+}
+.dropdown-arrow {
+  font-size: 12px;
+  transition: transform 0.2s;
+  color: #666;
+}
+.dropdown-arrow.open {
+  transform: rotate(180deg);
+}
+.team-dropdown-content {
+  padding: 15px;
+  border-top: 1px solid #ddd;
+}
+.team-select-all {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 10px;
+}
+
+.team-select-all input[type="checkbox"] {
+  margin-left: 10px;
+}
+
+.team-select-all label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.team-members-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.email-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.team-member-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+.team-member-item:last-child {
+  border-bottom: none;
+}
+.team-member-item input[type="checkbox"] {
+  margin-left: 15px;
+}
+
+.team-member-item span {
+  margin-left: 10px;
+}
+.member-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.member-name {
+  font-weight: 500;
+  color: #333;
+}
+.member-email {
+  font-size: 0.9em;
+  color: #666;
+} 
+
+.email-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.email-input-section {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.email-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 30px; /* Tăng margin để chừa chỗ cho thông báo lỗi */
+}
+
+.email-chip {
+  background-color: #e3f2fd;
+  padding: 5px 10px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.email-chip button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  font-size: 16px;
+  padding: 0 5px;
+}
+
+.email-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.email-input.error {
+  border-color: #dc3545;
+}
+
+.email-error {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 4px;
+  position: absolute;
+  left: 0;
+  bottom: -20px;
+}
+
+.suggestions-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.suggestion-item {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background-color: #f5f5f5;
+}
+
+.invitation-popup-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cancel-button, .send-button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cancel-button {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+}
+
+.send-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+
+.send-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+/* Thêm animation cho dropdown */
+.team-dropdown-content {
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
