@@ -6,13 +6,15 @@ import ChatBox from '../components/ChatBox/ChatBox'
 import Home from '../pages/Home/Home'
 import Venue from '../pages/Venue/Venue'
 import VenueDetail from '../pages/Venue/VenueDetail'
+import TestPage from '../pages/TestPage';       
 
 export default function MainRoutes() {
     return (
         <BrowserRouter>
             <Header />
             <Routes>
-                <Route path='/' element={<Home />} />
+                <Route path='/test' element={<TestPage />} />
+                <Route path='/' element={<Home />} />   
                 <Route path='/venue' element={<Venue />} />
                 <Route path='/venue/:id' element={<VenueDetail />} />
                 <Route path='*' element={<></>} />
