@@ -55,24 +55,32 @@ export default function Invitation() {
 
     console.log('invitationsWithFullDetails', invitationsWithFullDetails);
 
+    const [selectedType, setSelectedType] = useState('');
+    const [selectedBooked, setSelectedBooked] = useState('');
+    const [selectedFull, setSelectedFull] = useState('');
+    const [Booked, setBooked] = useState(false);
+
+
+    const filteredInvitations = invitationsWithFullDetails.filter(invitation => {
+        const matchType = !selectedType || invitation.KindOfSport === TYPEs.find(type => type.Id === Number(selectedType)).Name || invitation.Booking?.Field?.Type?.Id === Number(selectedType);
+        const matchBooked = !selectedBooked || invitation.Booked == selectedBooked;
+        const matchFull = !selectedFull || (invitation.UserInvitations?.length == invitation.NumberOfPlayer && Number(selectedFull) === 1) || (invitation.UserInvitations?.length != invitation.NumberOfPlayer && Number(selectedFull) === 0)
+        return matchType && matchBooked && matchFull;
+    });
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    };
+
+    const handleReset = () => {
+        setSelectedType('');
+        setSelectedBooked('');
+        setSelectedFull('');
+    };
+
 
     return (
         <div className='invitation-container'>
-            <div className='divs-container'>
-                <div className='divs-1'>
-                    <div className='div1'></div>
-                    <div className='div2'></div>
-                    <div className='div3'></div>
-                </div>
-                <div className='divs-2'>
-                    <div className='div1'></div>
-                    <div className='div2'></div>
-                    <div className='div3'></div>
-                </div>
-                <div className='divs-3'>
-                    <div className='div3'></div>
-                </div>
-            </div>
             {/* <div className='row'>
                 {invitationsWithFullDetails.map((invitation, i) => (
                     <div key={i} className='col'>
@@ -106,8 +114,55 @@ export default function Invitation() {
                     </div>
                 ))}
             </div> */}
+            <form onSubmit={handleSubmit}>
+                <div className='form-group form-type'>
+                    <select
+                        className='form-control'
+                        value={selectedType}
+                        onChange={(e) => setSelectedType(e.target.value)}
+                    >
+                        <option value=''>[TYPE]</option>
+                        {TYPEs && TYPEs.map((type) => (
+                            <option key={type.Id} value={type.Id}>
+                                {type.Name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className='form-group form-booked'>
+                    <select
+                        className='form-control'
+                        value={selectedBooked}
+                        onChange={(e) => setSelectedBooked(e.target.value)}
+                    >
+                        <option value=''>[BOOKED?]</option>
+                        <option value={0}>Not booked yet</option>
+                        <option value={1}>Yes, booked</option>
+                    </select>
+                </div>
+                <div className='form-group form-full'>
+                    <select
+                        className='form-control'
+                        value={selectedFull}
+                        onChange={(e) => setSelectedFull(e.target.value)}
+                    >
+                        <option value=''>[FULL?]</option>
+                        <option value={0}>Not full yet</option>
+                        <option value={1}>Yes, it's full</option>
+                    </select>
+                </div>
+                {/* <div className='form-group form-check'>
+                    <label htmlFor='checkbox1'>
+                        <input type='checkbox' id='checkbox1' checked={Booked} onChange={() => setBooked(p => !p)} />
+                        BOOKED
+                    </label>
+                </div> */}
+                <button type='reset' className='btn' onClick={handleReset}>RESET</button>
+            </form>
+
+
             <div className='row'>
-                {invitationsWithFullDetails.map((invitation, i) => (
+                {filteredInvitations.map((invitation, i) => (
                     <div key={i} className='col'>
                         <div className='current-date'>{invitation.Date || invitation.Booking?.Date} (Current Date)</div>
                         <div className='user'>
@@ -133,7 +188,10 @@ export default function Invitation() {
                                 <div className='not-booked'></div>
                             }
                         </div>
-                        <div className='standard'>{invitation.Standard}</div>
+                        <div className='note'>
+                            <div>Standard: {invitation.Standard}</div>
+                            <div>{invitation.Name}</div>
+                        </div>
                     </div>
                 ))}
             </div>
