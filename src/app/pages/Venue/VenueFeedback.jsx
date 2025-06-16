@@ -42,7 +42,7 @@ export default function VenueFeedback({ Venue, Number }) {
                 FeedbackBooking.map((comment, index) => (
                     <div key={index} className='feedback-col'>
                         <div className='feedback-user'>
-                            <img src={comment.User.Image} alt=''></img>
+                            <img src={comment.User.Image} alt={comment.User.Name}></img>
                             <div className='name-date'>
                                 <div className='name'>{comment.User.Name}</div>
                                 <div className='date'>{comment.Date.substring(0, 10)}</div>

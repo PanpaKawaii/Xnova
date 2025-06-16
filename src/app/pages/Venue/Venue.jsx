@@ -8,7 +8,7 @@ import './Venue.css';
 import { useState, useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import { types, users, venues, images, fields, bookings, slots } from '../../../mocks/XnovaDatabase.js';
+import { types, venues, images, fields, slots, bookings } from '../../../mocks/XnovaDatabase.js';
 
 export default function Venue() {
 
@@ -28,8 +28,8 @@ export default function Venue() {
     const [VENUEs, setVENUEs] = useState(venues.filter(v => v.Status === 1));
     const [IMAGEs, setIMAGEs] = useState(images);
     const [FIELDs, setFIELDs] = useState(fields);
-    const [BOOKINGs, setBOOKINGs] = useState(bookings);
     const [SLOTs, setSLOTs] = useState(slots);
+    const [BOOKINGs, setBOOKINGs] = useState(bookings);
 
 
     // Image
@@ -69,7 +69,7 @@ export default function Venue() {
         fieldIdToVenueId[field.Id] = field.VenueId;
     });
     const venueRatings = {};
-    bookings.forEach(booking => {
+    BOOKINGs.forEach(booking => {
         const venueId = fieldIdToVenueId[booking.FieldId];
         if (venueId) {
             if (!venueRatings[venueId]) {
@@ -91,7 +91,7 @@ export default function Venue() {
     const venuesWithPrice = venuesWithRating.map(venue => {
         const venueFields = fields.filter(field => field.VenueId === venue.Id);
         const fieldIds = venueFields.map(f => f.Id);
-        const venueSlots = slots.filter(slot => fieldIds.includes(slot.FieldId));
+        const venueSlots = SLOTs.filter(slot => fieldIds.includes(slot.FieldId));
         const prices = venueSlots.map(slot => slot.Price);
         return {
             ...venue,
