@@ -575,7 +575,7 @@ INSERT INTO [UserVoucher] VALUES ('2025-06-04 14:30:00', 7, 8)
 --Invitation (Name, Booked, JoiningCost, NumberOfPlayer, Standard, KindOfSport, Location, Date, StartTime, EndTime, Status, UserId, BookingId)
 INSERT INTO [Invitation] VALUES (N'Find more player', 0, 60000, 2, N'Pro', N'Pickleball', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', '2025-06-04', '07:00:00', '09:00:00', 1, 5, null)
 INSERT INTO [Invitation] VALUES (N'Free to play', 1, 0, 2, N'New', null, null, null, '07:00:00', '09:00:00', 1, 5, 3)
-INSERT INTO [Invitation] VALUES (N'Need to find a team to play together', 0, 80000, 5, N'Fair play', N'Soccer', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', '2025-06-04', '07:00:00', '09:00:00', 1, 6, null)
+INSERT INTO [Invitation] VALUES (N'Need to find a team to play together', 0, 80000, 5, N'Fair play', N'Football', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', '2025-06-04', '07:00:00', '09:00:00', 1, 6, null)
 
 --UserInvitation (JoinDate, Status, UserId, InvitationId)
 INSERT INTO [UserInvitation] VALUES ('2025-06-04 14:30:00', 1, 6, 1)

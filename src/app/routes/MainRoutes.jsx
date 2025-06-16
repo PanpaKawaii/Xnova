@@ -18,7 +18,7 @@ export default function MainRoutes() {
                 <Route path='/' element={<Home />} />   
                 <Route path='/venue' element={<Venue />} />
                 <Route path='/venue/:id' element={<VenueDetail />} />
-                <Route path='/play' element={<Invitation />} />
+                <Route path='/player' element={<Invitation />} />
                 <Route path='*' element={<></>} />
             </Routes>
             <ChatBox />
