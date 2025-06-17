@@ -88,6 +88,8 @@ export default function Venue() {
         };
     });
 
+    //Price
+    // console.log('venuesWithPrice');
     const venuesWithPrice = venuesWithRating.map(venue => {
         const venueFields = fields.filter(field => field.VenueId === venue.Id);
         const fieldIds = venueFields.map(f => f.Id);
@@ -98,10 +100,11 @@ export default function Venue() {
             Prices: prices
         };
     });
+    console.log('venuesWithPrice', venuesWithPrice);
 
     const [selectedType, setSelectedType] = useState('');
-    const [selectedMinPrice, setSelectedMinPrice] = useState('');
-    const [selectedMaxPrice, setSelectedMaxPrice] = useState('');
+    const [selectedMinPrice, setSelectedMinPrice] = useState({ value: 0, label: '' });
+    const [selectedMaxPrice, setSelectedMaxPrice] = useState({ value: 0, label: '' });
     // const filteredVenues = selectedType
     //     ? venuesWithPrice.filter(venue =>
     //         venue.Types.some(type => type.Id === Number(selectedType))
@@ -114,20 +117,12 @@ export default function Venue() {
 
     const filteredVenues = venuesWithPrice.filter(venue => {
         const matchType = !selectedType || venue.Types.some(type => type.Id === Number(selectedType));
-
-        const matchPrice =
-            (!selectedMinPrice || venue.Prices.some(p => p >= Number(selectedMinPrice))) &&
-            (!selectedMaxPrice || venue.Prices.some(p => p <= Number(selectedMaxPrice)));
-
+        const matchPrice = (
+            (!selectedMinPrice || venue.Prices?.some(p => p >= Number(selectedMinPrice.value))) &&
+            (!selectedMaxPrice || venue.Prices?.some(p => p <= Number(selectedMaxPrice.value)))
+        );
         return matchType && matchPrice;
     });
-
-    const priceOptions = [100000, 200000, 300000, 500000, 1000000];
-    const [price, setPrice] = useState('');
-    const [dropdownVisible, setDropdownVisible] = useState(false);
-    const handleChange = (e) => setPrice(e.target.value);
-    const handleOptionClick = (value) => setPrice(value);
-
 
     const [VenueShowFeedback, setVenueShowFeedback] = useState(null);
     const handleVenueShowFeedback = (VenueId) => {
@@ -137,6 +132,24 @@ export default function Venue() {
             setVenueShowFeedback(VenueId);
         }
     }
+
+    const handleChangeMin = (selectedOption) => {
+        setSelectedMinPrice(selectedOption); // Cập nhật giá trị khi người dùng chọn một option
+    };
+    const handleChangeMax = (selectedOption) => {
+        setSelectedMaxPrice(selectedOption); // Cập nhật giá trị khi người dùng chọn một option
+    };
+
+    const customStyles = {
+        control: (base) => ({
+            ...base,
+            backgroundColor: 'lightblue',
+        }),
+        option: (base) => ({
+            ...base,
+            color: 'red',
+        }),
+    };
 
     // const filteredResults = filteredPods ? filteredPods.filter(pod =>
     //     (pod.storeId == StoreId.Id || !StoreId.Id) &&
@@ -215,6 +228,8 @@ export default function Venue() {
 
     const handleReset = () => {
         setSelectedType('');
+        setSelectedMinPrice('');
+        setSelectedMaxPrice('');
     };
 
     // if (loading) return (
@@ -243,68 +258,33 @@ export default function Venue() {
                             ))}
                         </select>
                     </div>
-                    <div className='form-group form-min-price'>
-                        <input
-                            list="price-options"
-                            className="form-control"
-                            placeholder="Minimum price"
-                            value={selectedMinPrice}
-                            onChange={(e) => setSelectedMinPrice(e.target.value)}
-                        />
-                        <datalist id="price-options">
-                            <option value="100000" />
-                            <option value="200000" />
-                            <option value="300000" />
-                        </datalist>
-                    </div>
-                    <div className='form-group form-max-price'>
-                        <input
-                            list="price-options"
-                            className="form-control"
-                            placeholder="Maximum price"
-                            value={selectedMaxPrice}
-                            onChange={(e) => setSelectedMaxPrice(e.target.value)}
-                        />
-                        <datalist id="price-options">
-                            <option value="100000" />
-                            <option value="200000" />
-                            <option value="300000" />
-                        </datalist>
-                    </div>
 
-                    <div style={{ position: 'relative', width: '200px' }}>
-                        <input
-                            type="number"
-                            className="form-control"
-                            placeholder="Nhập hoặc chọn giá"
-                            value={price}
-                            onChange={handleChange}
-                            onFocus={() => setDropdownVisible(true)}
-                            onBlur={() => setTimeout(() => setDropdownVisible(false), 200)} // delay để click được dropdown
-                        />
-                        {dropdownVisible && (
-                            <ul style={{
-                                listStyle: 'none',
-                                margin: 0,
-                                padding: '5px',
-                                border: '1px solid #ccc',
-                                position: 'absolute',
-                                width: '100%',
-                                backgroundColor: 'white',
-                                zIndex: 1000
-                            }}>
-                                {priceOptions.map((p, i) => (
-                                    <li
-                                        key={i}
-                                        onMouseDown={() => handleOptionClick(p)}
-                                        style={{ padding: '5px', cursor: 'pointer' }}
-                                    >
-                                        {p.toLocaleString()} VND
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-                    </div>
+                    <Select
+                        isSearchable={false}
+                        value={selectedMinPrice}
+                        onChange={setSelectedMinPrice}
+                        options={[
+                            { value: 100000, label: '100.000 VND' },
+                            { value: 200000, label: '200.000 VND' },
+                            { value: 300000, label: '300.000 VND' },
+                            { value: 400000, label: '400.000 VND' },
+                            { value: 500000, label: '500.000 VND' },
+                        ]}
+                    />
+                    {selectedMinPrice && <p>You selected min: {selectedMinPrice.label}</p>}
+
+                    <Select
+                        value={selectedMaxPrice}
+                        onChange={setSelectedMaxPrice}
+                        options={[
+                            { value: 100000, label: '100.000 VND' },
+                            { value: 200000, label: '200.000 VND' },
+                            { value: 300000, label: '300.000 VND' },
+                            { value: 400000, label: '400.000 VND' },
+                            { value: 500000, label: '500.000 VND' },
+                        ]}
+                    />
+                    {selectedMaxPrice && <p>You selected max: {selectedMaxPrice.label}</p>}
 
                     <button type='reset' className='btn' onClick={handleReset}>RESET</button>
                 </form>
@@ -330,7 +310,7 @@ export default function Venue() {
                                 <React.Fragment key={index}>
                                     <tr>
                                         <td rowSpan='2' className='text-middle index-td'>{index + 1}</td>
-                                        <td className='image-full'>
+                                        <td className='image'>
                                             <img src={venue.Images[0]?.Link} alt={venue.Name} />
                                         </td>
                                         <td>
@@ -387,7 +367,7 @@ export default function Venue() {
                                 </React.Fragment>
                             ))
                         ) : (
-                            <tr><td colSpan='7'>Không tìm thấy khu vực nào.</td></tr>
+                            <tr><td colSpan='6'>Không tìm thấy khu vực nào.</td></tr>
                         )}
                     </tbody>
                 </table>
