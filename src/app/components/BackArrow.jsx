@@ -37,7 +37,7 @@ export default function BackArrow() {
             className='back-arrow'
         >
             <i
-                className='fa-solid fa-arrow-left'
+                className='fa-solid fa-angle-left'
                 style={{
                     color: '#ccc',
                     fontSize: '40px',
