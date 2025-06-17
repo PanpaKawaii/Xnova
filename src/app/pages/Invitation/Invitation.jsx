@@ -65,7 +65,7 @@ export default function Invitation() {
     const [endPostingDate, setEndPostingDate] = useState('');
     const [StartTime, setStartTime] = useState('');
     const [EndTime, setEndTime] = useState('');
-    const [Booked, setBooked] = useState(false);
+    const [IsMine, setIsMine] = useState(false);
 
     const times = [
         '07:00:00', '08:00:00', '09:00:00', '10:00:00',
@@ -116,6 +116,8 @@ export default function Invitation() {
                         <div>Standard: {invitation.Standard}</div>
                         <div>KindOfSport: {invitation.KindOfSport || invitation.Booking?.Field?.Type?.Name}</div>
                         <div>Location: {invitation.Location || invitation.Booking?.Field?.Venue?.Address}</div>
+                        <div>Longitude: {invitation.Longitude || invitation.Booking?.Field?.Venue?.Longitude}</div>
+                        <div>Latitude: {invitation.Latitude || invitation.Booking?.Field?.Venue?.Latitude}</div>
                         <div>Date: {invitation.Date || invitation.Booking?.Date}</div>
                         <div>StartTime: {invitation.StartTime}</div>
                         <div>EndTime: {invitation.EndTime}</div>
@@ -139,7 +141,20 @@ export default function Invitation() {
                     </div>
                 ))}
             </div> */}
-            <form onSubmit={handleSubmit}>
+
+            <div className='mine-post'>
+                <form onSubmit={handleSubmit}>
+                    <div className='form-group form-check'>
+                        <label htmlFor='checkbox1'>
+                            <input type='checkbox' id='checkbox1' checked={IsMine} onChange={() => setIsMine(p => !p)} />
+                            BÀI ĐĂNG CỦA TÔI
+                        </label>
+                    </div>
+                </form>
+                <button className='btn'>TẠO BÀI ĐĂNG</button>
+            </div>
+
+            <form onSubmit={handleSubmit} className='filter-form'>
                 <div className='form-group form-type'>
                     <select
                         className='form-control'
@@ -243,16 +258,8 @@ export default function Invitation() {
                         onChange={(e) => setEndPostingDate(e.target.value)}
                     />
                 </div>
-
-                {/* <div className='form-group form-check'>
-                    <label htmlFor='checkbox1'>
-                        <input type='checkbox' id='checkbox1' checked={Booked} onChange={() => setBooked(p => !p)} />
-                        BOOKED
-                    </label>
-                </div> */}
                 <button type='reset' className='btn' onClick={handleReset}>ĐẶT LẠI BỘ LỌC</button>
             </form>
-
 
             <div className='row'>
                 {filteredInvitations.map((invitation, i) => (

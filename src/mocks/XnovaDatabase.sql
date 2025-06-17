@@ -239,6 +239,8 @@ CREATE TABLE [Invitation] (
     Standard        NVARCHAR(255),
     KindOfSport     NVARCHAR(255),
     Location        NVARCHAR(255),
+    Longitude       NVARCHAR(255),
+    Latitude        NVARCHAR(255),
     Date            DATE,
     StartTime       TIME,
     EndTime         TIME,
@@ -564,21 +566,21 @@ INSERT INTO [UserVoucher] VALUES ('2025-06-04 14:30:00', 5, 6)
 INSERT INTO [UserVoucher] VALUES ('2025-06-04 14:30:00', 6, 3)
 INSERT INTO [UserVoucher] VALUES ('2025-06-04 14:30:00', 7, 8)
 
---Invitation (Name, Booked, JoiningCost, TotalPlayer, AvailablePlayer, Standard, KindOfSport, Location, Date, StartTime, EndTime, PostingDate, Status, UserId, BookingId)
-INSERT INTO [Invitation] VALUES (N'Find more player', 0, 60000, 2, 1, N'Pro', N'Pickleball', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', '2025-04-21', '07:00:00', '09:00:00', '2025-04-19', 1, 5, null);
-INSERT INTO [Invitation] VALUES (N'Find more player', 1, 0, 2, 1, N'New', null, null, null, '09:30:00', '11:30:00', '2025-06-03', 1, 5, 3);
-INSERT INTO [Invitation] VALUES (N'Find more player', 0, 80000, 5, 1, null, N'Football', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', '2025-10-02', '12:00:00', '14:00:00', '2025-10-01', 1, 6, null);
-INSERT INTO [Invitation] VALUES (null, 0, 90000, 9, 1, N'New', N'Badminton', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', '2025-11-28', '14:30:00', '16:30:00', '2025-11-27', 1, 5, null);
-INSERT INTO [Invitation] VALUES (N'Find more player', 1, 40000, 2, 1, N'New', null, null, null, '17:00:00', '19:00:00', '2025-06-03', 1, 6, 4);
-INSERT INTO [Invitation] VALUES (null, 1, 70000, 6, 1, null, null, null, null, '19:30:00', '21:30:00', '2025-06-03', 1, 7, 6);
-INSERT INTO [Invitation] VALUES (N'Find more player', 0, 70000, 7, 1, N'Fair play', N'Football', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', '2025-05-04', '07:00:00', '11:30:00', '2025-05-03', 1, 8, null);
-INSERT INTO [Invitation] VALUES (N'Find more player', 1, 80000, 6, 1, null, null, null, null, '09:30:00', '14:00:00', '2025-06-03', 1, 8, 8);
-INSERT INTO [Invitation] VALUES (null, 0, 50000, 4, 1, null, N'Pickleball', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', '2025-01-09', '12:00:00', '16:30:00', '2025-01-08', 1, 7, null);
-INSERT INTO [Invitation] VALUES (N'Find more player', 0, 40000, 4, 1, N'Fair play', N'Football', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', '2025-02-28', '14:30:00', '19:00:00', '2025-02-27', 1, 7, null);
-INSERT INTO [Invitation] VALUES (N'Find more player', 0, 90000, 3, 1, null, N'Badminton', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', '2025-11-15', '17:00:00', '21:30:00', '2025-11-14', 1, 6, null);
-INSERT INTO [Invitation] VALUES (null, 0, 0, 1, 1, N'Fair play', N'Badminton', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', '2025-03-07', '09:30:00', '21:30:00', '2025-03-06', 1, 5, null);
-INSERT INTO [Invitation] VALUES (null, 1, 50000, 1, 1, null, null, null, null, '12:00:00', '19:00:00', '2025-06-03', 1, 6, 1);
-INSERT INTO [Invitation] VALUES (N'Find more player', 0, 80000, 3, 1, N'Pro', N'Pickleball', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', '2025-06-04', '09:30:00', '14:00:00', '2025-06-03', 1, 6, null);
+--Invitation (Name, Booked, JoiningCost, TotalPlayer, AvailablePlayer, Standard, KindOfSport, Location, Longitude, Latitude, Date, StartTime, EndTime, PostingDate, Status, UserId, BookingId)
+INSERT INTO [Invitation] VALUES (N'Find more player', 0, 60000, 2, 1, N'Pro', N'Pickleball', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', N'0', N'0', '2025-04-21', '07:00:00', '09:00:00', '2025-04-19', 1, 5, null);
+INSERT INTO [Invitation] VALUES (N'Find more player', 1, 0, 2, 1, N'New', null, null, null, null, null, '09:30:00', '11:30:00', '2025-06-03', 1, 5, 3);
+INSERT INTO [Invitation] VALUES (N'Find more player', 0, 80000, 5, 1, null, N'Football', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', N'0', N'0', '2025-10-02', '12:00:00', '14:00:00', '2025-10-01', 1, 6, null);
+INSERT INTO [Invitation] VALUES (null, 0, 90000, 9, 1, N'New', N'Badminton', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', N'0', N'0', '2025-11-28', '14:30:00', '16:30:00', '2025-11-27', 1, 5, null);
+INSERT INTO [Invitation] VALUES (N'Find more player', 1, 40000, 2, 1, N'New', null, null, null, null, null, '17:00:00', '19:00:00', '2025-06-03', 1, 6, 4);
+INSERT INTO [Invitation] VALUES (null, 1, 70000, 6, 1, null, null, null, null, null, null, '19:30:00', '21:30:00', '2025-06-03', 1, 7, 6);
+INSERT INTO [Invitation] VALUES (N'Find more player', 0, 70000, 7, 1, N'Fair play', N'Football', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', N'0', N'0', '2025-05-04', '07:00:00', '11:30:00', '2025-05-03', 1, 8, null);
+INSERT INTO [Invitation] VALUES (N'Find more player', 1, 80000, 6, 1, null, null, null, null, null, null, '09:30:00', '14:00:00', '2025-06-03', 1, 8, 8);
+INSERT INTO [Invitation] VALUES (null, 0, 50000, 4, 1, null, N'Pickleball', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', N'0', N'0', '2025-01-09', '12:00:00', '16:30:00', '2025-01-08', 1, 7, null);
+INSERT INTO [Invitation] VALUES (N'Find more player', 0, 40000, 4, 1, N'Fair play', N'Football', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', N'0', N'0', '2025-02-28', '14:30:00', '19:00:00', '2025-02-27', 1, 7, null);
+INSERT INTO [Invitation] VALUES (N'Find more player', 0, 90000, 3, 1, null, N'Badminton', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', N'0', N'0', '2025-11-15', '17:00:00', '21:30:00', '2025-11-14', 1, 6, null);
+INSERT INTO [Invitation] VALUES (null, 0, 0, 1, 1, N'Fair play', N'Badminton', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', N'0', N'0', '2025-03-07', '09:30:00', '21:30:00', '2025-03-06', 1, 5, null);
+INSERT INTO [Invitation] VALUES (null, 1, 50000, 1, 1, null, null, null, null, null, null, '12:00:00', '19:00:00', '2025-06-03', 1, 6, 1);
+INSERT INTO [Invitation] VALUES (N'Find more player', 0, 80000, 3, 1, N'Pro', N'Pickleball', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', N'0', N'0', '2025-06-04', '09:30:00', '14:00:00', '2025-06-03', 1, 6, null);
 
 --UserInvitation (JoinDate, Status, UserId, InvitationId)
 INSERT INTO [UserInvitation] VALUES ('2025-06-04 14:30:00', 1, 6, 1)
