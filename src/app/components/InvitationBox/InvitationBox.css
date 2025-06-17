@@ -1,25 +1,36 @@
 .invitation-box-container {
     padding: 20px;
+    display: flex;
+    justify-content: center;
   }
   
   .open-invitation-btn {
-    background-color: #007bff;
+    background-color: #4CAF50;
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
+    padding: 12px 24px;
+    border-radius: 25px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    transition: background-color 0.2s;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
   
   .open-invitation-btn:hover {
-    background-color: #0056b3;
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .open-invitation-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
   .open-invitation-btn i {
-    font-size: 16px;
+    font-size: 18px;
   }

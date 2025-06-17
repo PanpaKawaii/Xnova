@@ -10,6 +10,7 @@ const InvitationPopup = ({ isOpen, onClose, teamMembers = [] }) => {
   const [isTeamDropdownOpen, setIsTeamDropdownOpen] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const popupRef = useRef(null);
+  const inputRef = useRef(null);
 
   // Email validation regex
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -23,6 +24,10 @@ const InvitationPopup = ({ isOpen, onClose, teamMembers = [] }) => {
 
     if (isOpen) {
       document.addEventListener('mousedown', handleClickOutside);
+      // Focus input when popup opens
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 100);
     }
 
     return () => {
@@ -71,6 +76,15 @@ const InvitationPopup = ({ isOpen, onClose, teamMembers = [] }) => {
       setInputValue('');
       setSuggestions([]);
       setEmailError('');
+    } else if (e.key === 'Backspace' && !inputValue && emails.length > 0) {
+      // Remove last email when backspace is pressed and input is empty
+      const newEmails = [...emails];
+      const removedEmail = newEmails.pop();
+      setEmails(newEmails);
+      // Uncheck the corresponding team member if exists
+      if (teamMembers.some(member => member.email === removedEmail)) {
+        setSelectedTeamMembers(selectedTeamMembers.filter(email => email !== removedEmail));
+      }
     }
   };
 
@@ -79,11 +93,17 @@ const InvitationPopup = ({ isOpen, onClose, teamMembers = [] }) => {
       setEmails([...emails, email]);
       setInputValue('');
       setSuggestions([]);
+      inputRef.current?.focus();
     }
   };
 
   const removeEmail = (emailToRemove) => {
     setEmails(emails.filter(email => email !== emailToRemove));
+    // Uncheck the corresponding team member if exists
+    if (teamMembers.some(member => member.email === emailToRemove)) {
+      setSelectedTeamMembers(selectedTeamMembers.filter(email => email !== emailToRemove));
+    }
+    inputRef.current?.focus();
   };
 
   const handleTeamMemberToggle = (member) => {
@@ -115,94 +135,94 @@ const InvitationPopup = ({ isOpen, onClose, teamMembers = [] }) => {
     <div className="invitation-popup-overlay">
       <div className="invitation-popup" ref={popupRef}>
         <div className="invitation-popup-header">
-          <h3>Send new invitation</h3>
+          <h3>Gửi lời mời tới</h3>
           <button className="close-button" onClick={onClose}>&times;</button>
         </div>
 
-        
         <div className="team-members-section">
-  <div 
-    className="team-dropdown-header"
-    onClick={() => setIsTeamDropdownOpen(!isTeamDropdownOpen)}
-  >
-    <h4>Team Members</h4>
-    <span className={`dropdown-arrow ${isTeamDropdownOpen ? 'open' : ''}`}>▼</span>
-  </div>
-  
-  {isTeamDropdownOpen && (
-    <div className="team-dropdown-content">
-      <div className="team-select-all">
-        <label htmlFor="select-all">
-          Select All Team Members
-          <input
-            type="checkbox"
-            id="select-all"
-            checked={selectedTeamMembers.length === teamMembers.length}
-            onChange={(e) => {
-              if (e.target.checked) {
-                handleSelectAll();
-              } else {
-                handleDeselectAll();
-              }
-            }}
-          />
-        </label>
-      </div>
-      <div className="team-members-list">
-        {teamMembers.map((member) => (
-          <div key={member.email} className="team-member-item">
-            <div className="member-info">
-              <span className="member-name">{member.name}</span>
-              <span className="member-email">{member.email}</span>
+          <div 
+            className="team-dropdown-header"
+            onClick={() => setIsTeamDropdownOpen(!isTeamDropdownOpen)}
+          >
+            <h4>Team Members</h4>
+            <span className={`dropdown-arrow ${isTeamDropdownOpen ? 'open' : ''}`}>▼</span>
+          </div>
+          
+          {isTeamDropdownOpen && (
+            <div className="team-dropdown-content">
+              <div className="team-select-all">
+                <label htmlFor="select-all">
+                  Select All Team Members
+                  <input
+                    type="checkbox"
+                    id="select-all"
+                    checked={selectedTeamMembers.length === teamMembers.length}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        handleSelectAll();
+                      } else {
+                        handleDeselectAll();
+                      }
+                    }}
+                  />
+                </label>
+              </div>
+              <div className="team-members-list">
+                {teamMembers.map((member) => (
+                  <div key={member.email} className="team-member-item">
+                    <div className="member-info">
+                      <span className="member-name">{member.name}</span>
+                      <span className="member-email">{member.email}</span>
+                    </div>
+                    <input
+                      type="checkbox"
+                      checked={selectedTeamMembers.includes(member.email)}
+                      onChange={() => handleTeamMemberToggle(member)}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
+          )}
+        </div>
+
+        <div className="email-input-section">
+          <div className="email-chips">
+            {emails.map((email) => (
+              <div key={email} className="email-chip">
+                {email}
+                <button onClick={() => removeEmail(email)}>&times;</button>
+              </div>
+            ))}
             <input
-              type="checkbox"
-              checked={selectedTeamMembers.includes(member.email)}
-              onChange={() => handleTeamMemberToggle(member)}
+              ref={inputRef}
+              type="text"
+              value={inputValue}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+              placeholder="Nhập địa chỉ email" 
+              className={`email-input ${emailError ? 'error' : ''}`}
             />
           </div>
-        ))}
-      </div>
-    </div>
-  )}
-</div>
-<div className="email-input-section">
-  <div className="email-chips">
-    {emails.map((email) => (
-      <div key={email} className="email-chip">
-        {email}
-        <button onClick={() => removeEmail(email)}>&times;</button>
-      </div>
-    ))}
-  </div>
-  <div className="email-input-wrapper">
-    <input
-      type="text"
-      value={inputValue}
-      onChange={handleInputChange}
-      onKeyDown={handleKeyDown}
-      placeholder="Enter email addresses"
-      className={`email-input ${emailError ? 'error' : ''}`}
-    />
-    {emailError && <div className="email-error">{emailError}</div>}
-  </div>
-  {showSuggestions && suggestions.length > 0 && (
-    <div className="suggestions-list">
-      {suggestions.map((member) => (
-        <div
-          key={member.email}
-          className="suggestion-item"
-          onClick={() => handleSuggestionClick(member.email)}
-        >
-          {member.name} ({member.email})
+          {emailError && <div className="email-error">{emailError}</div>}
+          
+          {showSuggestions && suggestions.length > 0 && (
+            <div className="suggestions-list">
+              {suggestions.map((member) => (
+                <div
+                  key={member.email}
+                  className="suggestion-item"
+                  onClick={() => handleSuggestionClick(member.email)}
+                >
+                  {member.name} ({member.email})
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-      ))}
-    </div>
-  )}
-</div>
 
         <div className="invitation-popup-footer">
-          <button className="cancel-button" onClick={onClose}>Cancel</button>
+          <button className="cancel-button" onClick={onClose}>Hủy</button>
           <button 
             className="send-button"
             disabled={emails.length === 0}
@@ -212,7 +232,7 @@ const InvitationPopup = ({ isOpen, onClose, teamMembers = [] }) => {
               onClose();
             }}
           >
-            Send Invitations
+            Gửi lời mời
           </button>
         </div>
       </div>
