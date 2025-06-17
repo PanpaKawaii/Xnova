@@ -1,54 +1,98 @@
 .invitation-container {
     width: 100%;
-    max-width: 1400px;
+    max-width: 1680px;
     margin: 40px auto 0;
+    padding: 0 20px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
 
     form {
-        height: 40px;
+        height: auto;
+        min-height: 90px;
         display: flex;
-        gap: 20px;
+        gap: 10px 20px;
+        flex-wrap: wrap;
         user-select: none;
 
         .btn,
         .form-group {
-            flex: 1;
-        }
-
-        select {
-            width: 100%;
-            height: 100%;
-            padding: 6px 12px;
-            color: #495057;
-            font-size: 16px;
-            background-color: #fff;
-            border: 1px solid #ced4da;
+            flex: 1 1 calc(20% - 20px);
+            min-width: 200px;
+            box-shadow: 2px 2px 4px 0 #00000020;
             border-radius: 4px;
-            transition: all 0.15s ease-in-out;
+        }
 
-            option {
-                padding: 4px 8px;
+        .form-type,
+        .form-booked,
+        .form-full,
+        .form-time {
+
+            select {
+                width: 100%;
+                height: 100%;
+                padding: 6px 12px;
+                font-size: 16px;
                 color: #495057;
+                background-color: #fff;
+                border: 1px solid #ced4da;
+                box-sizing: border-box;
+                border-radius: 4px;
+                outline: none;
+                transition: all 0.15s ease-in-out;
+
+                option {
+                    padding: 4px 8px;
+                    color: #495057;
+                }
+
+                option:checked {
+                    background-color: #007bff;
+                    color: white;
+                }
             }
 
-            /* option:hover {
-                background-color: #f8f9fa;
-            } */
-
-            option:checked {
-                background-color: #007bff;
-                color: white;
+            select:focus {
+                border-color: #80bdff;
+                box-shadow: 0 0 0 4px rgba(38, 143, 255, 0.25);
             }
         }
 
-        select:focus {
-            outline: none;
-            border-color: #80bdff;
-            box-shadow: 0 0 0 4px rgba(38, 143, 255, 0.25);
+        .form-date {
+            min-width: 270px;
+            display: flex;
+            align-items: center;
+            border: 1px solid #ced4da;
+            box-sizing: border-box;
+
+            label {
+                height: 100%;
+                padding: 6px 0 6px 6px;
+                align-content: center;
+                box-sizing: border-box;
+            }
+
+            .booking-label {
+                min-width: 111px;
+            }
+
+            .posting-label {
+                min-width: 125px;
+            }
+
+            input {
+                flex: 1;
+                height: 100%;
+                padding: 6px;
+                font-size: 16px;
+                border: none;
+                box-sizing: border-box;
+                border-radius: 4px;
+                outline: none;
+            }
         }
 
-        .form-check {
+        /* .form-check {
             color: #495057;
             background-color: #fff;
             border: 1px solid #ced4da;
@@ -69,7 +113,7 @@
                 height: 20px;
                 cursor: pointer;
             }
-        }
+        } */
     }
 
     .row {
@@ -97,6 +141,7 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                text-align: center;
 
                 img {
                     width: 50px;
@@ -129,6 +174,11 @@
 
             .date {
                 margin: 0 0 12px;
+                font-weight: 550;
+
+                span {
+                    font-weight: bold;
+                }
             }
 
             .location-distance {
@@ -143,8 +193,7 @@
 
                 .location {
                     position: relative;
-                    height: 20px;
-                    max-width: 180px;
+                    white-space: nowrap;
                     overflow: hidden;
 
                     .shadow {
@@ -161,6 +210,7 @@
                 .distance {
                     flex: 1;
                     text-align: end;
+                    min-width: 72px;
                 }
 
             }
@@ -192,11 +242,30 @@
                 width: 100%;
                 padding: 2px 6px;
                 align-self: center;
+                word-break: break-all;
                 background-color: #eee;
                 border: 1px solid #ccc;
                 box-sizing: border-box;
                 border-radius: 8px;
             }
+
+            .no-note {
+                color: #999;
+                font-style: italic;
+                text-align: center;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1200px) {
+        .row {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        .row {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
         }
     }
 }
