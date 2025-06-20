@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
-import StarRating from '../../components/StarRating.jsx';
-import StarHalfFull from '../../components/StarHalfFull.jsx';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import BackArrow from '../../components/BackArrow.jsx';
+import StarHalfFull from '../../components/StarHalfFull.jsx';
+import StarRating from '../../components/StarRating.jsx';
 import BookingForm from './BookingForm.jsx';
-import VenueFeedback from './VenueFeedback.jsx';
 import './VenueDetail.css';
-
-import { types, images, fields, bookings, slots } from '../../../mocks/XnovaDatabase.js';
+import VenueFeedback from './VenueFeedback.jsx';
 
 export default function VenueDetail() {
 

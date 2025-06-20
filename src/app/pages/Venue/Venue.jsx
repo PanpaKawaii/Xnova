@@ -1,15 +1,11 @@
-import React from 'react';
-import Select from 'react-select';
-import StarRating from '../../components/StarRating.jsx';
-import StarHalfFull from '../../components/StarHalfFull.jsx';
-import VenueFeedback from './VenueFeedback.jsx';
-import './Venue.css';
-
-import { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-
-// import { types, venues, images, fields, slots, bookings } from '../../../mocks/XnovaDatabase.js';
+import Select from 'react-select';
 import { fetchData } from '../../../mocks/CallingAPI.js';
+import StarHalfFull from '../../components/StarHalfFull.jsx';
+import StarRating from '../../components/StarRating.jsx';
+import './Venue.css';
+import VenueFeedback from './VenueFeedback.jsx';
 
 export default function Venue() {
 
@@ -36,29 +32,28 @@ export default function Venue() {
 
     useEffect(() => {
         const fetchDataAPI = async () => {
-            const Token = '';
             try {
-                const typeData = await fetchData('Type', Token);
+                const typeData = await fetchData('Type');
                 console.log('typeData', typeData);
                 setTYPEs(typeData);
 
-                const venueData = await fetchData('Venue', Token);
+                const venueData = await fetchData('Venue');
                 console.log('venueData', venueData);
                 setVENUEs(venueData.filter(s => s.status === 1));
 
-                const imageData = await fetchData('Image', Token);
+                const imageData = await fetchData('Image');
                 console.log('imageData', imageData);
                 setIMAGEs(imageData.filter(s => s.status === 1));
 
-                const fieldData = await fetchData('Field', Token);
+                const fieldData = await fetchData('Field');
                 console.log('fieldData', fieldData);
                 setFIELDs(fieldData.filter(s => s.status === 1));
 
-                const slotData = await fetchData('Slot', Token);
+                const slotData = await fetchData('Slot');
                 console.log('slotData', slotData);
                 setSLOTs(slotData.filter(s => s.status === 1));
 
-                const bookingData = await fetchData('Booking', Token);
+                const bookingData = await fetchData('Booking');
                 console.log('bookingData', bookingData);
                 setBOOKINGs(bookingData.filter(s => s.status === 1));
 
@@ -134,7 +129,7 @@ export default function Venue() {
         const venueFields = FIELDs.filter(field => field.venueId === venue.id);
         const fieldIds = venueFields.map(f => f.id);
         const venueSlots = SLOTs.filter(slot => fieldIds.includes(slot.fieldId));
-        const prices = venueSlots.map(slot => slot.rrice);
+        const prices = venueSlots.map(slot => slot.price);
         return {
             ...venue,
             prices: prices

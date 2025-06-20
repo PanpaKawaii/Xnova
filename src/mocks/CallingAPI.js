@@ -3,8 +3,10 @@ const apiKey = import.meta.env.VITE_REACT_APP_API_KEY;
 
 console.log(apiUrl);
 
+const token = '';
+
 // Hàm gọi API GET
-export const fetchData = async (endpoint, token) => {
+export const fetchData = async (endpoint) => {
     try {
         const response = await fetch(`${apiUrl}${endpoint}`, {
             method: 'GET',
@@ -24,7 +26,7 @@ export const fetchData = async (endpoint, token) => {
 };
 
 // Hàm gọi API POST
-export const postData = async (endpoint, token, data) => {
+export const postData = async (endpoint, data) => {
     try {
         const response = await fetch(`${apiUrl}${endpoint}`, {
             method: 'POST',
@@ -45,7 +47,7 @@ export const postData = async (endpoint, token, data) => {
 };
 
 // Hàm gọi API PUT
-export const putData = async (endpoint, token, data) => {
+export const putData = async (endpoint, data) => {
     try {
         const response = await fetch(`${apiUrl}${endpoint}`, {
             method: 'PUT',
@@ -66,7 +68,7 @@ export const putData = async (endpoint, token, data) => {
 };
 
 // Hàm gọi API DELETE
-export const deleteData = async (endpoint, token) => {
+export const deleteData = async (endpoint) => {
     try {
         const response = await fetch(`${apiUrl}${endpoint}`, {
             method: 'DELETE',
