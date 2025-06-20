@@ -1,59 +1,102 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { Link } from 'react-router-dom';
+import { fetchData } from '../../../mocks/CallingAPI.js';
 import './Invitation.css';
 
-import { types, users, venues, fields, slots, bookings, invitations, userInvitations } from '../../../mocks/XnovaDatabase.js';
+import { invitation, userInvitation } from '../../../mocks/XnovaDatabaseX.js';
 
 export default function Invitation() {
 
-    const [TYPEs, setTYPEs] = useState(types);
-    const [USERs, setUSERs] = useState(users);
-    const [VENUEs, setVENUEs] = useState(venues.filter(v => v.Status === 1));
-    const [FIELDs, setFIELDs] = useState(fields);
-    const [SLOTs, setSLOTs] = useState(slots);
-    const [BOOKINGs, setBOOKINGs] = useState(bookings);
-    const [INVITATIONs, setINVITATIONs] = useState(invitations);
-    const [USERINVITATIONs, setUSERINVITATIONs] = useState(userInvitations);
+    const [TYPEs, setTYPEs] = useState([]);
+    const [USERs, setUSERs] = useState([]);
+    const [VENUEs, setVENUEs] = useState([]);
+    const [FIELDs, setFIELDs] = useState([]);
+    const [BOOKINGs, setBOOKINGs] = useState([]);
+    const [INVITATIONs, setINVITATIONs] = useState(invitation);
+    const [USERINVITATIONs, setUSERINVITATIONs] = useState(userInvitation);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    const fieldsWithTypeAndVenue = fields.map(field => {
-        const type = types.find(t => t.Id === field.TypeId);
-        const venue = venues.find(v => v.Id === field.VenueId);
+    useEffect(() => {
+        const fetchDataAPI = async () => {
+            try {
+                const typeData = await fetchData('Type');
+                console.log('typeData', typeData);
+                setTYPEs(typeData);
+
+                const userData = await fetchData('User/GetIdAndName');
+                console.log('userData', userData);
+                setUSERs(userData);
+
+                const venueData = await fetchData('Venue');
+                console.log('venueData', venueData);
+                setVENUEs(venueData.filter(s => s.status === 1));
+
+                const fieldData = await fetchData('Field');
+                console.log('fieldData', fieldData);
+                setFIELDs(fieldData.filter(s => s.status === 1));
+
+                const bookingData = await fetchData('Booking');
+                console.log('bookingData', bookingData);
+                setBOOKINGs(bookingData.filter(s => s.status === 1));
+
+                // const invitationData = await fetchData('Invitation');
+                // console.log('invitationData', invitationData);
+                // setINVITATIONs(invitationData.filter(s => s.status === 1));
+
+                // const userInvitationData = await fetchData('Booking');
+                // console.log('userInvitationData', userInvitationData);
+                // setUSERINVITATIONs(userInvitationData.filter(s => s.status === 1));
+
+                setLoading(false);
+            } catch (error) {
+                setError(error);
+                setLoading(false);
+            }
+        };
+
+        fetchDataAPI();
+    }, []);
+
+    const fieldsWithTypeAndVenue = FIELDs.map(field => {
+        const type = TYPEs.find(t => t.id === field.typeId);
+        const venue = VENUEs.find(v => v.id === field.venueId);
         return {
             ...field,
-            Type: type || null,
-            Venue: venue || null
+            type: type || null,
+            venue: venue || null
         };
     });
-    const bookingsWithField = bookings.map(booking => {
-        const field = fieldsWithTypeAndVenue.find(f => f.Id === booking.FieldId);
+    const bookingsWithField = BOOKINGs.map(booking => {
+        const field = fieldsWithTypeAndVenue.find(f => f.id === booking.fieldId);
         return {
             ...booking,
-            Field: field || null
+            field: field || null
         };
     });
-    const invitationsWithFullDetails = invitations.map(invitation => {
-        const booking = bookingsWithField.find(b => b.Id === invitation.BookingId);
-        const user = users.find(u => u.Id === invitation.UserId);
-        const joinedUsers = Object.values(userInvitations
-            .filter(ui => ui.InvitationId === invitation.Id)
+    const invitationsWithFullDetails = INVITATIONs.map(invitation => {
+        const booking = bookingsWithField.find(b => b.id === invitation.bookingId);
+        const user = USERs.find(u => u.id === invitation.userId);
+        const joinedUsers = Object.values(USERINVITATIONs
+            .filter(ui => ui.invitationId === invitation.id)
             .reduce((acc, ui) => {
-                const key = `${ui.UserId}-${ui.InvitationId}`;
+                const key = `${ui.userId}-${ui.invitationId}`;
                 if (!acc[key]) {
                     acc[key] = ui;
                 }
                 return acc;
             }, {}))
             .map(ui => {
-                const joinedUser = users.find(u => u.Id === ui.UserId);
-                return { ...ui, User: joinedUser || null };
+                const joinedUser = USERs.find(u => u.id === ui.userId);
+                return { ...ui, user: joinedUser || null };
             });
         return {
             ...invitation,
-            Booking: booking || null,
-            User: user || null,
-            UserInvitations: joinedUsers
+            booking: booking || null,
+            user: user || null,
+            userInvitations: joinedUsers
         };
     });
 
@@ -138,27 +181,27 @@ export default function Invitation() {
 
 
     const filteredInvitations = invitationsWithFullDetails.filter(invitation => {
-        const matchSportType = !SportType || invitation.KindOfSport === TYPEs.find(type => type.Id === Number(SportType)).Name || invitation.Booking?.Field?.Type?.Id === Number(SportType);
+        const matchSportType = !SportType || invitation.kindOfSport === TYPEs.find(type => type.id === Number(SportType)).name || invitation.booking?.field?.type?.id === Number(SportType);
         const matchStatus = !Status ||
-            (Status == 0 && invitation.AvailablePlayer + invitation.UserInvitations?.length >= invitation.TotalPlayer) ||
-            (Status == 1 && invitation.AvailablePlayer + invitation.UserInvitations?.length < invitation.TotalPlayer) ||
-            (Status == 2 && invitation.Booked == 1) ||
-            (Status == 3 && invitation.Booked == 0);
+            (Status == 0 && invitation.availablePlayer + invitation.userInvitations?.length >= invitation.totalPlayer) ||
+            (Status == 1 && invitation.availablePlayer + invitation.userInvitations?.length < invitation.totalPlayer) ||
+            (Status == 2 && invitation.booked == 1) ||
+            (Status == 3 && invitation.booked == 0);
         const matchBookingDate =
             (!StartBookingDate ||
-                new Date(invitation.Date) >= convertToTimezonePlus7(StartBookingDate) ||
-                new Date(invitation.Booking?.Date) >= convertToTimezonePlus7(StartBookingDate)) &&
+                new Date(invitation.date) >= convertToTimezonePlus7(StartBookingDate) ||
+                new Date(invitation.booking?.date) >= convertToTimezonePlus7(StartBookingDate)) &&
             (!EndBookingDate ||
-                new Date(invitation.Date) <= convertToTimezonePlus7(EndBookingDate) ||
-                new Date(invitation.Booking?.Date) <= convertToTimezonePlus7(EndBookingDate));
+                new Date(invitation.date) <= convertToTimezonePlus7(EndBookingDate) ||
+                new Date(invitation.booking?.date) <= convertToTimezonePlus7(EndBookingDate));
         const matchPostingDate =
             (!StartPostingDate ||
-                new Date(invitation.PostingDate) >= convertToTimezonePlus7(StartPostingDate)) &&
+                new Date(invitation.postingDate) >= convertToTimezonePlus7(StartPostingDate)) &&
             (!EndPostingDate ||
-                new Date(invitation.PostingDate) <= convertToTimezonePlus7(EndPostingDate));
+                new Date(invitation.postingDate) <= convertToTimezonePlus7(EndPostingDate));
 
-        const matchTime = (!StartTime || new Date(`1970-01-01 ${invitation.StartTime}`) >= new Date(`1970-01-01 ${StartTime}`)) && (!EndTime || new Date(`1970-01-01 ${invitation.EndTime}`) <= new Date(`1970-01-01 ${EndTime}`));
-        const matchCost = !Cost || (Number(invitation.JoiningCost) >= Number(Cost.split(' - ')[0].replace('.', '')) && Number(invitation.JoiningCost) <= Number(Cost.split(' - ')[1].replace('.', '')));
+        const matchTime = (!StartTime || new Date(`1970-01-01 ${invitation.startTime}`) >= new Date(`1970-01-01 ${StartTime}`)) && (!EndTime || new Date(`1970-01-01 ${invitation.endTime}`) <= new Date(`1970-01-01 ${EndTime}`));
+        const matchCost = !Cost || (Number(invitation.joiningCost) >= Number(Cost.split(' - ')[0].replace('.', '')) && Number(invitation.joiningCost) <= Number(Cost.split(' - ')[1].replace('.', '')));
 
         // console.log('Time===================');
         // console.log(new Date(`1970-01-01 ${Time.split(' - ')[0]}`));
@@ -199,14 +242,14 @@ export default function Invitation() {
             {/* <div className='row'>
                 {invitationsWithFullDetails.map((invitation, i) => (
                     <div key={i} className='col'>
-                        <div>Id: {invitation.Id}</div>
-                        <div>Name: {invitation.Name}</div>
+                        <div>id: {invitation.id}</div>
+                        <div>name: {invitation.name}</div>
                         <div>Booked: {invitation.Booked}</div>
                         <div>JoiningCost: {invitation.JoiningCost}</div>
                         <div>TotalPlayer: {invitation.TotalPlayer}</div>
                         <div>AvailablePlayer: {invitation.AvailablePlayer}</div>
                         <div>Standard: {invitation.Standard}</div>
-                        <div>KindOfSport: {invitation.KindOfSport || invitation.Booking?.Field?.Type?.Name}</div>
+                        <div>KindOfSport: {invitation.KindOfSport || invitation.Booking?.Field?.Type?.name}</div>
                         <div>Location: {invitation.Location || invitation.Booking?.Field?.Venue?.Address}</div>
                         <div>Longitude: {invitation.Longitude || invitation.Booking?.Field?.Venue?.Longitude}</div>
                         <div>Latitude: {invitation.Latitude || invitation.Booking?.Field?.Venue?.Latitude}</div>
@@ -219,7 +262,7 @@ export default function Invitation() {
 
                         <div>UserId: {invitation.UserId}</div>
                         <div>
-                            <div>UserId: {invitation.User?.Name}</div>
+                            <div>UserId: {invitation.User?.name}</div>
                         </div>
                         <hr />
 
@@ -281,8 +324,8 @@ export default function Invitation() {
                     >
                         <option value=''>--Môn thể thao--</option>
                         {TYPEs && TYPEs.map((type) => (
-                            <option key={type.Id} value={type.Id}>
-                                {type.Name}
+                            <option key={type.id} value={type.id}>
+                                {type.name}
                             </option>
                         ))}
                     </select>
@@ -385,8 +428,8 @@ export default function Invitation() {
                 {filteredInvitations.map((invitation, i) => (
                     <div key={i} className='col'>
                         <div className='currentdate-booked'>
-                            <div className='currentdate'>{invitation.PostingDate}</div>
-                            {invitation.Booked ?
+                            <div className='currentdate'>{invitation.postingDate}</div>
+                            {invitation.booked ?
                                 <Link to='/venue/1' className='booked'>
                                     <div>ĐÃ ĐẶT SÂN</div>
                                     <i className='fa-solid fa-angle-right'></i>
@@ -396,25 +439,25 @@ export default function Invitation() {
                             }
                         </div>
                         <div className='user'>
-                            <img src={invitation.User?.Image} alt={invitation.User?.Name}></img>
-                            <div className='joined'>{invitation.AvailablePlayer + invitation.UserInvitations?.length}/{invitation.TotalPlayer}</div>
-                            <div className='joining-cost'>{invitation.JoiningCost?.toLocaleString('vi-VN')} VND</div>
+                            <img src={invitation.user?.image} alt={invitation.user?.name}></img>
+                            <div className='joined'>{invitation.availablePlayer + invitation.userInvitations?.length}/{invitation.totalPlayer}</div>
+                            <div className='joining-cost'>{invitation.joiningCost?.toLocaleString('vi-VN')} VND</div>
                         </div>
-                        <div className='name'>{invitation.User?.Name}</div>
-                        <div className='date'>{invitation.Date || invitation.Booking?.Date}, <span>{invitation.StartTime.substring(0, 5)} - {invitation.EndTime.substring(0, 5)}</span></div>
+                        <div className='name'>{invitation.user?.name}</div>
+                        <div className='date'>{invitation.date || invitation.booking?.date}, <span>{invitation.startTime.substring(0, 5)} - {invitation.endTime.substring(0, 5)}</span></div>
                         <div className='location-distance'>
                             <i className='fa-solid fa-location-dot'></i>
-                            <div className='location'>{invitation.Location || invitation.Booking?.Field?.Venue?.Address}<div className='shadow'>...</div></div>
+                            <div className='location'>{invitation.location || invitation.booking?.field?.venue?.address}<div className='shadow'>...</div></div>
                             <div className='distance'>~9.9 Kms</div>
                         </div>
                         <div className='type'>
-                            {invitation.KindOfSport || invitation.Booking?.Field?.Type?.Name}
+                            {invitation.kindOfSport || invitation.booking?.field?.type?.name}
                         </div>
                         <div className='footer-card'>
-                            {(invitation.Name || invitation.Standard) ?
+                            {(invitation.name || invitation.standard) ?
                                 <div className='note'>
-                                    <div>Yêu cầu: {invitation.Standard}</div>
-                                    <div>{invitation.Name}</div>
+                                    <div>Yêu cầu: {invitation.standard}</div>
+                                    <div>{invitation.name}</div>
                                 </div>
                                 :
                                 <div className='note no-note'>Không có ghi chú</div>

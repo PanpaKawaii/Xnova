@@ -53,8 +53,8 @@ export default function VenueFeedback({ Venue, Number }) {
 
             return {
                 ...booking,
-                users: user || null,
-                fields: field || null,
+                user: user || null,
+                field: field || null,
                 // Slots: bookingSlotDetails,
             };
         });
@@ -69,9 +69,9 @@ export default function VenueFeedback({ Venue, Number }) {
                 FeedbackBooking.map((comment, index) => (
                     <div key={index} className='feedback-col'>
                         <div className='feedback-user'>
-                            <img src={comment.users.image} alt={comment.users.name}></img>
+                            <img src={comment.user.image} alt={comment.user.name}></img>
                             <div className='name-date'>
-                                <div className='name'>{comment.users.name}</div>
+                                <div className='name'>{comment.user.name}</div>
                                 <div className='date'>{comment.date.substring(0, 10)}</div>
                             </div>
                         </div>

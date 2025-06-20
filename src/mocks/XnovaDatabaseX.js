@@ -346,3 +346,26 @@ export const userInvitations = [
     { Id: 2, JoinDate: '2025-06-04 14:30:00', Status: 1, UserId: 7, InvitationId: 1 },
     { Id: 3, JoinDate: '2025-06-04 14:30:00', Status: 1, UserId: 7, InvitationId: 3 },
 ];
+
+export const invitation = [
+    { id: 1, name: 'Find more player', booked: 0, joiningCost: 60000, totalPlayer: 3, availablePlayer: 1, standard: 'Pro', kindOfSport: 'Pickleball', location: '123 Đường Hoa Phượng, Quận 7, TP. HCM', longitude: '1', latitude: '1', date: '2025-04-21', startTime: '07:00:00', endTime: '09:00:00', postingDate: '2025-04-19', status: 1, userId: 5, bookingId: null },
+    { id: 2, name: 'Find more player', booked: 1, joiningCost: 0, totalPlayer: 2, availablePlayer: 1, standard: 'New', kindOfSport: null, location: null, Longitude: null, Latitude: null, Date: null, startTime: '09:30:00', endTime: '11:30:00', postingDate: '2025-06-03', status: 1, userId: 5, bookingId: 3 },
+    { id: 3, name: 'Find more player', booked: 0, joiningCost: 80000, totalPlayer: 5, availablePlayer: 1, standard: null, kindOfSport: 'Football', location: '123 Đường Hoa Phượng, Quận 7, TP. HCM', longitude: '1', latitude: '1', date: '2025-10-02', startTime: '12:00:00', endTime: '14:00:00', postingDate: '2025-10-01', status: 1, userId: 6, bookingId: null },
+    { id: 4, name: null, booked: 0, joiningCost: 90000, totalPlayer: 9, availablePlayer: 1, standard: 'New', kindOfSport: 'Badminton', location: '123 Đường Hoa Phượng, Quận 7, TP. HCM', longitude: '1', latitude: '1', date: '2025-11-28', startTime: '14:30:00', endTime: '16:30:00', postingDate: '2025-11-27', status: 1, userId: 5, bookingId: null },
+    { id: 5, name: 'Find more player', booked: 1, joiningCost: 40000, totalPlayer: 2, availablePlayer: 1, standard: 'New', kindOfSport: null, location: null, Longitude: null, Latitude: null, Date: null, startTime: '17:00:00', endTime: '19:00:00', postingDate: '2025-06-03', status: 1, userId: 6, bookingId: 4 },
+    { id: 6, name: null, booked: 1, joiningCost: 70000, totalPlayer: 6, availablePlayer: 1, standard: null, kindOfSport: null, location: null, Longitude: null, Latitude: null, Date: null, startTime: '19:30:00', endTime: '21:30:00', postingDate: '2025-06-03', status: 1, userId: 7, bookingId: 6 },
+    { id: 7, name: 'Find more player', booked: 0, joiningCost: 70000, totalPlayer: 7, availablePlayer: 1, standard: 'Fair play', kindOfSport: 'Football', location: '123 Đường Hoa Phượng, Quận 7, TP. HCM', longitude: '1', latitude: '1', date: '2025-05-04', startTime: '07:00:00', endTime: '11:30:00', postingDate: '2025-05-03', status: 1, userId: 8, bookingId: null },
+    { id: 8, name: 'Find more player', booked: 1, joiningCost: 80000, totalPlayer: 6, availablePlayer: 1, standard: null, kindOfSport: null, location: null, Longitude: null, Latitude: null, Date: null, startTime: '09:30:00', endTime: '14:00:00', postingDate: '2025-06-03', status: 1, userId: 8, bookingId: 8 },
+    { id: 9, name: null, booked: 0, joiningCost: 50000, totalPlayer: 4, availablePlayer: 1, standard: null, kindOfSport: 'Pickleball', location: '123 Đường Hoa Phượng, Quận 7, TP. HCM', longitude: '1', latitude: '1', date: '2025-01-09', startTime: '12:00:00', endTime: '16:30:00', postingDate: '2025-01-08', status: 1, userId: 7, bookingId: null },
+    { id: 10, name: 'Find more player', booked: 0, joiningCost: 40000, totalPlayer: 4, availablePlayer: 1, standard: 'Fair play', kindOfSport: 'Football', location: '123 Đường Hoa Phượng, Quận 7, TP. HCM', longitude: '1', latitude: '1', date: '2025-02-28', startTime: '14:30:00', endTime: '19:00:00', postingDate: '2025-02-27', status: 1, userId: 7, bookingId: null },
+    { id: 11, name: 'Find more player', booked: 0, joiningCost: 90000, totalPlayer: 3, availablePlayer: 1, standard: null, kindOfSport: 'Badminton', location: '123 Đường Hoa Phượng, Quận 7, TP. HCM', longitude: '1', latitude: '1', date: '2025-11-15', startTime: '17:00:00', endTime: '21:30:00', postingDate: '2025-11-14', status: 1, userId: 6, bookingId: null },
+    { id: 12, name: null, booked: 0, joiningCost: 0, totalPlayer: 1, availablePlayer: 1, standard: 'Fair play', kindOfSport: 'Badminton', location: '123 Đường Hoa Phượng, Quận 7, TP. HCM', longitude: '1', latitude: '1', date: '2025-03-07', startTime: '09:30:00', endTime: '21:30:00', postingDate: '2025-03-06', status: 1, userId: 5, bookingId: null },
+    { id: 13, name: null, booked: 1, joiningCost: 50000, totalPlayer: 1, availablePlayer: 1, standard: null, kindOfSport: null, location: null, Longitude: null, Latitude: null, Date: null, startTime: '12:00:00', endTime: '19:00:00', postingDate: '2025-06-03', status: 1, userId: 6, bookingId: 1 },
+    { id: 14, name: 'Find more player', booked: 0, joiningCost: 80000, totalPlayer: 3, availablePlayer: 1, standard: 'Pro', kindOfSport: 'Pickleball', location: '123 Đường Hoa Phượng, Quận 7, TP. HCM', longitude: '1', latitude: '1', date: '2025-06-04', startTime: '09:30:00', endTime: '14:00:00', postingDate: '2025-06-03', status: 1, userId: 6, bookingId: null },
+];
+
+export const userInvitation = [
+    { id: 1, joinDate: '2025-06-04 14:30:00', status: 1, userId: 6, invitationId: 1 },
+    { id: 2, joinDate: '2025-06-04 14:30:00', status: 1, userId: 7, invitationId: 1 },
+    { id: 3, joinDate: '2025-06-04 14:30:00', status: 1, userId: 7, invitationId: 3 },
+];
