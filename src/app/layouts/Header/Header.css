@@ -11,8 +11,12 @@
     z-index: 100;
     font-family: 'Quicksand', Arial, sans-serif;
 
+    a {
+        color: #000;
+    }
+
     .logo,
-    .login-signup {
+    .login-register {
         display: flex;
         align-items: center;
         align-content: center;

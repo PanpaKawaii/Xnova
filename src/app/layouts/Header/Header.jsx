@@ -16,7 +16,7 @@ export default function Header() {
             </div>
             <div className='left-bar'>
                 <input />
-                <div className='login-signup'><i className='fa-solid fa-user-circle'></i>Login/Signup</div>
+                <Link to='/login-register' className='login-register'><i className='fa-solid fa-user-circle'></i>Đăng nhập</Link>
             </div>
         </div>
     )

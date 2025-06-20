@@ -1,13 +1,12 @@
-const apiUrl = process.env.REACT_APP_API_URL;
-const apiKey = process.env.REACT_APP_API_KEY;
+const apiUrl = import.meta.env.VITE_REACT_APP_API_POD_URL;
+const apiKey = import.meta.env.VITE_REACT_APP_API_KEY;
 
 console.log(apiUrl);
-console.log(apiKey);
 
 // Hàm gọi API GET
 export const fetchData = async (endpoint, token) => {
     try {
-        const response = await fetch(`${API_URL}${endpoint}`, {
+        const response = await fetch(`${apiUrl}${endpoint}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -27,7 +26,7 @@ export const fetchData = async (endpoint, token) => {
 // Hàm gọi API POST
 export const postData = async (endpoint, token, data) => {
     try {
-        const response = await fetch(`${API_URL}${endpoint}`, {
+        const response = await fetch(`${apiUrl}${endpoint}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -48,7 +47,7 @@ export const postData = async (endpoint, token, data) => {
 // Hàm gọi API PUT
 export const putData = async (endpoint, token, data) => {
     try {
-        const response = await fetch(`${API_URL}${endpoint}`, {
+        const response = await fetch(`${apiUrl}${endpoint}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -69,7 +68,7 @@ export const putData = async (endpoint, token, data) => {
 // Hàm gọi API DELETE
 export const deleteData = async (endpoint, token) => {
     try {
-        const response = await fetch(`${API_URL}${endpoint}`, {
+        const response = await fetch(`${apiUrl}${endpoint}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

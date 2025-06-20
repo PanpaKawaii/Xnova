@@ -9,6 +9,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import { types, venues, images, fields, slots, bookings } from '../../../mocks/XnovaDatabase.js';
+import { fetchData } from '../../../mocks/CallingAPI.js';
 
 export default function Venue() {
 
@@ -25,16 +26,64 @@ export default function Venue() {
     }, [pathname]);
 
     const [TYPEs, setTYPEs] = useState(types);
-    const [VENUEs, setVENUEs] = useState(venues.filter(v => v.Status === 1));
+    // const [VENUEs, setVENUEs] = useState(venues.filter(v => v.Status === 1));
+    const [VENUEs, setVENUEs] = useState(null);
     const [IMAGEs, setIMAGEs] = useState(images);
     const [FIELDs, setFIELDs] = useState(fields);
     const [SLOTs, setSLOTs] = useState(slots);
     const [BOOKINGs, setBOOKINGs] = useState(bookings);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
+    useEffect(() => {
+        const fetchDataAPI = async () => {
+            const Token = '';
+            try {
+                const result = await fetchData('Pod', Token);
+                console.log('result', result);
+                setVENUEs(result);
+
+                // console.log('API: ', venueData);
+
+                // const podResponse = await fetch('https://localhost:7166/api/Pod');
+                // if (!podResponse.ok) throw new Error('Network response was not ok');
+                // const podData = await podResponse.json();
+                // setPODs(podData);
+
+                // const typeResponse = await fetch('https://localhost:7166/api/Type');
+                // if (!typeResponse.ok) throw new Error('Network response was not ok');
+                // const typeData = await typeResponse.json();
+                // setTYPEs(typeData);
+
+                // const utilityResponse = await fetch('https://localhost:7166/api/Utility');
+                // if (!utilityResponse.ok) throw new Error('Network response was not ok');
+                // const utilityData = await utilityResponse.json();
+                // setUTILITIes(utilityData);
+
+                // const slotResponse = await fetch('https://localhost:7166/api/Slot');
+                // if (!slotResponse.ok) throw new Error('Network response was not ok');
+                // const slotData = await slotResponse.json();
+                // setSLOTs(slotData);
+
+                // const bookingResponse = await fetch('https://localhost:7166/api/Booking');
+                // if (!bookingResponse.ok) throw new Error('Network response was not ok');
+                // const bookingData = await bookingResponse.json();
+                // setBOOKINGs(bookingData);
+
+                setLoading(false);
+            } catch (error) {
+                setError(error);
+                setLoading(false);
+            }
+        };
+
+        fetchDataAPI();
+    }, []);
+    console.log('API OUTSIDE: ', VENUEs);
 
     // Image
     console.log('venueWithImages');
-    const venueWithImages = VENUEs.map(venue => {
+    const venueWithImages = VENUEs?.map(venue => {
         const venueImages = IMAGEs.filter(img => img.VenueId === venue.Id);
         return {
             ...venue,
@@ -44,7 +93,7 @@ export default function Venue() {
 
     // Type
     console.log('venuesWithTypes');
-    const venuesWithTypes = venueWithImages.map(venue => {
+    const venuesWithTypes = venueWithImages?.map(venue => {
         const venueFields = FIELDs.filter(field => field.VenueId === venue.Id);
         const typeIds = [...new Set(venueFields.map(f => f.TypeId))];
         const matchedTypes = TYPEs.filter(type => typeIds.includes(type.Id));
@@ -79,7 +128,7 @@ export default function Venue() {
             venueRatings[venueId].count += 1;
         }
     });
-    const venuesWithRating = venuesWithTypes.map(venue => {
+    const venuesWithRating = venuesWithTypes?.map(venue => {
         const ratingData = venueRatings[venue.Id];
         const averageRating = ratingData ? ratingData.total / ratingData.count : null;
         return {
@@ -90,7 +139,7 @@ export default function Venue() {
 
     //Price
     // console.log('venuesWithPrice');
-    const venuesWithPrice = venuesWithRating.map(venue => {
+    const venuesWithPrice = venuesWithRating?.map(venue => {
         const venueFields = fields.filter(field => field.VenueId === venue.Id);
         const fieldIds = venueFields.map(f => f.Id);
         const venueSlots = SLOTs.filter(slot => fieldIds.includes(slot.FieldId));
@@ -115,7 +164,7 @@ export default function Venue() {
     //     venue.Types.some(type => type.Id === Number(selectedType) || !selectedType)
     // );
 
-    const filteredVenues = venuesWithPrice.filter(venue => {
+    const filteredVenues = venuesWithPrice?.filter(venue => {
         const matchType = !selectedType || venue.Types.some(type => type.Id === Number(selectedType));
         const matchPrice = (
             (!selectedMinPrice || venue.Prices?.some(p => p >= Number(selectedMinPrice.value))) &&
@@ -160,51 +209,6 @@ export default function Venue() {
 
 
 
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const storeResponse = await fetch('https://localhost:7166/api/Store');
-                if (!storeResponse.ok) throw new Error('Network response was not ok');
-                const storeData = await storeResponse.json();
-                setSTOREs(storeData);
-
-                const podResponse = await fetch('https://localhost:7166/api/Pod');
-                if (!podResponse.ok) throw new Error('Network response was not ok');
-                const podData = await podResponse.json();
-                setPODs(podData);
-
-                // const typeResponse = await fetch('https://localhost:7166/api/Type');
-                // if (!typeResponse.ok) throw new Error('Network response was not ok');
-                // const typeData = await typeResponse.json();
-                // setTYPEs(typeData);
-
-                const utilityResponse = await fetch('https://localhost:7166/api/Utility');
-                if (!utilityResponse.ok) throw new Error('Network response was not ok');
-                const utilityData = await utilityResponse.json();
-                setUTILITIes(utilityData);
-
-                // const slotResponse = await fetch('https://localhost:7166/api/Slot');
-                // if (!slotResponse.ok) throw new Error('Network response was not ok');
-                // const slotData = await slotResponse.json();
-                // setSLOTs(slotData);
-
-                // const bookingResponse = await fetch('https://localhost:7166/api/Booking');
-                // if (!bookingResponse.ok) throw new Error('Network response was not ok');
-                // const bookingData = await bookingResponse.json();
-                // setBOOKINGs(bookingData);
-
-                setLoading(false);
-            } catch (error) {
-                setError(error);
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, []);
 
     // // Lấy Utility được chọn
     // const filteredUtilities = UTILITIes ? UTILITIes.filter(utility =>
@@ -305,7 +309,7 @@ export default function Venue() {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredVenues.length > 0 ? (
+                        {filteredVenues?.length > 0 ? (
                             filteredVenues.map((venue, index) => (
                                 <React.Fragment key={index}>
                                     <tr>

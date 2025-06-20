@@ -67,23 +67,8 @@ export default function Invitation() {
     const [EndPostingDate, setEndPostingDate] = useState('');
     const [StartTime, setStartTime] = useState('');
     const [EndTime, setEndTime] = useState('');
-    const [Time, setTime] = useState('');
     const [Cost, setCost] = useState('');
     const [IsMine, setIsMine] = useState(false);
-
-    const times = [
-        '07:00 - 09:00',
-        '09:00 - 11:00',
-        '11:00 - 13:00',
-        '13:00 - 15:00',
-        '15:00 - 17:00',
-        '17:00 - 19:00',
-        '19:00 - 21:00',
-        '21:00 - 23:00',
-        '07:00 - 12:00',
-        '12:00 - 17:00',
-        '17:00 - 22:00',
-    ];
 
     const time = [
         '07:00:00',
@@ -172,8 +157,7 @@ export default function Invitation() {
             (!EndPostingDate ||
                 new Date(invitation.PostingDate) <= convertToTimezonePlus7(EndPostingDate));
 
-        // const matchTime = (!StartTime || new Date(`1970-01-01 ${invitation.StartTime}`) >= new Date(`1970-01-01 ${StartTime}`)) && (!EndTime || new Date(`1970-01-01 ${invitation.EndTime}`) <= new Date(`1970-01-01 ${EndTime}`));
-        const matchTime = !Time || (new Date(`1970-01-01 ${invitation.StartTime}`) >= new Date(`1970-01-01 ${Time.split(' - ')[0]}`) && new Date(`1970-01-01 ${invitation.EndTime}`) <= new Date(`1970-01-01 ${Time.split(' - ')[1]}`));
+        const matchTime = (!StartTime || new Date(`1970-01-01 ${invitation.StartTime}`) >= new Date(`1970-01-01 ${StartTime}`)) && (!EndTime || new Date(`1970-01-01 ${invitation.EndTime}`) <= new Date(`1970-01-01 ${EndTime}`));
         const matchCost = !Cost || (Number(invitation.JoiningCost) >= Number(Cost.split(' - ')[0].replace('.', '')) && Number(invitation.JoiningCost) <= Number(Cost.split(' - ')[1].replace('.', '')));
 
         // console.log('Time===================');
@@ -201,7 +185,6 @@ export default function Invitation() {
         setEndPostingDate('');
         setStartTime('');
         setEndTime('');
-        setTime('');
         setCost('');
     };
 
@@ -373,21 +356,6 @@ export default function Invitation() {
                     >
                         <option value=''>--Giờ kết thúc--</option>
                         {time.map((time, index) => (
-                            <option key={index} value={time}>
-                                {time}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-
-                <div className='form-group form-time'>
-                    <select
-                        className='form-control'
-                        value={Time}
-                        onChange={(e) => setTime(e.target.value)}
-                    >
-                        <option value=''>--Khung giờ--</option>
-                        {times.map((time, index) => (
                             <option key={index} value={time}>
                                 {time}
                             </option>
