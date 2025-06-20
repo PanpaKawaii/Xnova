@@ -292,27 +292,27 @@ INSERT INTO [Venue] VALUES (N'The Arena Zone', N'34 Đường Phan Xích Long, P
 INSERT INTO [Venue] VALUES (N'Mega Sports Hub', N'89 Đường Cộng Hòa, Tân Bình, TP. HCM', N'0', N'0', N'0123456789', 1, 4)--Danh
 
 --Image (Name, Link, Status, VenueId)
-INSERT INTO [Image] VALUES (N'Field 1', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 1)--Huy
-INSERT INTO [Image] VALUES (N'Field 2', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 1)--Huy
-INSERT INTO [Image] VALUES (N'Field 3', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 1)--Huy
-INSERT INTO [Image] VALUES (N'Field 4', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 1)--Huy
-INSERT INTO [Image] VALUES (N'Field 5', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 1)--Huy
-INSERT INTO [Image] VALUES (N'Field 1', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 2)--Hoang
-INSERT INTO [Image] VALUES (N'Field 2', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 2)--Hoang
-INSERT INTO [Image] VALUES (N'Field 3', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 2)--Hoang
-INSERT INTO [Image] VALUES (N'Field 1', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 3)--Hoang
-INSERT INTO [Image] VALUES (N'Field 2', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 3)--Hoang
-INSERT INTO [Image] VALUES (N'Field 3', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 3)--Hoang
-INSERT INTO [Image] VALUES (N'Field 4', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 3)--Hoang
-INSERT INTO [Image] VALUES (N'Field 5', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 3)--Hoang
-INSERT INTO [Image] VALUES (N'Field 6', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 3)--Hoang
-INSERT INTO [Image] VALUES (N'Field 1', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 4)--Danh
-INSERT INTO [Image] VALUES (N'Field 1', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 5)--Danh
-INSERT INTO [Image] VALUES (N'Field 2', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 5)--Danh
-INSERT INTO [Image] VALUES (N'Field 3', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 5)--Danh
-INSERT INTO [Image] VALUES (N'Field 4', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 5)--Danh
-INSERT INTO [Image] VALUES (N'Field 1', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 6)--Danh
-INSERT INTO [Image] VALUES (N'Field 2', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 6)--Danh
+INSERT INTO [Image] VALUES (N'Field 1', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 1)--Huy
+INSERT INTO [Image] VALUES (N'Field 2', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 1)--Huy
+INSERT INTO [Image] VALUES (N'Field 3', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 1)--Huy
+INSERT INTO [Image] VALUES (N'Field 4', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 1)--Huy
+INSERT INTO [Image] VALUES (N'Field 5', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 1)--Huy
+INSERT INTO [Image] VALUES (N'Field 1', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 2)--Hoang
+INSERT INTO [Image] VALUES (N'Field 2', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 2)--Hoang
+INSERT INTO [Image] VALUES (N'Field 3', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 2)--Hoang
+INSERT INTO [Image] VALUES (N'Field 1', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 3)--Hoang
+INSERT INTO [Image] VALUES (N'Field 2', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 3)--Hoang
+INSERT INTO [Image] VALUES (N'Field 3', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 3)--Hoang
+INSERT INTO [Image] VALUES (N'Field 4', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 3)--Hoang
+INSERT INTO [Image] VALUES (N'Field 5', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 3)--Hoang
+INSERT INTO [Image] VALUES (N'Field 6', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 3)--Hoang
+INSERT INTO [Image] VALUES (N'Field 1', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 4)--Danh
+INSERT INTO [Image] VALUES (N'Field 1', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 5)--Danh
+INSERT INTO [Image] VALUES (N'Field 2', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 5)--Danh
+INSERT INTO [Image] VALUES (N'Field 3', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 5)--Danh
+INSERT INTO [Image] VALUES (N'Field 4', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 5)--Danh
+INSERT INTO [Image] VALUES (N'Field 1', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 6)--Danh
+INSERT INTO [Image] VALUES (N'Field 2', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 6)--Danh
 
 --Field (Name, Description, Status, TypeId, VenueId)
 INSERT INTO [Field] VALUES (N'Football Field 1', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 1, 1)   --Huy   1

@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import StarRating from '../../components/StarRating.jsx';
 import './VenueFeedback.css';
 
-import { types, users, fields, bookings, slots, bookingSlots } from '../../../mocks/XnovaDatabase.js';
+// import { types, users, fields, bookings, slots, bookingSlots } from '../../../mocks/XnovaDatabase.js';
 
 export default function VenueFeedback({ Venue, Number }) {
-    const [USERs, setUSERs] = useState(users);
-    const [FIELDs, setFIELDs] = useState(fields);
-    const [BOOKINGs, setBOOKINGs] = useState(bookings);
+    const [USERs, setUSERs] = useState([]);
+    const [FIELDs, setFIELDs] = useState([]);
+    const [BOOKINGs, setBOOKINGs] = useState([]);
 
     const FilterBookng = BOOKINGs
         .filter(booking => {

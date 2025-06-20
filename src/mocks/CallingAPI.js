@@ -1,4 +1,4 @@
-const apiUrl = import.meta.env.VITE_REACT_APP_API_POD_URL;
+const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
 const apiKey = import.meta.env.VITE_REACT_APP_API_KEY;
 
 console.log(apiUrl);

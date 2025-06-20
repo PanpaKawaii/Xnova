@@ -5,10 +5,10 @@ import StarHalfFull from '../../components/StarHalfFull.jsx';
 import VenueFeedback from './VenueFeedback.jsx';
 import './Venue.css';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import { types, venues, images, fields, slots, bookings } from '../../../mocks/XnovaDatabase.js';
+// import { types, venues, images, fields, slots, bookings } from '../../../mocks/XnovaDatabase.js';
 import { fetchData } from '../../../mocks/CallingAPI.js';
 
 export default function Venue() {
@@ -25,13 +25,12 @@ export default function Venue() {
         console.log('pathname:', pathname);
     }, [pathname]);
 
-    const [TYPEs, setTYPEs] = useState(types);
-    // const [VENUEs, setVENUEs] = useState(venues.filter(v => v.Status === 1));
-    const [VENUEs, setVENUEs] = useState(null);
-    const [IMAGEs, setIMAGEs] = useState(images);
-    const [FIELDs, setFIELDs] = useState(fields);
-    const [SLOTs, setSLOTs] = useState(slots);
-    const [BOOKINGs, setBOOKINGs] = useState(bookings);
+    const [TYPEs, setTYPEs] = useState([]);
+    const [VENUEs, setVENUEs] = useState([]);
+    const [IMAGEs, setIMAGEs] = useState([]);
+    const [FIELDs, setFIELDs] = useState([]);
+    const [SLOTs, setSLOTs] = useState([]);
+    const [BOOKINGs, setBOOKINGs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -39,36 +38,29 @@ export default function Venue() {
         const fetchDataAPI = async () => {
             const Token = '';
             try {
-                const result = await fetchData('Pod', Token);
-                console.log('result', result);
-                setVENUEs(result);
+                const typeData = await fetchData('Type', Token);
+                console.log('typeData', typeData);
+                setTYPEs(typeData);
 
-                // console.log('API: ', venueData);
+                const venueData = await fetchData('Venue', Token);
+                console.log('venueData', venueData);
+                setVENUEs(venueData.filter(s => s.status === 1));
 
-                // const podResponse = await fetch('https://localhost:7166/api/Pod');
-                // if (!podResponse.ok) throw new Error('Network response was not ok');
-                // const podData = await podResponse.json();
-                // setPODs(podData);
+                const imageData = await fetchData('Image', Token);
+                console.log('imageData', imageData);
+                setIMAGEs(imageData.filter(s => s.status === 1));
 
-                // const typeResponse = await fetch('https://localhost:7166/api/Type');
-                // if (!typeResponse.ok) throw new Error('Network response was not ok');
-                // const typeData = await typeResponse.json();
-                // setTYPEs(typeData);
+                const fieldData = await fetchData('Field', Token);
+                console.log('fieldData', fieldData);
+                setFIELDs(fieldData.filter(s => s.status === 1));
 
-                // const utilityResponse = await fetch('https://localhost:7166/api/Utility');
-                // if (!utilityResponse.ok) throw new Error('Network response was not ok');
-                // const utilityData = await utilityResponse.json();
-                // setUTILITIes(utilityData);
+                const slotData = await fetchData('Slot', Token);
+                console.log('slotData', slotData);
+                setSLOTs(slotData.filter(s => s.status === 1));
 
-                // const slotResponse = await fetch('https://localhost:7166/api/Slot');
-                // if (!slotResponse.ok) throw new Error('Network response was not ok');
-                // const slotData = await slotResponse.json();
-                // setSLOTs(slotData);
-
-                // const bookingResponse = await fetch('https://localhost:7166/api/Booking');
-                // if (!bookingResponse.ok) throw new Error('Network response was not ok');
-                // const bookingData = await bookingResponse.json();
-                // setBOOKINGs(bookingData);
+                const bookingData = await fetchData('Booking', Token);
+                console.log('bookingData', bookingData);
+                setBOOKINGs(bookingData.filter(s => s.status === 1));
 
                 setLoading(false);
             } catch (error) {
@@ -79,74 +71,73 @@ export default function Venue() {
 
         fetchDataAPI();
     }, []);
-    console.log('API OUTSIDE: ', VENUEs);
 
     // Image
     console.log('venueWithImages');
-    const venueWithImages = VENUEs?.map(venue => {
-        const venueImages = IMAGEs.filter(img => img.VenueId === venue.Id);
+    const venueWithImages = VENUEs.map(venue => {
+        const venueImages = IMAGEs.filter(img => img.venueId === venue.id);
         return {
             ...venue,
-            Images: venueImages
+            images: venueImages
         };
     });
 
     // Type
     console.log('venuesWithTypes');
-    const venuesWithTypes = venueWithImages?.map(venue => {
-        const venueFields = FIELDs.filter(field => field.VenueId === venue.Id);
-        const typeIds = [...new Set(venueFields.map(f => f.TypeId))];
-        const matchedTypes = TYPEs.filter(type => typeIds.includes(type.Id));
+    const venuesWithTypes = venueWithImages.map(venue => {
+        const venueFields = FIELDs.filter(field => field.venueId === venue.id);
+        const typeIds = [...new Set(venueFields.map(f => f.typeId))];
+        const matchedTypes = TYPEs.filter(type => typeIds.includes(type.id));
         const uniqueTypesByName = [];
         const nameSet = new Set();
         for (const type of matchedTypes) {
-            if (!nameSet.has(type.Name)) {
-                nameSet.add(type.Name);
+            if (!nameSet.has(type.name)) {
+                nameSet.add(type.name);
                 uniqueTypesByName.push(type);
             }
         }
         return {
             ...venue,
-            Types: uniqueTypesByName
+            types: uniqueTypesByName
         };
     });
 
     //Rating
     console.log('venuesWithRating');
     const fieldIdToVenueId = {};
-    fields.forEach(field => {
-        fieldIdToVenueId[field.Id] = field.VenueId;
+    FIELDs.forEach(field => {
+        fieldIdToVenueId[field.id] = field.venueId;
     });
     const venueRatings = {};
     BOOKINGs.forEach(booking => {
-        const venueId = fieldIdToVenueId[booking.FieldId];
+        const venueId = fieldIdToVenueId[booking.fieldId];
         if (venueId) {
             if (!venueRatings[venueId]) {
                 venueRatings[venueId] = { total: 0, count: 0 };
             }
-            venueRatings[venueId].total += booking.Rating;
+            venueRatings[venueId].total += booking.rating;
             venueRatings[venueId].count += 1;
         }
     });
-    const venuesWithRating = venuesWithTypes?.map(venue => {
-        const ratingData = venueRatings[venue.Id];
+    const venuesWithRating = venuesWithTypes.map(venue => {
+        const ratingData = venueRatings[venue.id];
         const averageRating = ratingData ? ratingData.total / ratingData.count : null;
         return {
             ...venue,
-            Rating: averageRating
+            rating: averageRating
         };
     });
 
     //Price
     // console.log('venuesWithPrice');
-    const venuesWithPrice = venuesWithRating?.map(venue => {
-        const venueFields = fields.filter(field => field.VenueId === venue.Id);
-        const fieldIds = venueFields.map(f => f.Id);
-        const venueSlots = SLOTs.filter(slot => fieldIds.includes(slot.FieldId));
-        const prices = venueSlots.map(slot => slot.Price);
+    const venuesWithPrice = venuesWithRating.map(venue => {
+        const venueFields = FIELDs.filter(field => field.venueId === venue.id);
+        const fieldIds = venueFields.map(f => f.id);
+        const venueSlots = SLOTs.filter(slot => fieldIds.includes(slot.fieldId));
+        const prices = venueSlots.map(slot => slot.rrice);
         return {
             ...venue,
-            Prices: prices
+            prices: prices
         };
     });
     console.log('venuesWithPrice', venuesWithPrice);
@@ -156,19 +147,19 @@ export default function Venue() {
     const [selectedMaxPrice, setSelectedMaxPrice] = useState({ value: 0, label: '' });
     // const filteredVenues = selectedType
     //     ? venuesWithPrice.filter(venue =>
-    //         venue.Types.some(type => type.Id === Number(selectedType))
+    //         venue.types.some(type => type.id === Number(selectedType))
     //     )
     //     : venuesWithPrice;
 
     // const filteredVenues = venuesWithPrice.filter(venue =>
-    //     venue.Types.some(type => type.Id === Number(selectedType) || !selectedType)
+    //     venue.types.some(type => type.id === Number(selectedType) || !selectedType)
     // );
 
-    const filteredVenues = venuesWithPrice?.filter(venue => {
-        const matchType = !selectedType || venue.Types.some(type => type.Id === Number(selectedType));
+    const filteredVenues = venuesWithPrice.filter(venue => {
+        const matchType = !selectedType || venue.types.some(type => type.id === Number(selectedType));
         const matchPrice = (
-            (!selectedMinPrice || venue.Prices?.some(p => p >= Number(selectedMinPrice.value))) &&
-            (!selectedMaxPrice || venue.Prices?.some(p => p <= Number(selectedMaxPrice.value)))
+            (!selectedMinPrice || venue.prices?.some(p => p >= Number(selectedMinPrice.value))) &&
+            (!selectedMaxPrice || venue.prices?.some(p => p <= Number(selectedMaxPrice.value)))
         );
         return matchType && matchPrice;
     });
@@ -254,10 +245,10 @@ export default function Venue() {
                             value={selectedType}
                             onChange={(e) => setSelectedType(e.target.value)}
                         >
-                            <option value=''>[TYPE]</option>
+                            <option value=''>--Môn thể thao--</option>
                             {TYPEs && TYPEs.map((type) => (
-                                <option key={type.Id} value={type.Id}>
-                                    {type.Name}
+                                <option key={type.id} value={type.id}>
+                                    {type.name}
                                 </option>
                             ))}
                         </select>
@@ -290,9 +281,9 @@ export default function Venue() {
                     />
                     {selectedMaxPrice && <p>You selected max: {selectedMaxPrice.label}</p>}
 
-                    <button type='reset' className='btn' onClick={handleReset}>RESET</button>
+                    <button type='reset' className='btn' onClick={handleReset}>ĐẶT LẠI BỘ LỌC</button>
                 </form>
-                {id ? <Link to={`../user/booking`}><button className='btn'>BOOKED FIELD</button></Link> : <></>}
+                {id ? <Link to={`../user/booking`}><button className='btn'>SÂN ĐÃ ĐẶT</button></Link> : <></>}
             </div>
 
             <div className='booking-pod-container'>
@@ -300,30 +291,30 @@ export default function Venue() {
                 <table className='no-wrap align-middle'>
                     <thead>
                         <tr>
-                            <th className='text-middle'>Index</th>
-                            <th>Image</th>
-                            <th>Name</th>
-                            <th>Type</th>
-                            <th>Contact</th>
-                            <th>Detail</th>
+                            <th className='text-middle'>STT</th>
+                            <th>Ảnh</th>
+                            <th>Thông tin</th>
+                            <th>Bộ môn</th>
+                            <th>Liên hệ</th>
+                            <th>Chi tiết</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredVenues?.length > 0 ? (
+                        {filteredVenues.length > 0 ? (
                             filteredVenues.map((venue, index) => (
                                 <React.Fragment key={index}>
                                     <tr>
                                         <td rowSpan='2' className='text-middle index-td'>{index + 1}</td>
                                         <td className='image'>
-                                            <img src={venue.Images[0]?.Link} alt={venue.Name} />
+                                            <img src={venue.images[0]?.link} alt={venue.name} />
                                         </td>
                                         <td>
-                                            {/* <div>ID: {venue.Id}</div> */}
-                                            <div className='venue-name'>{venue.Name}</div>
-                                            {(venue.Rating && venue.Rating) > 0 ? (
+                                            {/* <div>ID: {venue.id}</div> */}
+                                            <div className='venue-name'>{venue.name}</div>
+                                            {(venue.rating && venue.rating) > 0 ? (
                                                 <div className='half-star'>
-                                                    <span className='rating-value'>{venue.Rating.toFixed(1)}</span>
-                                                    <StarHalfFull Rating={venue.Rating} Size={'1.3em'} Color={'#ffd700'} />
+                                                    <span className='rating-value'>{venue.rating.toFixed(1)}</span>
+                                                    <StarHalfFull Rating={venue.rating} Size={'1.3em'} Color={'#ffd700'} />
                                                 </div>
                                             ) : (
                                                 <>
@@ -331,37 +322,37 @@ export default function Venue() {
                                                 </>
                                             )}
                                             <div>
-                                                {venue.Prices.length ? Math.min(...venue.Prices).toLocaleString('vi-VN') : null} - {venue.Prices.length ? Math.max(...venue.Prices).toLocaleString('vi-VN') : null} VND/slot
+                                                {venue.prices.length ? Math.min(...venue.prices).toLocaleString('vi-VN') : null} - {venue.prices.length ? Math.max(...venue.prices).toLocaleString('vi-VN') : null} VND/slot
                                             </div>
-                                            <button className='btn view-btn' onClick={() => handleVenueShowFeedback(venue.Id)}>View feedback</button>
+                                            <button className='btn view-btn' onClick={() => handleVenueShowFeedback(venue.id)}>View feedback</button>
                                         </td>
                                         <td className='text-middle'>
                                             <div>
-                                                {venue.Types?.map(type => (
-                                                    <div key={type.Id}>{type.Name}</div>
+                                                {venue.types?.map(type => (
+                                                    <div key={type.id}>{type.name}</div>
                                                 ))}
 
                                             </div>
                                         </td>
                                         <td>
-                                            <div>Phone: {venue.Contact}</div>
-                                            <div>Address: {venue.Address}</div>
-                                            <div>Longitude: {venue.Longitude} - Latitude: {venue.Latitude}</div>
+                                            <div>Phone: {venue.contact}</div>
+                                            <div>Address: {venue.address}</div>
+                                            <div>Longitude: {venue.longitude} - Latitude: {venue.latitude}</div>
                                         </td>
                                         <td>
-                                            <Link to={`../../../venue/${venue.Id}`} state={{ venue }}>
+                                            <Link to={`../../../venue/${venue.id}`} state={{ venue }}>
                                                 <button className='btn' >DETAIL</button>
                                             </Link>
                                         </td>
                                     </tr>
-                                    {venue.Id === VenueShowFeedback ?
-                                        <tr className={`box ${venue.Id === VenueShowFeedback ? 'display' : 'hidden'}`}>
+                                    {venue.id === VenueShowFeedback ?
+                                        <tr className={`box ${venue.id === VenueShowFeedback ? 'display' : 'hidden'}`}>
                                             <td colSpan='4'>
                                                 <VenueFeedback Venue={venue} Number={6} />
                                             </td>
                                             <td>
-                                                <Link to={`../../../venue/${venue.Id}`} state={{ venue }}>
-                                                    <button className='btn' >MORE</button>
+                                                <Link to={`../../../venue/${venue.id}`} state={{ venue }}>
+                                                    <button className='btn' >XEM THÊM</button>
                                                 </Link>
                                             </td>
                                         </tr>
