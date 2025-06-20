@@ -164,6 +164,7 @@ CREATE TABLE [Payment] (
     Amount      INT,
     Note        NVARCHAR(255),
     Date        DATETIME,
+    Response    NVARCHAR(255),
     Status      INT,
     BookingId   INT,
     FOREIGN KEY (BookingId) REFERENCES [Booking](Id)
@@ -503,15 +504,15 @@ INSERT INTO [BookingSlot] VALUES (7, 113)
 INSERT INTO [BookingSlot] VALUES (8, 105)
 INSERT INTO [BookingSlot] VALUES (8, 126)
 
---Payment (Method, Amount, Note, Date, Status, BookingId)
-INSERT INTO [Payment] VALUES (N'VNPay', 100000, N'Pay with VNPay method', '2025-06-04 14:30:00', 1, 1)
-INSERT INTO [Payment] VALUES (N'VNPay', 300000, N'Pay with VNPay method', '2025-06-04 14:30:00', 1, 2)
-INSERT INTO [Payment] VALUES (N'VNPay', 520000, N'Pay with VNPay method', '2025-06-04 14:30:00', 1, 3)
-INSERT INTO [Payment] VALUES (N'Momo', 300000, N'Pay with Momo method', '2025-06-04 14:30:00', 1, 4)
-INSERT INTO [Payment] VALUES (N'Momo', 160000, N'Pay with Momo method', '2025-06-04 14:30:00', 1, 5)
-INSERT INTO [Payment] VALUES (N'Momo', 140000, N'Pay with Momo method', '2025-06-04 14:30:00', 1, 6)
-INSERT INTO [Payment] VALUES (N'VNPay', 160000, N'Pay with VNPay method', '2025-06-04 14:30:00', 1, 7)
-INSERT INTO [Payment] VALUES (N'VNPay', 320000, N'Pay with VNPay method', '2025-06-04 14:30:00', 1, 8)
+--Payment (Method, Amount, Note, Date, Response, Status, BookingId)
+INSERT INTO [Payment] VALUES (N'VNPay', 100000, N'Pay with VNPay method', '2025-06-04 14:30:00', N'Đã thanh toán', 1, 1)
+INSERT INTO [Payment] VALUES (N'VNPay', 300000, N'Pay with VNPay method', '2025-06-04 14:30:00', N'Đã thanh toán', 1, 2)
+INSERT INTO [Payment] VALUES (N'VNPay', 520000, N'Pay with VNPay method', '2025-06-04 14:30:00', N'Đã thanh toán', 1, 3)
+INSERT INTO [Payment] VALUES (N'Momo', 300000, N'Pay with Momo method', '2025-06-04 14:30:00', N'Đã thanh toán', 1, 4)
+INSERT INTO [Payment] VALUES (N'Momo', 160000, N'Pay with Momo method', '2025-06-04 14:30:00', N'Đã thanh toán', 1, 5)
+INSERT INTO [Payment] VALUES (N'Momo', 140000, N'Pay with Momo method', '2025-06-04 14:30:00', N'Đã thanh toán', 1, 6)
+INSERT INTO [Payment] VALUES (N'VNPay', 160000, N'Pay with VNPay method', '2025-06-04 14:30:00', N'Đã thanh toán', 1, 7)
+INSERT INTO [Payment] VALUES (N'VNPay', 320000, N'Pay with VNPay method', '2025-06-04 14:30:00', N'Đã thanh toán', 1, 8)
 
 --Chatbox (Name, Status, UserId)
 INSERT INTO [Chatbox] VALUES (N'Supercalifragilisticexpialidocious AI', 1, 1)
