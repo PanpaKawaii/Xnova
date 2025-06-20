@@ -67,23 +67,61 @@ export default function Invitation() {
     const [EndPostingDate, setEndPostingDate] = useState('');
     const [StartTime, setStartTime] = useState('');
     const [EndTime, setEndTime] = useState('');
-    const [MinCost, setMinCost] = useState('');
-    const [MaxCost, setMaxCost] = useState('');
+    const [Time, setTime] = useState('');
+    const [Cost, setCost] = useState('');
     const [IsMine, setIsMine] = useState(false);
 
-    const [Cost, setCost] = useState('');
-    const price = [
-        '0 - 100.000',
-        '100.000 - 200.000',
-        '200.000 - 300.000',
-        '300.000 - 400.000',
+    const times = [
+        '07:00 - 09:00',
+        '09:00 - 11:00',
+        '11:00 - 13:00',
+        '13:00 - 15:00',
+        '15:00 - 17:00',
+        '17:00 - 19:00',
+        '19:00 - 21:00',
+        '21:00 - 23:00',
+        '07:00 - 12:00',
+        '12:00 - 17:00',
+        '17:00 - 22:00',
     ];
 
-    const times = [
-        '07:00:00', '08:00:00', '09:00:00', '10:00:00',
-        '11:00:00', '12:00:00', '13:00:00', '14:00:00',
-        '15:00:00', '16:00:00', '17:00:00', '18:00:00',
-        '19:00:00', '20:00:00', '21:00:00', '22:00:00',
+    const time = [
+        '07:00:00',
+        '08:00:00',
+        '09:00:00',
+        '10:00:00',
+        '11:00:00',
+        '12:00:00',
+        '13:00:00',
+        '14:00:00',
+        '15:00:00',
+        '16:00:00',
+        '17:00:00',
+        '18:00:00',
+        '19:00:00',
+        '20:00:00',
+        '21:00:00',
+        '22:00:00',
+    ];
+
+    const cost = [
+        '0 - 10.000',
+        '10.000 - 20.000',
+        '20.000 - 30.000',
+        '30.000 - 40.000',
+        '40.000 - 50.000',
+        '50.000 - 60.000',
+        '60.000 - 70.000',
+        '70.000 - 80.000',
+        '80.000 - 90.000',
+        '90.000 - 100.000',
+        '0 - 50.000',
+        '50.000 - 100.000',
+        '100.000 - 150.000',
+        // '0 - 100.000',
+        // '100.000 - 200.000',
+        // '200.000 - 300.000',
+        // '300.000 - 400.000',
     ];
 
 
@@ -91,13 +129,11 @@ export default function Invitation() {
         const [start, end] = dates;
         setStartBookingDate(start);
         setEndBookingDate(end);
-        // console.log('7777777777', convertToTimezonePlus7(end));
     };
     const handlePostingDateChange = (dates) => {
         const [start, end] = dates;
         setStartPostingDate(start);
         setEndPostingDate(end);
-        console.log('7777777777', convertToTimezonePlus7(end));
     };
     const convertToTimezonePlus7 = (date) => {
         if (!date) return null;
@@ -136,8 +172,17 @@ export default function Invitation() {
             (!EndPostingDate ||
                 new Date(invitation.PostingDate) <= convertToTimezonePlus7(EndPostingDate));
 
-        const matchTime = (!StartTime || new Date(`1970-01-01 ${invitation.StartTime}`) >= new Date(`1970-01-01 ${StartTime}`)) && (!EndTime || new Date(`1970-01-01 ${invitation.EndTime}`) <= new Date(`1970-01-01 ${EndTime}`));
-        const matchCost = (!MinCost || Number(invitation.JoiningCost) >= Number(MinCost)) && (!MaxCost || Number(invitation.JoiningCost) <= Number(MaxCost));
+        // const matchTime = (!StartTime || new Date(`1970-01-01 ${invitation.StartTime}`) >= new Date(`1970-01-01 ${StartTime}`)) && (!EndTime || new Date(`1970-01-01 ${invitation.EndTime}`) <= new Date(`1970-01-01 ${EndTime}`));
+        const matchTime = !Time || (new Date(`1970-01-01 ${invitation.StartTime}`) >= new Date(`1970-01-01 ${Time.split(' - ')[0]}`) && new Date(`1970-01-01 ${invitation.EndTime}`) <= new Date(`1970-01-01 ${Time.split(' - ')[1]}`));
+        const matchCost = !Cost || (Number(invitation.JoiningCost) >= Number(Cost.split(' - ')[0].replace('.', '')) && Number(invitation.JoiningCost) <= Number(Cost.split(' - ')[1].replace('.', '')));
+
+        // console.log('Time===================');
+        // console.log(new Date(`1970-01-01 ${Time.split(' - ')[0]}`));
+        // console.log(new Date(`1970-01-01 ${invitation.StartTime}`));
+        // console.log(new Date(`1970-01-01 ${Time.split(' - ')[0]}`) <= new Date(`1970-01-01 ${invitation.StartTime}`));
+        // console.log(new Date(`1970-01-01 ${Time.split(' - ')[1]}`));
+        // console.log(new Date(`1970-01-01 ${invitation.EndTime}`));
+        // console.log(new Date(`1970-01-01 ${Time.split(' - ')[1]}`) >= new Date(`1970-01-01 ${invitation.EndTime}`));
 
         return matchSportType && matchStatus && matchBookingDate && matchPostingDate && matchTime && matchCost;
     });
@@ -154,10 +199,10 @@ export default function Invitation() {
         setEndBookingDate('');
         setStartPostingDate('');
         setEndPostingDate('');
-        // setStartTime('');
-        // setEndTime('');
-        // setMinCost('');
-        // setMaxCost('');
+        setStartTime('');
+        setEndTime('');
+        setTime('');
+        setCost('');
     };
 
     // const [inputText, setInputText] = useState("");
@@ -251,7 +296,7 @@ export default function Invitation() {
                         value={SportType}
                         onChange={(e) => setSportType(e.target.value)}
                     >
-                        <option value=''>[MÔN THỂ THAO]</option>
+                        <option value=''>--Môn thể thao--</option>
                         {TYPEs && TYPEs.map((type) => (
                             <option key={type.Id} value={type.Id}>
                                 {type.Name}
@@ -266,7 +311,7 @@ export default function Invitation() {
                         value={Status}
                         onChange={(e) => setStatus(e.target.value)}
                     >
-                        <option value=''>[TRẠNG THÁI]</option>
+                        <option value=''>--Trạng thái--</option>
                         <option value={0}>Đã đủ người</option>
                         <option value={1}>Chưa đủ người</option>
                         <option value={2}>Đã đặt sân</option>
@@ -285,7 +330,7 @@ export default function Invitation() {
                         selectsStart
                         selectsEnd
                         monthsShown={1}
-                        placeholderText='Ngày đặt'
+                        placeholderText='--Ngày đặt--'
                         dateFormat='yyyy-MM-dd'
                     />
                 </div>
@@ -301,7 +346,7 @@ export default function Invitation() {
                         selectsStart
                         selectsEnd
                         monthsShown={1}
-                        placeholderText='Ngày đăng'
+                        placeholderText='--Ngày đăng--'
                         dateFormat='yyyy-MM-dd'
                     />
                 </div>
@@ -312,8 +357,8 @@ export default function Invitation() {
                         value={StartTime}
                         onChange={(e) => setStartTime(e.target.value)}
                     >
-                        <option value=''>[Giờ bắt đầu]</option>
-                        {times.map((time, index) => (
+                        <option value=''>--Giờ bắt đầu--</option>
+                        {time.map((time, index) => (
                             <option key={index} value={time}>
                                 {time}
                             </option>
@@ -326,7 +371,22 @@ export default function Invitation() {
                         value={EndTime}
                         onChange={(e) => setEndTime(e.target.value)}
                     >
-                        <option value=''>[Giờ kết thúc]</option>
+                        <option value=''>--Giờ kết thúc--</option>
+                        {time.map((time, index) => (
+                            <option key={index} value={time}>
+                                {time}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                <div className='form-group form-time'>
+                    <select
+                        className='form-control'
+                        value={Time}
+                        onChange={(e) => setTime(e.target.value)}
+                    >
+                        <option value=''>--Khung giờ--</option>
                         {times.map((time, index) => (
                             <option key={index} value={time}>
                                 {time}
@@ -336,36 +396,13 @@ export default function Invitation() {
                 </div>
 
                 <div className='form-group form-cost'>
-                    <input
-                        type='number'
-                        min={0}
-                        className='form-control'
-                        value={MinCost}
-                        onChange={(e) => setMinCost(e.target.value)}
-                        placeholder='Giá tiền từ'
-                    />
-                </div>
-                <div className='form-group form-cost'>
-                    <input
-                        type='number'
-                        min={0}
-                        className='form-control'
-                        value={MaxCost}
-                        onChange={(e) => setMaxCost(e.target.value)}
-                        placeholder='Giá tiền đến'
-                    />
-                </div>
-
-
-
-                <div className='form-group form-cost'>
                     <select
                         className='form-control'
                         value={Cost}
                         onChange={(e) => setCost(e.target.value)}
                     >
-                        <option value=''>[KHOẢNG GIÁ TIỀN]</option>
-                        {price.map((time, index) => (
+                        <option value=''>--Khoảng tiền--</option>
+                        {cost.map((time, index) => (
                             <option key={index} value={time}>
                                 {time} VND
                             </option>

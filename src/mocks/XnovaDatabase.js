@@ -250,14 +250,14 @@ export const bookingSlots = [
 ];
 
 export const payments = [
-    { Id: 1, Method: 'VNPay', Amount: 100000, Note: 'Pay with VNPay method', Date: '2025-06-04 14:30:00', Status: 1, BookingId: 1 },
-    { Id: 2, Method: 'VNPay', Amount: 300000, Note: 'Pay with VNPay method', Date: '2025-06-04 14:30:00', Status: 1, BookingId: 2 },
-    { Id: 3, Method: 'VNPay', Amount: 520000, Note: 'Pay with VNPay method', Date: '2025-06-04 14:30:00', Status: 1, BookingId: 3 },
-    { Id: 4, Method: 'Momo', Amount: 300000, Note: 'Pay with Momo method', Date: '2025-06-04 14:30:00', Status: 1, BookingId: 4 },
-    { Id: 5, Method: 'Momo', Amount: 160000, Note: 'Pay with Momo method', Date: '2025-06-04 14:30:00', Status: 1, BookingId: 5 },
-    { Id: 6, Method: 'Momo', Amount: 140000, Note: 'Pay with Momo method', Date: '2025-06-04 14:30:00', Status: 1, BookingId: 6 },
-    { Id: 7, Method: 'VNPay', Amount: 160000, Note: 'Pay with VNPay method', Date: '2025-06-04 14:30:00', Status: 1, BookingId: 7 },
-    { Id: 8, Method: 'VNPay', Amount: 320000, Note: 'Pay with VNPay method', Date: '2025-06-04 14:30:00', Status: 1, BookingId: 8 },
+    { Id: 1, Method: 'VNPay', Amount: 100000, Note: 'Pay with VNPay method', Date: '2025-06-04 14:30:00', Response: 'Đã thanh toán', Status: 1, BookingId: 1 },
+    { Id: 2, Method: 'VNPay', Amount: 300000, Note: 'Pay with VNPay method', Date: '2025-06-04 14:30:00', Response: 'Đã thanh toán', Status: 1, BookingId: 2 },
+    { Id: 3, Method: 'VNPay', Amount: 520000, Note: 'Pay with VNPay method', Date: '2025-06-04 14:30:00', Response: 'Đã thanh toán', Status: 1, BookingId: 3 },
+    { Id: 4, Method: 'Momo', Amount: 300000, Note: 'Pay with Momo method', Date: '2025-06-04 14:30:00', Response: 'Đã thanh toán', Status: 1, BookingId: 4 },
+    { Id: 5, Method: 'Momo', Amount: 160000, Note: 'Pay with Momo method', Date: '2025-06-04 14:30:00', Response: 'Đã thanh toán', Status: 1, BookingId: 5 },
+    { Id: 6, Method: 'Momo', Amount: 140000, Note: 'Pay with Momo method', Date: '2025-06-04 14:30:00', Response: 'Đã thanh toán', Status: 1, BookingId: 6 },
+    { Id: 7, Method: 'VNPay', Amount: 160000, Note: 'Pay with VNPay method', Date: '2025-06-04 14:30:00', Response: 'Đã thanh toán', Status: 1, BookingId: 7 },
+    { Id: 8, Method: 'VNPay', Amount: 320000, Note: 'Pay with VNPay method', Date: '2025-06-04 14:30:00', Response: 'Đã thanh toán', Status: 1, BookingId: 8 },
 ];
 
 export const chatboxes = [
