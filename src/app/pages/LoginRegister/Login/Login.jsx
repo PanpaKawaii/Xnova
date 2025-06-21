@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { postData } from '../../../../mocks/CallingAPI.js';
 
 export default function Login({ MoveImage }) {
     console.log('Login');
@@ -31,30 +32,37 @@ export default function Login({ MoveImage }) {
             return;
         }
 
+        const LoginData = {
+            email: Email,
+            password: Password,
+            twoFactorCode: '',
+            twoFactorRecoveryCode: '',
+        };
+        console.log('LoginData:', LoginData);
+
         try {
             setLoading(true);
-            // const typeData = await fetchData('Type');
-            // console.log('typeData', typeData);
-            // setTYPEs(typeData);
+            const result = await postData('Login/authenticate', LoginData);
+            console.log('result', result);
             setLoading(false);
 
-            localStorage.removeItem('token');
-            localStorage.setItem('token', data.token);
-            localStorage.removeItem('UserId');
-            localStorage.setItem('UserId', data.id);
-            localStorage.removeItem('UserRole');
-            localStorage.setItem('UserRole', data.role);
-            localStorage.removeItem('isLogIn');
-            localStorage.setItem('isLogIn', 'true');
+            // localStorage.removeItem('token');
+            // localStorage.setItem('token', data.token);
+            // localStorage.removeItem('UserId');
+            // localStorage.setItem('UserId', data.id);
+            // localStorage.removeItem('UserRole');
+            // localStorage.setItem('UserRole', data.role);
+            // localStorage.removeItem('isLogIn');
+            // localStorage.setItem('isLogIn', 'true');
             // login();
-            if (data.role && data.role === 'User') {
-                navigate('/user/information');
+            if (result.role && result.role === 'Customer') {
+                navigate('/player');
             } else {
                 navigate('/');
             }
         } catch (error) {
             console.log('Đăng nhập thất bại:', error);
-            setLoginError({ value: error, name: error });
+            setLoginError({ value: 'Đăng nhập thất bại', name: 'Email or Password' });
             setLoading(false);
         }
     };
@@ -77,12 +85,12 @@ export default function Login({ MoveImage }) {
             <div className='title'>ĐĂNG NHẬP</div>
             <form onSubmit={handleSubmitLogin}>
                 <div className='form-group form-input'>
-                    <i className={`fa-solid fa-envelope ${LoginError.name == 'Email' && 'invalid-icon'}`}></i>
-                    <input type='email' name='email' placeholder='Email đăng nhập' style={{ border: LoginError.name == 'Email' && '1px solid #dc3545', }} />
+                    <i className={`fa-solid fa-envelope ${LoginError.name.includes('Email') && 'invalid-icon'}`}></i>
+                    <input type='email' name='email' placeholder='Email đăng nhập' style={{ border: LoginError.name.includes('Email') && '1px solid #dc3545', }} />
                 </div>
                 <div className='form-group form-input'>
-                    <i className={`fa-solid fa-key ${LoginError.name == 'Password' && 'invalid-icon'}`}></i>
-                    <input type='password' name='password' placeholder='Mật khẩu đăng nhập' style={{ border: LoginError.name == 'Password' && '1px solid #dc3545', }} />
+                    <i className={`fa-solid fa-key ${LoginError.name.includes('Password') && 'invalid-icon'}`}></i>
+                    <input type='password' name='password' placeholder='Mật khẩu đăng nhập' style={{ border: LoginError.name.includes('Password') && '1px solid #dc3545', }} />
                 </div>
                 <div className='form-check'>
                     <div className='form-remember'>

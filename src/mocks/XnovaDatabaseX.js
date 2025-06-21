@@ -14,9 +14,9 @@ export const users = [
     { Id: 7, Name: 'Trương Kim Hằng', Email: 'truongkimhang@gmail.com', Password: '123456', Image: 'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', Role: 'Customer', Description: 'abc', PhoneNumber: '0123456789', Point: 3000, Type: 'aaaaaaaaaaaaaaaaaaaaaaa', Status: 1 },
     { Id: 8, Name: 'Lê Minh Khoa', Email: 'leminhkhoa@gmail.com', Password: '123456', Image: 'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', Role: 'Customer', Description: 'abc', PhoneNumber: '0123456789', Point: 4000, Type: 'aaaaaaaaaaaaaaaaaaaaaaa', Status: 1 },
 
-    { Id: 6, Name: 'Nguyễn Phương Linh', Email: 'nplinh946@gmail.com', Password: '123456', Image: 'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', Role: 'Admin', Description: 'abc', PhoneNumber: '0123456789', Point: 0, Type: 'aaaaaaaaaaaaaaaaaaaaaaa', Status: 1 },
-    { Id: 7, Name: 'Đặng Thành Phước', Email: 'dangthanhphuoc.11.8@gmail.com', Password: '123456', Image: 'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', Role: 'Owner', Description: 'abc', PhoneNumber: '0123456789', Point: 1000000, Type: 'aaaaaaaaaaaaaaaaaaaaaaa', Status: 1 },
-    { Id: 8, Name: 'Dương Đức An', Email: 'duongducan03@gmail.com', Password: '123456', Image: 'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', Role: 'Customer', Description: 'abc', PhoneNumber: '0123456789', Point: 5000, Type: 'aaaaaaaaaaaaaaaaaaaaaaa', Status: 1 },
+    { Id: 9, Name: 'Nguyễn Phương Linh', Email: 'nplinh946@gmail.com', Password: '123456', Image: 'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', Role: 'Admin', Description: 'abc', PhoneNumber: '0123456789', Point: 0, Type: 'aaaaaaaaaaaaaaaaaaaaaaa', Status: 1 },
+    { Id: 10, Name: 'Đặng Thành Phước', Email: 'dangthanhphuoc.11.8@gmail.com', Password: '123456', Image: 'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', Role: 'Owner', Description: 'abc', PhoneNumber: '0123456789', Point: 1000000, Type: 'aaaaaaaaaaaaaaaaaaaaaaa', Status: 1 },
+    { Id: 11, Name: 'Dương Đức An', Email: 'duongducan03@gmail.com', Password: '123456', Image: 'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', Role: 'Customer', Description: 'abc', PhoneNumber: '0123456789', Point: 5000, Type: 'aaaaaaaaaaaaaaaaaaaaaaa', Status: 1 },
 ];
 
 export const venues = [

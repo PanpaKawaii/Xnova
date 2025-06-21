@@ -63,7 +63,7 @@ const CheckValidation = (Email, Name, Phone, Password, Confirm, Accept) => {
         console.error('Wrong password confirmation');
         return {
             value: 'Mật khẩu xác nhận không khớp',
-            name: 'Password',
+            name: 'Password or Confirm',
         };
     }
     if (Accept === false) {

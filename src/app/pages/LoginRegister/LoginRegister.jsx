@@ -5,6 +5,7 @@ import './LoginRegister.css';
 
 import LoginImage from '../../assets/JellyFish.png';
 import RegisterImage from '../../assets/StarSky.png';
+import Transparent from '../../assets/Transparent.png';
 
 export default function LoginRegister() {
     console.log('Rerender');
@@ -12,7 +13,8 @@ export default function LoginRegister() {
     const moveImage = () => {
         const img = document.getElementById('MovingImage');
         img.style.marginRight = '100%';
-        img.style.background = `url(${RegisterImage}) center`;
+        // img.style.background = `url(${RegisterImage}) center`;
+        img.style.background = `url(${Transparent}) center`;
         img.style.backgroundSize = 'cover';
         img.style.backgroundRepeat = 'no-repeat';
 
@@ -27,7 +29,8 @@ export default function LoginRegister() {
     const moveImageBack = () => {
         const img = document.getElementById('MovingImage');
         img.style.marginRight = '0%';
-        img.style.background = `url(${LoginImage}) center`;
+        // img.style.background = `url(${LoginImage}) center`;
+        img.style.background = `url(${Transparent}) center`;
         img.style.backgroundSize = 'cover';
         img.style.backgroundRepeat = 'no-repeat';
 
@@ -43,7 +46,7 @@ export default function LoginRegister() {
             <div className='card-box'>
                 <Login MoveImage={moveImage} />
                 <Register MoveImage={moveImageBack} />
-                {/* <div className='moving-image' id='MovingImage'></div> */}
+                <div className='moving-image' id='MovingImage'></div>
             </div>
         </div>
     )

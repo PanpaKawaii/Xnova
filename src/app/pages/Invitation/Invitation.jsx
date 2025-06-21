@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 import { fetchData } from '../../../mocks/CallingAPI.js';
 import './Invitation.css';
 
-import { invitation, userInvitation } from '../../../mocks/XnovaDatabaseX.js';
-
 export default function Invitation() {
 
     const [TYPEs, setTYPEs] = useState([]);
@@ -14,8 +12,8 @@ export default function Invitation() {
     const [VENUEs, setVENUEs] = useState([]);
     const [FIELDs, setFIELDs] = useState([]);
     const [BOOKINGs, setBOOKINGs] = useState([]);
-    const [INVITATIONs, setINVITATIONs] = useState(invitation);
-    const [USERINVITATIONs, setUSERINVITATIONs] = useState(userInvitation);
+    const [INVITATIONs, setINVITATIONs] = useState([]);
+    const [USERINVITATIONs, setUSERINVITATIONs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -42,13 +40,13 @@ export default function Invitation() {
                 console.log('bookingData', bookingData);
                 setBOOKINGs(bookingData.filter(s => s.status === 1));
 
-                // const invitationData = await fetchData('Invitation');
-                // console.log('invitationData', invitationData);
-                // setINVITATIONs(invitationData.filter(s => s.status === 1));
+                const invitationData = await fetchData('Invivation');
+                console.log('invitationData', invitationData);
+                setINVITATIONs(invitationData.filter(s => s.status === 1));
 
-                // const userInvitationData = await fetchData('Booking');
-                // console.log('userInvitationData', userInvitationData);
-                // setUSERINVITATIONs(userInvitationData.filter(s => s.status === 1));
+                const userInvitationData = await fetchData('UserInvivation');
+                console.log('userInvitationData', userInvitationData);
+                setUSERINVITATIONs(userInvitationData.filter(s => s.status === 1));
 
                 setLoading(false);
             } catch (error) {
@@ -462,7 +460,7 @@ export default function Invitation() {
                                 :
                                 <div className='note no-note'>Không có ghi chú</div>
                             }
-                            <button disabled className='btn'>THAM GIA</button>
+                            <button disabled={invitation.availablePlayer + invitation.userInvitations?.length >= invitation.totalPlayer} className='btn'>THAM GIA</button>
                         </div>
                     </div>
                 ))}
