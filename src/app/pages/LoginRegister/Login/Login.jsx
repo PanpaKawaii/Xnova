@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { postData } from '../../../../mocks/CallingAPI.js';
+import './Login.css';
 
 export default function Login({ MoveImage }) {
     console.log('Login');
@@ -82,6 +83,9 @@ export default function Login({ MoveImage }) {
 
     return (
         <div className='card-body card-appear' id='card-login'>
+            <div className='bubble bubble-login bubble1'></div>
+            <div className='bubble bubble-login bubble2'></div>
+            <div className='bubble bubble-login bubble3'></div>
             <div className='title'>ĐĂNG NHẬP</div>
             <form onSubmit={handleSubmitLogin}>
                 <div className='form-group form-input'>
@@ -103,15 +107,27 @@ export default function Login({ MoveImage }) {
                     <a href='#' className='forget-link'>Quên mật khẩu?</a>
                 </div>
 
-                {LoginError && <div className='error-message'>{LoginError.value}</div>}
+                {LoginError && <div className='message error-message'>{LoginError.value}</div>}
+                {!LoginError && <div className='message error-message'></div>}
 
-                <div className='btn-box'>
+                <div className='btn-box btn-login'>
                     <button type='submit' className='btn btn-submit'>ĐĂNG NHẬP</button>
                     <button type='reset' className='btn btn-reset' onClick={ResetLoginInputs}>XÓA</button>
                 </div>
-                <hr />
-                <div onClick={() => MoveImage()}>CHƯA CÓ TÀI KHOẢN?</div>
             </form>
+
+            <div className='other-method'>
+                <hr />
+                <div>Phương thức đăng nhập khác</div>
+                <hr />
+            </div>
+
+            <div className='google-method'>Đăng nhập bằng Google</div>
+
+            <div className='link-box'>
+                <div>Chưa có tài khoản?</div>
+                <div className='link' onClick={() => MoveImage()}>Đăng ký ngay!</div>
+            </div>
         </div>
     )
 }

@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import CheckValidation from './CheckValidation';
 import CountdownTimer from './CountdownTimer';
 import { postData } from '../../../../mocks/CallingAPI.js';
+import './Register.css';
 
 export default function Register({ MoveImage }) {
     console.log('Register');
@@ -25,7 +26,7 @@ export default function Register({ MoveImage }) {
         const Validate = CheckValidation(Email, Name, Phone, Password, Confirm, Accept);
         console.log('Validate: ', Validate);
         if (Validate.value != 'OK') {
-            console.log('False');
+            console.log('Validation Is False');
             setRegisterError(Validate);
             setRegisterSuccess('');
             return;
@@ -201,6 +202,9 @@ export default function Register({ MoveImage }) {
 
     return (
         <div className='card-body card-disappear' id='card-register'>
+            <div className='bubble bubble-register bubble1'></div>
+            <div className='bubble bubble-register bubble2'></div>
+            <div className='bubble bubble-register bubble3'></div>
             <div className='title'>ĐĂNG KÝ</div>
             <form ref={formRef} onSubmit={handleSendOTP}>
                 <div className='form-group form-input'>
@@ -253,18 +257,22 @@ export default function Register({ MoveImage }) {
                         Accept={Accept} />
                 </div>
 
-                {RegisterError && <div className='error-message'>{RegisterError.value}</div>}
-                {RegisterSuccess && <div className='success-message'>{RegisterSuccess}</div>}
+                {RegisterError && <div className='message error-message'>{RegisterError.value}</div>}
+                {RegisterSuccess && <div className='message success-message'>{RegisterSuccess}</div>}
+                {!RegisterError && !RegisterSuccess && <div className='message error-message'></div>}
             </form>
 
             <form onSubmit={handleSubmitRegister}>
-                <hr />
-                <div className='btn-box'>
+                <div className='btn-box btn-register'>
                     <button type='submit' className='btn btn-submit'>ĐĂNG KÍ</button>
                     <button type='reset' className='btn btn-reset' onClick={ResetRegisterInputs}>XÓA</button>
                 </div>
-                <div onClick={() => MoveImage()}>ĐÃ CÓ TÀI KHOẢN?</div>
             </form>
+
+            <div className='link-box'>
+                <div className=''>Đã có tài khoản?</div>
+                <div className='link' onClick={() => MoveImage()}>Đăng nhập ngay!</div>
+            </div>
 
             {/* <div>
                 <button
