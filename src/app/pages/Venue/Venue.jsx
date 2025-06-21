@@ -336,7 +336,7 @@ export default function Venue() {
                                         </td>
                                         <td>
                                             <Link to={`../../../venue/${venue.id}`} state={{ venue }}>
-                                                <button className='btn' >DETAIL</button>
+                                                <button className='btn' >CHI TIẾT</button>
                                             </Link>
                                         </td>
                                     </tr>
@@ -345,9 +345,9 @@ export default function Venue() {
                                             <td colSpan='4'>
                                                 <VenueFeedback Venue={venue} Number={6} />
                                             </td>
-                                            <td>
+                                            <td className='text-middle'>
                                                 <Link to={`../../../venue/${venue.id}`} state={{ venue }}>
-                                                    <button className='btn' >XEM THÊM</button>
+                                                    <button className='btn' >THÊM</button>
                                                 </Link>
                                             </td>
                                         </tr>

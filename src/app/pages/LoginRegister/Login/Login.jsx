@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { postData } from '../../../../mocks/CallingAPI.js';
+import { useAuth } from '../../../hooks/AuthContext/AuthContext.jsx';
+import './Login.css';
 
 export default function Login({ MoveImage }) {
     console.log('Login');
@@ -14,7 +16,7 @@ export default function Login({ MoveImage }) {
     };
 
     const navigate = useNavigate();
-    // const { login } = UserAuth();
+    const { login } = useAuth();
 
     const [Remember, setRemember] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -44,17 +46,9 @@ export default function Login({ MoveImage }) {
             setLoading(true);
             const result = await postData('Login/authenticate', LoginData);
             console.log('result', result);
-            setLoading(false);
+            login(result);
 
-            // localStorage.removeItem('token');
-            // localStorage.setItem('token', data.token);
-            // localStorage.removeItem('UserId');
-            // localStorage.setItem('UserId', data.id);
-            // localStorage.removeItem('UserRole');
-            // localStorage.setItem('UserRole', data.role);
-            // localStorage.removeItem('isLogIn');
-            // localStorage.setItem('isLogIn', 'true');
-            // login();
+            setLoading(false);
             if (result.role && result.role === 'Customer') {
                 navigate('/player');
             } else {
@@ -82,17 +76,20 @@ export default function Login({ MoveImage }) {
 
     return (
         <div className='card-body card-appear' id='card-login'>
+            <div className='bubble bubble-login bubble1'></div>
+            <div className='bubble bubble-login bubble2'></div>
+            <div className='bubble bubble-login bubble3'></div>
             <div className='title'>ĐĂNG NHẬP</div>
             <form onSubmit={handleSubmitLogin}>
-                <div className='form-group form-input'>
+                <div className='form-group form-input-login'>
                     <i className={`fa-solid fa-envelope ${LoginError.name.includes('Email') && 'invalid-icon'}`}></i>
                     <input type='email' name='email' placeholder='Email đăng nhập' style={{ border: LoginError.name.includes('Email') && '1px solid #dc3545', }} />
                 </div>
-                <div className='form-group form-input'>
+                <div className='form-group form-input-login'>
                     <i className={`fa-solid fa-key ${LoginError.name.includes('Password') && 'invalid-icon'}`}></i>
                     <input type='password' name='password' placeholder='Mật khẩu đăng nhập' style={{ border: LoginError.name.includes('Password') && '1px solid #dc3545', }} />
                 </div>
-                <div className='form-check'>
+                <div className='form-check form-check-login'>
                     <div className='form-remember'>
                         <label className='label-remember'>
                             <input type='checkbox' id='checkbox-remember' checked={Remember} onChange={handleRemember} />
@@ -103,15 +100,27 @@ export default function Login({ MoveImage }) {
                     <a href='#' className='forget-link'>Quên mật khẩu?</a>
                 </div>
 
-                {LoginError && <div className='error-message'>{LoginError.value}</div>}
+                {LoginError && <div className='message error-message'>{LoginError.value}</div>}
+                {!LoginError && <div className='message error-message'></div>}
 
-                <div className='btn-box'>
+                <div className='btn-box btn-login'>
                     <button type='submit' className='btn btn-submit'>ĐĂNG NHẬP</button>
                     <button type='reset' className='btn btn-reset' onClick={ResetLoginInputs}>XÓA</button>
                 </div>
-                <hr />
-                <div onClick={() => MoveImage()}>CHƯA CÓ TÀI KHOẢN?</div>
             </form>
+
+            <div className='other-method'>
+                <hr />
+                <div>Phương thức đăng nhập khác</div>
+                <hr />
+            </div>
+
+            <div className='google-method'>Đăng nhập bằng Google</div>
+
+            <div className='link-box'>
+                <div>Chưa có tài khoản?</div>
+                <div className='link' onClick={() => MoveImage()}>Đăng ký ngay!</div>
+            </div>
         </div>
     )
 }

@@ -8,15 +8,17 @@ import Home from '../pages/Home/Home'
 import Venue from '../pages/Venue/Venue'
 import VenueDetail from '../pages/Venue/VenueDetail'
 import Invitation from '../pages/Invitation/Invitation'
-import TestPage from '../pages/TestPage';       
+import TestPage from '../pages/TestPage';
+import ScrollToTop from '../hooks/ScrollToTop/useScrollToTop';
 
 export default function MainRoutes() {
     return (
         <BrowserRouter>
+            <ScrollToTop />
             <Header />
             <Routes>
                 <Route path='/test' element={<TestPage />} />
-                <Route path='/' element={<Home />} />   
+                <Route path='/' element={<Home />} />
                 <Route path='/venue' element={<Venue />} />
                 <Route path='/venue/:id' element={<VenueDetail />} />
                 <Route path='/player' element={<Invitation />} />

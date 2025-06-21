@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import CheckValidation from './CheckValidation';
 import CountdownTimer from './CountdownTimer';
 import { postData } from '../../../../mocks/CallingAPI.js';
+import './Register.css';
 
 export default function Register({ MoveImage }) {
     console.log('Register');
@@ -25,7 +26,7 @@ export default function Register({ MoveImage }) {
         const Validate = CheckValidation(Email, Name, Phone, Password, Confirm, Accept);
         console.log('Validate: ', Validate);
         if (Validate.value != 'OK') {
-            console.log('False');
+            console.log('Validation Is False');
             setRegisterError(Validate);
             setRegisterSuccess('');
             return;
@@ -201,31 +202,34 @@ export default function Register({ MoveImage }) {
 
     return (
         <div className='card-body card-disappear' id='card-register'>
+            <div className='bubble bubble-register bubble1'></div>
+            <div className='bubble bubble-register bubble2'></div>
+            <div className='bubble bubble-register bubble3'></div>
             <div className='title'>ĐĂNG KÝ</div>
             <form ref={formRef} onSubmit={handleSendOTP}>
-                <div className='form-group form-input'>
+                <div className='form-group form-input-register'>
                     <i className={`fa-solid fa-envelope ${RegisterError.name.includes('Email') && 'invalid-icon'}`}></i>
                     <input type='email' name='email' placeholder='Email đăng kí' ref={EmailRef} style={{ border: RegisterError.name.includes('Email') && '1px solid #dc3545', }} />
                     {/* <input type='email' name='email' placeholder='Email đăng kí' ref={EmailRef} style={{ border: RegisterError.name.includes('Email') && '1px solid #dc3545', }} /> */}
                 </div>
-                <div className='form-group form-input'>
+                <div className='form-group form-input-register'>
                     <i className={`fa-solid fa-user ${RegisterError.name.includes('Name') && 'invalid-icon'}`}></i>
                     <input type='text' name='name' placeholder='Họ tên' ref={NameRef} style={{ border: RegisterError.name.includes('Name') && '1px solid #dc3545', }} />
                 </div>
-                <div className='form-group form-input'>
+                <div className='form-group form-input-register'>
                     <i className={`fa-solid fa-phone ${RegisterError.name.includes('Phone') && 'invalid-icon'}`}></i>
                     <input type='text' name='phone' placeholder='Số điện thoại' ref={PhoneRef} style={{ border: RegisterError.name.includes('Phone') && '1px solid #dc3545', }} />
                 </div>
-                <div className='form-group form-input'>
+                <div className='form-group form-input-register'>
                     <i className={`fa-solid fa-key ${RegisterError.name.includes('Password') && 'invalid-icon'}`}></i>
                     <input type='password' name='password' placeholder='Mật khẩu đăng kí' ref={PasswordRef} style={{ border: RegisterError.name.includes('Password') && '1px solid #dc3545', }} />
                 </div>
-                <div className='form-group form-input'>
+                <div className='form-group form-input-register'>
                     <i className='fa-solid fa-key dobble-icon'></i>
                     <i className={`fa-solid fa-key ${RegisterError.name.includes('Confirm') && 'invalid-icon'}`}></i>
                     <input type='password' name='confirm' placeholder='Xác nhận mật khẩu' ref={ConfirmRef} style={{ border: RegisterError.name.includes('Confirm') && '1px solid #dc3545', }} />
                 </div>
-                <div className='form-check'>
+                <div className='form-check form-check-register'>
                     <a href='https://docs.google.com/document/d/1gpc5I74B66ldC76mSZsafEXuumeYlhSbV1ocqHCrrR4/edit?tab=t.0' className='provision' target='_blank'><b>ĐIỀU KHOẢN</b></a>
 
                     <div className='form-accept'>
@@ -237,7 +241,7 @@ export default function Register({ MoveImage }) {
                 </div>
 
                 <div className='form-otp'>
-                    <div className='form-group form-input'>
+                    <div className='form-group form-input-register'>
                         <i className={`fa-solid ${RegisterSuccess === 'Đăng kí thành công!' ? 'fa-unlock' : 'fa-lock'} ${RegisterError.name.includes('OTP') && 'invalid-icon'}`}></i>
                         <input min={0} type='number' name='otp' placeholder='Mã OTP' ref={OTPRef} style={{ border: RegisterError.name.includes('OTP') && '1px solid #dc3545', }} />
                         {/* <input disabled={DisabledInput} min={0} type='number' name='otp' value={PinCode} onChange={handlePinChange} placeholder='Mã OTP' style={{ border: RegisterError.name.includes('OTP') && '1px solid #dc3545', }} /> */}
@@ -253,18 +257,22 @@ export default function Register({ MoveImage }) {
                         Accept={Accept} />
                 </div>
 
-                {RegisterError && <div className='error-message'>{RegisterError.value}</div>}
-                {RegisterSuccess && <div className='success-message'>{RegisterSuccess}</div>}
+                {RegisterError && <div className='message error-message'>{RegisterError.value}</div>}
+                {RegisterSuccess && <div className='message success-message'>{RegisterSuccess}</div>}
+                {!RegisterError && !RegisterSuccess && <div className='message error-message'></div>}
             </form>
 
             <form onSubmit={handleSubmitRegister}>
-                <hr />
-                <div className='btn-box'>
+                <div className='btn-box btn-register'>
                     <button type='submit' className='btn btn-submit'>ĐĂNG KÍ</button>
                     <button type='reset' className='btn btn-reset' onClick={ResetRegisterInputs}>XÓA</button>
                 </div>
-                <div onClick={() => MoveImage()}>ĐÃ CÓ TÀI KHOẢN?</div>
             </form>
+
+            <div className='link-box'>
+                <div className=''>Đã có tài khoản?</div>
+                <div className='link' onClick={() => MoveImage()}>Đăng nhập ngay!</div>
+            </div>
 
             {/* <div>
                 <button

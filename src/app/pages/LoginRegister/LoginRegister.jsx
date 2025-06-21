@@ -3,9 +3,10 @@ import Login from './Login/Login';
 import Register from './Register/Register';
 import './LoginRegister.css';
 
-import LoginImage from '../../assets/JellyFish.png';
-import RegisterImage from '../../assets/StarSky.png';
+import LoginImage from '../../assets/Purple.png';
+import RegisterImage from '../../assets/Green.png';
 import Transparent from '../../assets/Transparent.png';
+import JellyFish from '../../assets/JellyFish.png';
 
 export default function LoginRegister() {
     console.log('Rerender');
@@ -13,8 +14,9 @@ export default function LoginRegister() {
     const moveImage = () => {
         const img = document.getElementById('MovingImage');
         img.style.marginRight = '100%';
-        // img.style.background = `url(${RegisterImage}) center`;
-        img.style.background = `url(${Transparent}) center`;
+        img.style.background = `url(${RegisterImage}) center`;
+        // img.style.background = `url(${Transparent}) center`;
+        // img.style.backgroundAttachment = 'fixed';
         img.style.backgroundSize = 'cover';
         img.style.backgroundRepeat = 'no-repeat';
 
@@ -29,8 +31,9 @@ export default function LoginRegister() {
     const moveImageBack = () => {
         const img = document.getElementById('MovingImage');
         img.style.marginRight = '0%';
-        // img.style.background = `url(${LoginImage}) center`;
-        img.style.background = `url(${Transparent}) center`;
+        img.style.background = `url(${LoginImage}) center`;
+        // img.style.background = `url(${Transparent}) center`;
+        // img.style.backgroundAttachment = 'fixed';
         img.style.backgroundSize = 'cover';
         img.style.backgroundRepeat = 'no-repeat';
 
