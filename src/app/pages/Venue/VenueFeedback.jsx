@@ -1,22 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { fetchData } from '../../../mocks/CallingAPI.js';
 import StarRating from '../../components/StarRating.jsx';
 import './VenueFeedback.css';
 
-import { types, users, fields, bookings, slots, bookingSlots } from '../../../mocks/XnovaDatabase.js';
-
 export default function VenueFeedback({ Venue, Number }) {
-    const [USERs, setUSERs] = useState(users);
-    const [FIELDs, setFIELDs] = useState(fields);
-    const [BOOKINGs, setBOOKINGs] = useState(bookings);
+
+    const [USERs, setUSERs] = useState([]);
+    const [FIELDs, setFIELDs] = useState([]);
+    const [BOOKINGs, setBOOKINGs] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchDataAPI = async () => {
+            try {
+                const fieldData = await fetchData('Field');
+                console.log('fieldData', fieldData);
+                setFIELDs(fieldData.filter(s => s.status === 1));
+
+                const userData = await fetchData('User/GetIdAndName');
+                console.log('userData', userData);
+                setUSERs(userData);
+
+                const bookingData = await fetchData('Booking');
+                console.log('bookingData', bookingData);
+                setBOOKINGs(bookingData.filter(s => s.status === 1));
+
+                setLoading(false);
+            } catch (error) {
+                setError(error);
+                setLoading(false);
+            }
+        };
+
+        fetchDataAPI();
+    }, []);
 
     const FilterBookng = BOOKINGs
         .filter(booking => {
-            const field = FIELDs.find(f => f.Id === booking.FieldId);
-            return field && field.VenueId === Venue.Id;
+            const field = FIELDs.find(f => f.id === booking.fieldId);
+            return field && field.venueId === Venue.id;
         })
         .map(booking => {
-            const user = USERs.find(u => u.Id === booking.UserId);
-            const field = FIELDs.find(f => f.Id === booking.FieldId);
+            const user = USERs.find(u => u.id === booking.userId);
+            const field = FIELDs.find(f => f.id === booking.fieldId);
 
             // const slotIds = bookingSlots
             //     .filter(bs => bs.BookingId === booking.Id)
@@ -26,13 +53,13 @@ export default function VenueFeedback({ Venue, Number }) {
 
             return {
                 ...booking,
-                User: user || null,
-                Field: field || null,
+                user: user || null,
+                field: field || null,
                 // Slots: bookingSlotDetails,
             };
         });
 
-    const FeedbackBooking = FilterBookng?.sort((a, b) => new Date(a.Date) - new Date(b.Date)).slice(0, Math.min(Number, FilterBookng.length))
+    const FeedbackBooking = FilterBookng?.sort((a, b) => new Date(a.date) - new Date(b.date)).slice(0, Math.min(Number, FilterBookng.length))
 
     console.log('FeedbackBooking', FeedbackBooking);
 
@@ -42,18 +69,18 @@ export default function VenueFeedback({ Venue, Number }) {
                 FeedbackBooking.map((comment, index) => (
                     <div key={index} className='feedback-col'>
                         <div className='feedback-user'>
-                            <img src={comment.User.Image} alt={comment.User.Name}></img>
+                            <img src={comment.user.image} alt={comment.user.name}></img>
                             <div className='name-date'>
-                                <div className='name'>{comment.User.Name}</div>
-                                <div className='date'>{comment.Date.substring(0, 10)}</div>
+                                <div className='name'>{comment.user.name}</div>
+                                <div className='date'>{comment.date.substring(0, 10)}</div>
                             </div>
                         </div>
-                        <StarRating Rating={comment.Rating} Size={'1em'} Color={'#ffd700'} />
-                        <div className='comment-content'>{comment.Feedback ? comment.Feedback : '(Không có đánh giá)'}</div>
+                        <StarRating Rating={comment.rating} Size={'1em'} Color={'#ffd700'} />
+                        <div className='comment-content'>{comment.feedback ? comment.feedback : '(Không có đánh giá)'}</div>
                     </div>
                 ))
             ) : (
-                <div>No feedback</div>
+                <div>Không có đánh giá nào.</div>
             )}
         </div>
     )

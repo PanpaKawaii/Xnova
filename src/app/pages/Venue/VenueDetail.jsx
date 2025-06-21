@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
-import StarRating from '../../components/StarRating.jsx';
-import StarHalfFull from '../../components/StarHalfFull.jsx';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { fetchData } from '../../../mocks/CallingAPI.js';
 import BackArrow from '../../components/BackArrow.jsx';
+import StarHalfFull from '../../components/StarHalfFull.jsx';
+import StarRating from '../../components/StarRating.jsx';
 import BookingForm from './BookingForm.jsx';
-import VenueFeedback from './VenueFeedback.jsx';
 import './VenueDetail.css';
-
-import { types, images, fields, bookings, slots } from '../../../mocks/XnovaDatabase.js';
+import VenueFeedback from './VenueFeedback.jsx';
 
 export default function VenueDetail() {
 
@@ -38,53 +37,31 @@ export default function VenueDetail() {
     const [IsModalOpen, setIsModalOpen] = useState(false);
 
     // useEffect(() => {
-    //     const UserIdInt = parseInt(UserId, 10);
-    //     const fetchData = async () => {
+    //     const fetchDataAPI = async () => {
     //         try {
-    //             const bookingResponse = await fetch('https://localhost:7166/api/Booking');
-    //             if (!bookingResponse.ok) throw new Error('Network response was not ok');
-    //             const bookingData = await bookingResponse.json();
-    //             setBOOKINGs(bookingData);
-
-    //             const podResponse = await fetch('https://localhost:7166/api/Pod');
-    //             if (!podResponse.ok) throw new Error('Network response was not ok');
-    //             const podData = await podResponse.json();
-    //             setPODs(podData);
-
-    //             const typeResponse = await fetch('https://localhost:7166/api/Type');
-    //             if (!typeResponse.ok) throw new Error('Network response was not ok');
-    //             const typeData = await typeResponse.json();
+    //             const typeData = await fetchData('Type');
+    //             console.log('typeData', typeData);
     //             setTYPEs(typeData);
 
-    //             const utilityResponse = await fetch('https://localhost:7166/api/Utility');
-    //             if (!utilityResponse.ok) throw new Error('Network response was not ok');
-    //             const utilityData = await utilityResponse.json();
-    //             setUTILITIes(utilityData);
+    //             const venueData = await fetchData('Venue');
+    //             console.log('venueData', venueData);
+    //             setVENUEs(venueData.filter(s => s.status === 1));
 
-    //             const slotResponse = await fetch('https://localhost:7166/api/Slot');
-    //             if (!slotResponse.ok) throw new Error('Network response was not ok');
-    //             const slotData = await slotResponse.json();
-    //             setSLOTs(slotData);
+    //             const imageData = await fetchData('Image');
+    //             console.log('imageData', imageData);
+    //             setIMAGEs(imageData.filter(s => s.status === 1));
 
-    //             const storeResponse = await fetch('https://localhost:7166/api/Store');
-    //             if (!storeResponse.ok) throw new Error('Network response was not ok');
-    //             const storeData = await storeResponse.json();
-    //             setSTOREs(storeData);
+    //             const fieldData = await fetchData('Field');
+    //             console.log('fieldData', fieldData);
+    //             setFIELDs(fieldData.filter(s => s.status === 1));
 
-    //             const usersResponse = await fetch('https://localhost:7166/api/User/GetIDandName');
-    //             if (!usersResponse.ok) throw new Error('Network response was not ok');
-    //             const usersData = await usersResponse.json();
-    //             setUSERS(usersData);
+    //             const slotData = await fetchData('Slot');
+    //             console.log('slotData', slotData);
+    //             setSLOTs(slotData.filter(s => s.status === 1));
 
-    //             const userResponse = await fetch(`https://localhost:7166/api/User/${UserIdInt}`, {
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                     'Authorization': `Bearer ${localStorage.getItem('token')}`
-    //                 },
-    //             });
-    //             if (!userResponse.ok) throw new Error('Vui lòng đăng nhập để xem chi tiết');
-    //             const userData = await userResponse.json();
-    //             setUSER(userData);
+    //             const bookingData = await fetchData('Booking');
+    //             console.log('bookingData', bookingData);
+    //             setBOOKINGs(bookingData.filter(s => s.status === 1));
 
     //             setLoading(false);
     //         } catch (error) {
@@ -93,7 +70,7 @@ export default function VenueDetail() {
     //         }
     //     };
 
-    //     fetchData();
+    //     fetchDataAPI();
     // }, []);
 
     // Lấy Id của Pod được chọn
@@ -359,17 +336,17 @@ export default function VenueDetail() {
             <div className='venuedetail-content'>
                 {Venue ? (
                     <>
-                        <div className='venue-name'>{Venue.Name}</div>
+                        <div className='venue-name'>{Venue.name}</div>
                         <div className='images'>
                             <div className='image-1'>
-                                <img src={Venue.Images[0]?.Link} alt={Venue.Name}></img>
+                                <img src={Venue.images[0]?.link} alt={Venue.name}></img>
                             </div>
-                            {Venue.Images[1] && <div className='image-2'>
+                            {Venue.images[1] && <div className='image-2'>
                                 <div className='image-2-1'>
-                                    <img src={Venue.Images[1]?.Link} alt={Venue.Name}></img>
+                                    <img src={Venue.images[1]?.link} alt={Venue.name}></img>
                                 </div>
-                                {Venue.Images[2] && <div className='image-2-2'>
-                                    <img src={Venue.Images[2]?.Link} alt={Venue.Name}></img>
+                                {Venue.images[2] && <div className='image-2-2'>
+                                    <img src={Venue.images[2]?.link} alt={Venue.name}></img>
                                 </div>}
                             </div>}
                         </div>
@@ -384,15 +361,15 @@ export default function VenueDetail() {
                                         <i className='fa-regular fa-heart'></i>Favorite<i className='fa-regular fa-heart'></i>
                                     </div>
                                     <div className='favorite-text'>
-                                        {Venue.Rating ?
+                                        {Venue.rating ?
                                             <div>Khách đánh giá đây là một trong những sân thể thao được yêu thích nhất trên Xnova</div>
                                             :
                                             <div>Đây là một trong những sân thể thao tâm đắc nhất của Xnova</div>
                                         }
                                     </div>
                                     <div className='favorite-rating'>
-                                        {(Venue.Rating && Venue.Rating) > 0 ? (
-                                            <StarHalfFull Rating={Venue.Rating} Size={'1.3em'} Color={'#ffd700'} />
+                                        {(Venue.rating && Venue.rating) > 0 ? (
+                                            <StarHalfFull Rating={Venue.rating} Size={'1.3em'} Color={'#ffd700'} />
                                         ) : (
                                             <div>
                                                 <StarRating Rating={5} Size={'1.3em'} Color={'#ffd700'} />
@@ -521,9 +498,9 @@ export default function VenueDetail() {
                         </div>
 
                         <div className='big-rating'>
-                            {(Venue.Rating && Venue.Rating > 0) ?
+                            {(Venue.rating && Venue.rating > 0) ?
                                 <>
-                                    <div className='rating'>{Venue.Rating.toFixed(1)}<i className='fa-solid fa-star'></i></div>
+                                    <div className='rating'>{Venue.rating.toFixed(1)}<i className='fa-solid fa-star'></i></div>
                                     <div className='text-1'>Được khách hàng yêu thích</div>
                                     <div className='text-2'>Một trong những sân thể thao được yêu thích nhất trên Xnova dựa trên điểm xếp hạng, đánh giá và độ tin cậy</div>
                                 </>

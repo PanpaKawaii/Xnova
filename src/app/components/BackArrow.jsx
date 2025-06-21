@@ -5,7 +5,7 @@ export default function BackArrow() {
     const navigate = useNavigate();
 
     const handleMouseEnter = (e) => {
-        e.target.style.padding = '0 20px 0 0';
+        e.target.style.padding = '0 12px 0 8px';
         e.target.style.transition = 'all 0.2s ease';
     };
 

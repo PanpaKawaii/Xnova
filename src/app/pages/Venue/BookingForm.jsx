@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
 import './BookingForm.css';
 
-import { types, venues, images, fields, bookings, slots } from '../../../mocks/XnovaDatabase.js';
-
 export default function BookingForm({ Venue }) {
 
     const [id, setId] = useState(null);
@@ -14,16 +12,16 @@ export default function BookingForm({ Venue }) {
     }, [UserId]);
     const navigate = useNavigate();
 
-    const [FIELDs, setFIELDs] = useState(fields);
-    const [SLOTs, setSLOTs] = useState(slots);
-    const [BOOKINGs, setBOOKINGs] = useState(bookings);
+    const [FIELDs, setFIELDs] = useState([]);
+    const [SLOTs, setSLOTs] = useState([]);
+    const [BOOKINGs, setBOOKINGs] = useState([]);
 
     // Lấy những Slot có status là Đang hoạt động
     // const activeSLOTs = SLOTs ? SLOTs.filter(slot => slot.Status === 1) : [];
 
     const seen = new Set();
     const AvailableSLOTs = SLOTs.filter(slot => {
-        const field = fields.find(f => f.Id === slot.FieldId);
+        const field = FIELDs.find(f => f.Id === slot.FieldId);
         if (!field || field.VenueId !== Venue.Id) return false;
 
         const key = `${slot.Name}|${slot.StartTime}|${slot.EndTime}|${slot.Price}|${slot.Status}`;
