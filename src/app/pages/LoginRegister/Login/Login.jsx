@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { postData } from '../../../../mocks/CallingAPI.js';
+import { useAuth } from '../../../hooks/AuthContext/AuthContext.jsx';
 import './Login.css';
 
 export default function Login({ MoveImage }) {
@@ -15,7 +16,7 @@ export default function Login({ MoveImage }) {
     };
 
     const navigate = useNavigate();
-    // const { login } = UserAuth();
+    const { login } = useAuth();
 
     const [Remember, setRemember] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -45,17 +46,9 @@ export default function Login({ MoveImage }) {
             setLoading(true);
             const result = await postData('Login/authenticate', LoginData);
             console.log('result', result);
-            setLoading(false);
+            login(result);
 
-            // localStorage.removeItem('token');
-            // localStorage.setItem('token', data.token);
-            // localStorage.removeItem('UserId');
-            // localStorage.setItem('UserId', data.id);
-            // localStorage.removeItem('UserRole');
-            // localStorage.setItem('UserRole', data.role);
-            // localStorage.removeItem('isLogIn');
-            // localStorage.setItem('isLogIn', 'true');
-            // login();
+            setLoading(false);
             if (result.role && result.role === 'Customer') {
                 navigate('/player');
             } else {
@@ -88,15 +81,15 @@ export default function Login({ MoveImage }) {
             <div className='bubble bubble-login bubble3'></div>
             <div className='title'>ĐĂNG NHẬP</div>
             <form onSubmit={handleSubmitLogin}>
-                <div className='form-group form-input'>
+                <div className='form-group form-input-login'>
                     <i className={`fa-solid fa-envelope ${LoginError.name.includes('Email') && 'invalid-icon'}`}></i>
                     <input type='email' name='email' placeholder='Email đăng nhập' style={{ border: LoginError.name.includes('Email') && '1px solid #dc3545', }} />
                 </div>
-                <div className='form-group form-input'>
+                <div className='form-group form-input-login'>
                     <i className={`fa-solid fa-key ${LoginError.name.includes('Password') && 'invalid-icon'}`}></i>
                     <input type='password' name='password' placeholder='Mật khẩu đăng nhập' style={{ border: LoginError.name.includes('Password') && '1px solid #dc3545', }} />
                 </div>
-                <div className='form-check'>
+                <div className='form-check form-check-login'>
                     <div className='form-remember'>
                         <label className='label-remember'>
                             <input type='checkbox' id='checkbox-remember' checked={Remember} onChange={handleRemember} />

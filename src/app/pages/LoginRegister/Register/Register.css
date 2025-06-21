@@ -2,7 +2,7 @@
     .card-box {
         .card-body {
             form {
-                .form-input {
+                .form-input-register {
                     input {
                         &:focus {
                             box-shadow: 0 0 0 4px #0db04b40;
@@ -18,7 +18,9 @@
                     }
                 }
 
-                .form-check {
+                .form-check-register {
+                    margin: 0 0 0 32px;
+
                     .provision {
                         padding: 4px 6px;
                         border-radius: 6px;
@@ -63,7 +65,7 @@
                         }
                     }
 
-                    .form-input {
+                    .form-input-register {
                         flex: 1;
                         margin: 0 0 0 32px;
 

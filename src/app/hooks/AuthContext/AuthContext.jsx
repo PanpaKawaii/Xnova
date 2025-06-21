@@ -1,26 +1,21 @@
 import React, { useEffect, useState, useContext } from 'react';
 
-const initialState = {
-    Id: null,
-    Token: null,
-    Role: null,
-    IsLogIn: localStorage.getItem('IsLogIn'),
-    login: () => { },
-    logout: () => { },
-};
-
-const AuthContext = React.createContext(initialState);
+const AuthContext = React.createContext(null);
 
 export const AuthProvider = ({ children }) => {
 
-    const [Id, setId] = useState(null);
-    const [Token, setToken] = useState(null);
-    const [Role, setRole] = useState(null);
-    const [IsLogIn, setIsLogIn] = useState(localStorage.getItem('IsLogIn'));
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
+    }, []);
 
     useEffect(() => {
         const handleStorageChange = (event) => {
-            if (event.key === 'IsLogIn' && (event.newValue === 'false' || event.newValue === 'true' || event.newValue === null)) {
+            if (event.key === 'user') {
                 // window.location.reload();
                 window.location.href = '/';
             }
@@ -31,42 +26,31 @@ export const AuthProvider = ({ children }) => {
         return () => {
             window.removeEventListener('storage', handleStorageChange);
         };
-    }, [IsLogIn]);
+    }, [user]);
 
-    useEffect(() => {
-        const UserId = localStorage.getItem('UserId');
-        const Token = localStorage.getItem('Token');
-        const UserRole = localStorage.getItem('UserRole');
-
-        setId(UserId);
-        setToken(Token);
-        setRole(UserRole);
-    }, [IsLogIn]);
-
-    const login = () => {
-        console.log('login');
-        localStorage.removeItem('IsLogIn');
-        localStorage.setItem('IsLogIn', 'true');
-        setIsLogIn(true);
+    const login = (userData) => {
+        localStorage.setItem('user', JSON.stringify(userData));
+        setUser(userData);
     };
 
     const logout = () => {
-        console.log('logout');
-        localStorage.removeItem('Token');
-        localStorage.removeItem('UserId');
-        localStorage.removeItem('UserRole');
-        localStorage.removeItem('IsLogIn');
-        localStorage.setItem('IsLogIn', 'false');
-        setIsLogIn(false);
+        localStorage.removeItem('user');
+        setUser(null);
+    };
+
+    const authContextValue = {
+        user,
+        login,
+        logout
     };
 
     return (
-        <AuthContext.Provider value={{ login, logout, Id, Token, Role, IsLogIn }}>
+        <AuthContext.Provider value={authContextValue}>
             {children}
         </AuthContext.Provider>
     );
 }
 
-export const UserAuth = () => {
+export const useAuth = () => {
     return useContext(AuthContext)
 }

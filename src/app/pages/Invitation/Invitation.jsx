@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Link } from 'react-router-dom';
 import { fetchData } from '../../../mocks/CallingAPI.js';
+import { useAuth } from '../../hooks/AuthContext/AuthContext.jsx';
 import './Invitation.css';
 
 export default function Invitation() {
@@ -16,6 +17,8 @@ export default function Invitation() {
     const [USERINVITATIONs, setUSERINVITATIONs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    const { user } = useAuth();
 
     useEffect(() => {
         const fetchDataAPI = async () => {
@@ -144,10 +147,6 @@ export default function Invitation() {
         '0 - 50.000',
         '50.000 - 100.000',
         '100.000 - 150.000',
-        // '0 - 100.000',
-        // '100.000 - 200.000',
-        // '200.000 - 300.000',
-        // '300.000 - 400.000',
     ];
 
 
@@ -200,6 +199,7 @@ export default function Invitation() {
 
         const matchTime = (!StartTime || new Date(`1970-01-01 ${invitation.startTime}`) >= new Date(`1970-01-01 ${StartTime}`)) && (!EndTime || new Date(`1970-01-01 ${invitation.endTime}`) <= new Date(`1970-01-01 ${EndTime}`));
         const matchCost = !Cost || (Number(invitation.joiningCost) >= Number(Cost.split(' - ')[0].replace('.', '')) && Number(invitation.joiningCost) <= Number(Cost.split(' - ')[1].replace('.', '')));
+        const matchMine = !IsMine || (IsMine && Number(invitation.userId) === Number(user?.id));
 
         // console.log('Time===================');
         // console.log(new Date(`1970-01-01 ${Time.split(' - ')[0]}`));
@@ -209,7 +209,7 @@ export default function Invitation() {
         // console.log(new Date(`1970-01-01 ${invitation.EndTime}`));
         // console.log(new Date(`1970-01-01 ${Time.split(' - ')[1]}`) >= new Date(`1970-01-01 ${invitation.EndTime}`));
 
-        return matchSportType && matchStatus && matchBookingDate && matchPostingDate && matchTime && matchCost;
+        return matchSportType && matchStatus && matchBookingDate && matchPostingDate && matchTime && matchCost && matchMine;
     });
     console.log('filteredInvitations', filteredInvitations);
 

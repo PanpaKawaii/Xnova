@@ -2,7 +2,7 @@
     .card-box {
         .card-body {
             form {
-                .form-input {
+                .form-input-login {
                     input {
                         &:focus {
                             box-shadow: 0 0 0 4px #9349d540;
@@ -11,7 +11,7 @@
                     }
                 }
 
-                .form-check {
+                .form-check-login {
                     .forget-link {
                         color: #007bff;
                         font-weight: bold;
