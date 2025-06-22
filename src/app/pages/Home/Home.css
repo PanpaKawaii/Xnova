@@ -1,0 +1,192 @@
+.home-page {
+    width: 100%;
+    font-family: 'Quicksand', Arial, sans-serif;
+    background: #f7f7f7;
+}
+
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    z-index: 2;
+}
+
+.hero-slogan {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+}
+
+.cta-btn {
+    background: #1e90ff;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    padding: 0.8rem 2.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(30,144,255,0.2);
+    transition: background 0.2s;
+}
+.cta-btn:hover {
+    background: #1565c0;
+}
+
+section {
+    margin: 40px auto;
+    max-width: 1200px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    padding: 32px 24px;
+}
+
+section h2 {
+    font-size: 2rem;
+    margin-bottom: 24px;
+    color: #1e90ff;
+}
+
+.featured-venues-placeholder,
+.sports-types-placeholder,
+.blog-placeholder,
+.reviews-placeholder {
+    color: #aaa;
+    font-size: 1.1rem;
+    padding: 32px;
+    text-align: center;
+    border: 2px dashed #e0e0e0;
+    border-radius: 12px;
+    background: #fafbfc;
+}
+
+.benefits-list {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+/* Introduce Section Styles */
+.introduce-section {
+    margin: 60px auto;
+    max-width: 1200px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    padding: 48px 32px;
+    color: white;
+}
+
+.introduce-content {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.introduce-text {
+    flex: 1;
+}
+
+.introduce-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 24px;
+    color: white;
+    font-weight: 700;
+}
+
+.introduce-text p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    opacity: 0.95;
+}
+
+.introduce-features {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.feature-icon {
+    font-size: 1.5rem;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.introduce-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.introduce-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+.introduce-image img:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 800px) {
+    .hero-slogan { font-size: 1.5rem; }
+    section { padding: 18px 6px; }
+    .benefits-list { flex-direction: column; gap: 12px; }
+    
+    .introduce-content {
+        flex-direction: column;
+        gap: 32px;
+        text-align: center;
+    }
+    
+    .introduce-text h2 {
+        font-size: 2rem;
+    }
+    
+    .introduce-section {
+        margin: 40px auto;
+        padding: 32px 24px;
+    }
+    
+    .feature-item {
+        justify-content: center;
+    }
+}

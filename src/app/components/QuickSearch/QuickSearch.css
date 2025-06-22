@@ -1,8 +1,8 @@
 .quicksearch-container {
-    background-color: #28a74540;
+    background-color: #e4e5c940;
     width: 600px;
     height: 400px;
     align-content: center;
     text-align: center;
-
+    border-radius: 2cap;
 }
