@@ -13,11 +13,11 @@
 
                 .form-check-login {
                     .forget-link {
-                        color: #007bff;
+                        color: #9349d5;
                         font-weight: bold;
 
                         &:hover {
-                            color: #005bbd;
+                            color: #7028af;
                         }
                     }
                 }

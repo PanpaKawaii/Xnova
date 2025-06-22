@@ -69,7 +69,7 @@ const CheckValidation = (Email, Name, Phone, Password, Confirm, Accept) => {
     if (Accept === false) {
         console.error('Accept is false');
         return {
-            value: 'Bạn phải đồng ý điều khoản',
+            value: 'Bạn chưa đồng ý điều khoản',
             name: 'Accept',
         };
     }

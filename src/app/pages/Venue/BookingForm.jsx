@@ -10,6 +10,7 @@ export default function BookingForm({ Venue }) {
     const { user } = useAuth();
     const navigate = useNavigate();
 
+    const [TYPEs, setTYPEs] = useState([]);
     const [FIELDs, setFIELDs] = useState([]);
     const [SLOTs, setSLOTs] = useState([]);
     const [BOOKINGs, setBOOKINGs] = useState([]);
@@ -20,6 +21,9 @@ export default function BookingForm({ Venue }) {
         const token = user?.token;
         const fetchDataAPI = async () => {
             try {
+                const typeData = await fetchData('Type', token);
+                setTYPEs(typeData);
+
                 const fieldData = await fetchData('Field', token);
                 setFIELDs(fieldData.filter(s => s.status === 1 && s.venueId === Venue.id));
 
@@ -39,10 +43,11 @@ export default function BookingForm({ Venue }) {
         fetchDataAPI();
     }, [user]);
 
-    const [SelectedSlots, setSelectedSlots] = useState([]);
     const [SelectedDate, setSelectedDate] = useState(new Date());
+    const [SportType, setSportType] = useState('');
 
-    const handleChange = (e) => {
+    const [SelectedSlots, setSelectedSlots] = useState([]);
+    const handleChangeSlot = (e) => {
         const value = Number(e.target.value);
 
         if (e.target.checked) {
@@ -51,6 +56,14 @@ export default function BookingForm({ Venue }) {
             setSelectedSlots((prev) => prev.filter((v) => v !== value));
         }
     };
+
+    const [Amount, setAmount] = useState(0);
+    useEffect(() => {
+        const TotalPrice = SLOTs
+            .filter(slot => SelectedSlots.includes(slot.id))
+            .reduce((sum, slot) => sum + slot.price, 0);
+        setAmount(TotalPrice);
+    }, [SelectedSlots]);
 
     const seen = new Set();
     const AvailableSLOTs = SLOTs.filter(slot => {
@@ -64,7 +77,7 @@ export default function BookingForm({ Venue }) {
         return true;
     });
 
-    const BookField = async (payment, field, date, slots) => {
+    const BookField = async (payment, field, date, slots, amount) => {
 
         const BookingData = {
             id: 0,
@@ -102,7 +115,7 @@ export default function BookingForm({ Venue }) {
                     orderId: result.id,
                     fullname: 'user?.name',
                     description: payment,
-                    amount: 100000,
+                    amount: amount,
                     status: 'Chưa thanh toán',
                     method: 'VNPay',
                     createdDate: new Date(new Date().getTime() + 7 * 60 * 60 * 1000).toISOString(),
@@ -171,40 +184,115 @@ export default function BookingForm({ Venue }) {
         const Field = Number(e.target.field.value);
         const Date = e.target.date.value;
         const Slots = [...SelectedSlots];
-        BookField(Payment, Field, Date, Slots);
+        // console.log({ Payment, Field, Date, Slots, Amount });
+        BookField(Payment, Field, Date, Slots, Amount);
         // setIsPopupOpen(true);
         // window.location.href = '#popupConfirm';
     };
 
-
-
-    const [Amount, setAmount] = useState(0);
-
-
-    const currentDate = new Date();
-    const [date, setDate] = useState(new Date(new Date().getTime() + 7 * 60 * 60 * 1000).toISOString().substring(0, 10));
-    const [SlotId, setSlotId] = useState('');
-
-
     const [bookingsHaveTheSameDateAndSlot, setBookingsHaveTheSameDateAndSlot] = useState(null);
-
-
-
-
 
     return (
         <div className='bookingform-container'>
             <div className='payment-card'>
                 <div className='card'>
-                    <div className='payment-card-title'>
-                        {AvailableSLOTs[0]?.price?.toLocaleString('vi-VN')} VND
-                    </div>
+                    <div className='payment-card-title'>Bảng đặt sân</div>
                     {user ?
                         <form onSubmit={handleBookField}>
+                            <div className='form-date-type'>
+                                <div className='form-group form-date'>
+                                    <input
+                                        type='date'
+                                        name='date'
+                                        value={SelectedDate}
+                                        onChange={(e) => setSelectedDate(e.target.value)}
+                                    />
+                                </div>
+
+                                {/* <div className='form-group form-date'>
+                                    <DatePicker
+                                        selected={SelectedDate}
+                                        name='date'
+                                        onChange={(date) => setSelectedDate(date)}
+                                        dateFormat='yyyy-MM-dd'
+                                        placeholderText='Chọn ngày'
+                                    />
+                                </div> */}
+
+                                <div className='form-group form-type'>
+                                    <select
+                                        className='form-control'
+                                        value={SportType}
+                                        onChange={(e) => setSportType(e.target.value)}
+                                    >
+                                        <option value=''>--Môn thể thao--</option>
+                                        {TYPEs && TYPEs.map((type) => (
+                                            <option key={type.id} value={type.id}>
+                                                {type.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+
+                            {SelectedDate &&
+                                <>
+                                    <div className='form-group form-field'>
+                                        <select
+                                            name='field'
+                                            className='form-control'
+                                        >
+                                            {FIELDs && FIELDs.map((field) => (
+                                                <option key={field.id} value={field.id}>
+                                                    {field.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+
+                                    {/* <div className='form-group row'>
+                                {AvailableSLOTs.map((slot, index) => (
+                                    <div key={index} className='col'>
+                                        <div className='name'>{`[${slot.name}] ${slot.startTime.substring(0, 5)} - ${slot.endTime.substring(0, 5)}`}</div>
+                                        <div className='price'>{slot.price.toLocaleString('vi-VN')} VND</div>
+                                    </div>
+                                ))}
+                            </div> */}
+
+                                    <div className='form-group form-slot'>
+                                        {AvailableSLOTs.map((slot) => (
+                                            <label key={slot.id} className='radio-label'>
+                                                <input
+                                                    type='checkbox'
+                                                    name='choice'
+                                                    value={slot.id}
+                                                    onChange={handleChangeSlot}
+                                                    className='hidden-radio'
+                                                />
+                                                <div className={`radio-box`}>
+                                                    <div className='name'>{`[${slot.name}] ${slot.startTime.substring(0, 5)} - ${slot.endTime.substring(0, 5)}`}</div>
+                                                    <div className='price'>{slot.price.toLocaleString('vi-VN')} VND</div>
+                                                </div>
+                                            </label>
+                                        ))}
+                                    </div>
+                                    <div>Đã chọn: {SelectedSlots.join(', ')}</div>
+
+                                    <div className='form-group form-payment'>
+                                        <select
+                                            name='payment'
+                                            className='form-control'
+                                        >
+                                            <option value='Thanh toán qua VNPay'>Thanh toán qua VNPay</option>
+                                            <option value='Thanh toán bằng tiền mặt'>Thanh toán bằng tiền mặt</option>
+                                        </select>
+                                    </div>
+                                </>
+                            }
 
                             <div>
                                 {(() => {
-                                    const selectedDate = new Date(date);
+                                    const selectedDate = new Date(SelectedDate);
                                     const currentDate = new Date();
                                     currentDate.setHours(0, 0, 0, 0);
 
@@ -220,81 +308,14 @@ export default function BookingForm({ Venue }) {
                                                 Đặt phòng chỉ có thể đặt trong vòng 30 ngày tới.
                                             </div>
                                         );
-                                    }
-                                    return null;
+                                    } else return null;
                                 })()}
                             </div>
-
-                            <DatePicker
-                                selected={SelectedDate}
-                                name='date'
-                                onChange={(date) => setSelectedDate(date)}
-                                dateFormat='yyyy-MM-dd'
-                                placeholderText='Chọn ngày'
-                            />
-
-                            <div className='form-group form-field'>
-                                <select
-                                    name='field'
-                                    className='form-control'
-                                >
-                                    {FIELDs && FIELDs.map((field) => (
-                                        <option key={field.id} value={field.id}>
-                                            {field.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-
-                            <div className='form-group row'>
-                                {AvailableSLOTs.map((slot, index) => (
-                                    <div key={index} className='col'>
-                                        <div className='name'>{`[${slot.name}] ${slot.startTime.substring(0, 5)} - ${slot.endTime.substring(0, 5)}`}</div>
-                                        <div className='price'>{slot.price.toLocaleString('vi-VN')} VND</div>
-                                    </div>
-                                ))}
-                            </div>
-
-                            <div className='form-group form-payment'>
-                                <select
-                                    name='payment'
-                                    className='form-control'
-                                >
-                                    <option value='Thanh toán qua VNPay'>Thanh toán qua VNPay</option>
-                                    <option value='Thanh toán bằng tiền mặt'>Thanh toán bằng tiền mặt</option>
-                                </select>
-                            </div>
-
-
-
-                            <div className='answer-group'>
-                                {AvailableSLOTs.map((slot) => (
-                                    <label key={slot.id} className='radio-label'>
-                                        <input
-                                            type='checkbox'
-                                            name='choice'
-                                            value={slot.id}
-                                            onChange={handleChange}
-                                            className='hidden-radio'
-                                        />
-                                        <div
-                                            className={
-                                                `radio-box ${true ? 'correct-answer'
-                                                    : (false ? 'incorrect-answer'
-                                                        : '')
-                                                }`
-                                            }
-                                        >{slot.name}</div>
-                                    </label>
-                                ))}
-                            </div>
-                            <p>Đã chọn: {SelectedSlots.join(', ')}</p>
 
                             <button type='submit' className='btn'>CHỌN</button>
 
                             <div>Tổng: {Amount.toLocaleString('vi-VN')} VND</div>
-                            {/* <h2><b>Tổng 2: <span style={{ color: '#ee4f2e' }}>{(SlotId.length * AvailableSLOTs[0].price).toLocaleString('vi-VN')}đ</span></b></h2> */}
-                            {bookingsHaveTheSameDateAndSlot && bookingsHaveTheSameDateAndSlot.length !== 0 && <div style={{ color: '#ff0000' }}>Slot không khả dụng</div>}
+                            {bookingsHaveTheSameDateAndSlot && bookingsHaveTheSameDateAndSlot.length !== 0 && <div>Slot không khả dụng</div>}
                             {bookingsHaveTheSameDateAndSlot && bookingsHaveTheSameDateAndSlot.length === 0 &&
                                 SlotId.length > 0 &&
                                 new Date(date) >= new Date().setHours(0, 0, 0, 0) &&

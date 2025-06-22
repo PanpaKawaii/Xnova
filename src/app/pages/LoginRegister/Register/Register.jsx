@@ -257,9 +257,9 @@ export default function Register({ MoveImage }) {
                         Accept={Accept} />
                 </div>
 
-                {RegisterError && <div className='message error-message'>{RegisterError.value}</div>}
+                {RegisterError.value && <div className='message error-message'>{RegisterError.value}</div>}
                 {RegisterSuccess && <div className='message success-message'>{RegisterSuccess}</div>}
-                {!RegisterError && !RegisterSuccess && <div className='message error-message'></div>}
+                {!RegisterError.value  && !RegisterSuccess && <div className='message'></div>}
             </form>
 
             <form onSubmit={handleSubmitRegister}>
