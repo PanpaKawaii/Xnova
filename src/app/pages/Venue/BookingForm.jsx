@@ -1,205 +1,309 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams, useNavigate, useLocation } from 'react-router-dom';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { Link, useNavigate } from 'react-router-dom';
+import { fetchData, postData } from '../../../mocks/CallingAPI.js';
+import { useAuth } from '../../hooks/AuthContext/AuthContext.jsx';
 import './BookingForm.css';
 
 export default function BookingForm({ Venue }) {
-
-    const [id, setId] = useState(null);
-    const UserId = localStorage.getItem('UserId');
-    useEffect(() => {
-        const UserIdInt = parseInt(UserId, 10);
-        setId(UserIdInt);
-    }, [UserId]);
+    const { user } = useAuth();
     const navigate = useNavigate();
 
     const [FIELDs, setFIELDs] = useState([]);
     const [SLOTs, setSLOTs] = useState([]);
     const [BOOKINGs, setBOOKINGs] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    // Lấy những Slot có status là Đang hoạt động
-    // const activeSLOTs = SLOTs ? SLOTs.filter(slot => slot.Status === 1) : [];
+    useEffect(() => {
+        const token = user?.token;
+        const fetchDataAPI = async () => {
+            try {
+                const fieldData = await fetchData('Field', token);
+                setFIELDs(fieldData.filter(s => s.status === 1 && s.venueId === Venue.id));
+
+                const slotData = await fetchData('Slot', token);
+                setSLOTs(slotData.filter(s => s.status === 1));
+
+                const bookingData = await fetchData('Booking', token);
+                setBOOKINGs(bookingData.filter(s => s.status === 1));
+
+                setLoading(false);
+            } catch (error) {
+                setError(error);
+                setLoading(false);
+            }
+        };
+
+        fetchDataAPI();
+    }, [user]);
+
+    const [SelectedSlots, setSelectedSlots] = useState([]);
+    const [SelectedDate, setSelectedDate] = useState(new Date());
+
+    const handleChange = (e) => {
+        const value = Number(e.target.value);
+
+        if (e.target.checked) {
+            setSelectedSlots((prev) => [...prev, value]);
+        } else {
+            setSelectedSlots((prev) => prev.filter((v) => v !== value));
+        }
+    };
 
     const seen = new Set();
     const AvailableSLOTs = SLOTs.filter(slot => {
-        const field = FIELDs.find(f => f.Id === slot.FieldId);
-        if (!field || field.VenueId !== Venue.Id) return false;
+        const field = FIELDs.find(f => f.id === slot.fieldId);
+        if (!field || field.venueId !== Venue.id) return false;
 
-        const key = `${slot.Name}|${slot.StartTime}|${slot.EndTime}|${slot.Price}|${slot.Status}`;
+        const key = `${slot.name}|${slot.startTime}|${slot.endTime}|${slot.price}|${slot.status}`;
         if (seen.has(key)) return false;
 
         seen.add(key);
         return true;
     });
 
-    const handleBooking = async (e) => {
-        e.preventDefault();
-        setIsPopupOpen(true);
+    const BookField = async (payment, field, date, slots) => {
 
-        const fetchMaxID = async () => {
-            try {
-                const bookingResponse = await fetch('https://localhost:7166/api/Booking');
-                if (!bookingResponse.ok) throw new Error('Network response was not ok');
-                const bookingData = await bookingResponse.json();
-                const MaxBookingID = bookingData.reduce((max, booking) => Math.max(max, booking.id), 0);
-                setMaxBookingID(MaxBookingID);
-                console.log('Max Booking ID:', MaxBookingID);
-
-                const paymentResponse = await fetch('https://localhost:7166/api/Payment');
-                if (!paymentResponse.ok) throw new Error('Network response was not ok');
-                const paymentData = await paymentResponse.json();
-                const MaxPaymentID = paymentData.reduce((max, payment) => Math.max(max, payment.id), 0);
-                setMaxPaymentID(MaxPaymentID);
-                console.log('Max Payment ID:', MaxPaymentID);
-
-            } catch (error) {
-                console.error('Error fetching bookings and payments:', error);
-            }
+        const BookingData = {
+            id: 0,
+            date: date,
+            rating: 0,
+            feedback: '',
+            currentDate: new Date(),
+            status: 2,
+            userId: user.id,
+            fieldId: field,
+            slotIds: slots,
         };
-        await fetchMaxID();
+        console.log('BookingData:', BookingData);
 
-        console.log({ date, SlotId, IsPopupOpen, Confirm, selectedPaymentMethod });
-        window.location.href = '#popupConfirm';
+        const token = user?.token;
+        try {
+            const result = await postData('Booking', BookingData, token);
+            console.log('result', result);
+
+            if (result.id) {
+                for (let index = 0; index < slots.length; index++) {
+                    const BookingSlotData = {
+                        id: 0,
+                        bookingId: result.id,
+                        slotId: slots[index],
+                    }
+                    console.log('BookingSlotData:', BookingSlotData);
+
+                    const resultBookingSlot = await postData('BookingSlot', BookingSlotData, token);
+                    console.log('resultBookingSlot', resultBookingSlot);
+                }
+
+                const PaymentMethodData = {
+                    id: 0,
+                    orderId: result.id,
+                    fullname: 'user?.name',
+                    description: payment,
+                    amount: 100000,
+                    status: 'Chưa thanh toán',
+                    method: 'VNPay',
+                    createdDate: new Date(new Date().getTime() + 7 * 60 * 60 * 1000).toISOString(),
+                };
+                console.log('PaymentMethodData:', PaymentMethodData);
+
+                const resultPaymentMethod = await postData('Payment/create', PaymentMethodData, token);
+                console.log('resultPaymentMethod', resultPaymentMethod);
+                window.location.href = resultPaymentMethod.paymentUrl;
+            }
+        } catch (error) {
+            setError(error);
+        }
+
+        // const CashPaymentData = {
+        //     id: 0,
+        //     method: payment,
+        //     amount: Amount,
+        //     date: new Date(),
+        //     status: 2,
+        //     bookingId: 0,
+        // };
+        // console.log('CashPaymentData:', CashPaymentData);
+
+        // if (payment === 'Thanh toán bằng tiền mặt') {
+        //     try {
+        //         const response = await fetch('https://localhost:7166/api/Payment', {
+        //             method: 'POST',
+        //             headers: {
+        //                 'Content-Type': 'application/json',
+        //                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        //             },
+        //             body: JSON.stringify(paymentData),
+        //         });
+
+        //         if (!response.ok) throw new Error('Network response was not ok');
+        //         const result = await response.json();
+        //         console.log('Creating Payment successful:', result);
+        //     } catch (error) {
+        //         console.error('Error during booking:', error);
+        //     }
+        // } else {
+        //     try {
+        //         const response = await fetch('https://localhost:7166/api/Payment/create', {
+        //             method: 'POST',
+        //             headers: {
+        //                 'Content-Type': 'application/json',
+        //                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        //             },
+        //             body: JSON.stringify(paymentMethodData),
+        //         });
+
+        //         if (!response.ok) throw new Error('Network response was not ok');
+        //         const result = await response.json();
+        //         console.log('Creating PaymentMethod successful:', result);
+        //         window.location.href = result.paymentUrl;
+        //     } catch (error) {
+        //         console.error('Error during booking:', error);
+        //     }
+        // }
+    };
+
+    const handleBookField = async (e) => {
+        e.preventDefault();
+        const Payment = e.target.payment.value;
+        const Field = Number(e.target.field.value);
+        const Date = e.target.date.value;
+        const Slots = [...SelectedSlots];
+        BookField(Payment, Field, Date, Slots);
+        // setIsPopupOpen(true);
+        // window.location.href = '#popupConfirm';
     };
 
 
 
     const [Amount, setAmount] = useState(0);
-    const [IsPopupOpen, setIsPopupOpen] = useState(false);
-    const [IsQROpen, setIsQROpen] = useState(false);
+
 
     const currentDate = new Date();
-    const [MaxBookingID, setMaxBookingID] = useState(null);
-    const [MaxPaymentID, setMaxPaymentID] = useState(null);
     const [date, setDate] = useState(new Date(new Date().getTime() + 7 * 60 * 60 * 1000).toISOString().substring(0, 10));
     const [SlotId, setSlotId] = useState('');
-    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('Thanh toán qua VNPay');
-    const [Confirm, setConfirm] = useState(false);
+
 
     const [bookingsHaveTheSameDateAndSlot, setBookingsHaveTheSameDateAndSlot] = useState(null);
 
-    // Những Slot được chọn từ AvailableSLOTs
-    const selectedSlots = AvailableSLOTs ? AvailableSLOTs.filter(slot => SlotId.includes(slot.Id)) : [];
-    // Những Booking có cùng Date được chọn (Không bao gồm Booking đã hủy)
-    const bookingsHaveTheSameDate = BOOKINGs ? BOOKINGs.filter(booking =>
-        booking.Date.substring(0, 10) === date && booking.Status !== 'Đã hủy'
-    ).map(booking => booking.Id) : [];
-    // Những Slot có cùng Date và giống Slot được chọn
-    // const getSlotsHaveTheSameDateAndSlot = selectedSlots ? selectedSlots.filter(slot => (slot.bookings).some(booking => bookingsHaveTheSameDate.includes(booking.Id))) : [];
 
 
-    // Những Slot có cùng Date
-    // const uniqueSlotsHaveTheSameDate = AvailableSLOTs ? AvailableSLOTs.filter(slot => (slot.bookings).some(booking => bookingsHaveTheSameDate.includes(booking.Id))) : [];
-    const uniqueSlotsHaveTheSameDate = [];
-    // Những Slot có thể chọn
-    const unbookedAvailableSLOTs = AvailableSLOTs ? AvailableSLOTs.filter(slot => !uniqueSlotsHaveTheSameDate.some(noslot => noslot.Id === slot.Id)) : [];
+
 
     return (
         <div className='bookingform-container'>
             <div className='payment-card'>
                 <div className='card'>
                     <div className='payment-card-title'>
-                        {AvailableSLOTs[0]?.Price?.toLocaleString('vi-VN')} VND/slot
+                        {AvailableSLOTs[0]?.price?.toLocaleString('vi-VN')} VND
                     </div>
-                    <form className='form-card' onSubmit={handleBooking}>
-                        {id ?
-                            (
-                                <>
-                                    {SlotId.length === 0 ? (
-                                        <div className='form-group'>
-                                            <div className='input' type='date' value={date} onChange={(e) => {
-                                                const selectedDate = e.target.value;
-                                                setDate(selectedDate);
-                                                console.log(selectedDate);
-                                            }} required />
-                                        </div>
-                                    ) : (
-                                        <div style={{ padding: '3px' }}><h3>Ngày: {date}</h3></div>
-                                    )}
+                    {user ?
+                        <form onSubmit={handleBookField}>
 
-                                    {date &&
-                                        <div className='form-group'>
-                                            <div className='row'>
-                                                {/* {unbookedAvailableSLOTs.map((slot, index) => ( */}
-                                                {AvailableSLOTs.map((slot, index) => (
-                                                    <div key={index} className='col'
-                                                        onClick={() => {
-                                                            const selectedSlot = AvailableSLOTs.find(s => s.Id === slot.Id);
-                                                            if (unbookedAvailableSLOTs.some(s => s.Id === slot.Id)) {//
-                                                                setAmount(prevAmount => prevAmount + (selectedSlot.Price * (selectedSlot.selected ? 1 : -1)));
-                                                                selectedSlot.selected = !selectedSlot.selected; // Toggle selection
-                                                                console.log(selectedSlot.selected ? `Selected: ${slot.Id}` : `Deselected: ${slot.Id}`);
-                                                                setSlotId(prevSlotId => {
-                                                                    const isSelected = prevSlotId.includes(slot.Id);
-                                                                    if (isSelected) {
-                                                                        return prevSlotId.filter(id => id !== slot.Id); // Remove if already selected
-                                                                    } else {
-                                                                        return [...prevSlotId, slot.Id]; // Add if not selected
-                                                                    }
-                                                                });
-                                                            }//
-                                                        }}
-                                                        style={{
-                                                            color: unbookedAvailableSLOTs.some(s => s.Id === slot.Id) ? '#000000' : '#cccccc',
-                                                            backgroundColor: slot.selected ? (bookingsHaveTheSameDateAndSlot.some(slotId => slotId.Id == slot.Id) ? '#fad7d9' : '#d3f9d8') : '#ffffff',
-                                                            border: slot.selected ? (bookingsHaveTheSameDateAndSlot.some(slotId => slotId.Id == slot.Id) ? '1px solid #dc3545' : '1px solid #28a745') : '1px solid #cccccc',
-                                                            boxSizing: 'border-box',
-                                                            textAlign: 'center'
-                                                        }}
-                                                    >
-                                                        <div>{`[${slot.Name}] ${slot.StartTime.substring(0, 5)} - ${slot.EndTime.substring(0, 5)}`}</div>
-                                                        <div className='price'>{slot.Price.toLocaleString('vi-VN')} VND</div>
-                                                    </div>
-                                                ))}
-                                                {unbookedAvailableSLOTs && unbookedAvailableSLOTs.length == 0 && <div>Không còn slot trống.</div>}
+                            <div>
+                                {(() => {
+                                    const selectedDate = new Date(date);
+                                    const currentDate = new Date();
+                                    currentDate.setHours(0, 0, 0, 0);
+
+                                    if (selectedDate < currentDate) {
+                                        return (
+                                            <div className='text-danger'>
+                                                Vui lòng chọn ngày từ ngày hôm nay trở đi.
                                             </div>
-                                        </div>
+                                        );
+                                    } else if (selectedDate > new Date(currentDate.getTime() + 30 * 24 * 60 * 60 * 1000)) {
+                                        return (
+                                            <div className='text-warning'>
+                                                Đặt phòng chỉ có thể đặt trong vòng 30 ngày tới.
+                                            </div>
+                                        );
                                     }
+                                    return null;
+                                })()}
+                            </div>
 
-                                    <div className='form-group'>
-                                        {(() => {
-                                            const selectedDate = new Date(date);
-                                            const currentDate = new Date();
-                                            currentDate.setHours(0, 0, 0, 0); // Reset time to start of day for fair comparison
+                            <DatePicker
+                                selected={SelectedDate}
+                                name='date'
+                                onChange={(date) => setSelectedDate(date)}
+                                dateFormat='yyyy-MM-dd'
+                                placeholderText='Chọn ngày'
+                            />
 
-                                            if (selectedDate < currentDate) {
-                                                return (
-                                                    <Form.Text className='text-danger'>
-                                                        Vui lòng chọn ngày từ ngày hôm nay trở đi.
-                                                    </Form.Text>
-                                                );
-                                            } else if (selectedDate > new Date(currentDate.getTime() + 30 * 24 * 60 * 60 * 1000)) {
-                                                return (
-                                                    <Form.Text className='text-warning'>
-                                                        Đặt phòng chỉ có thể đặt trong vòng 30 ngày tới.
-                                                    </Form.Text>
-                                                );
+                            <div className='form-group form-field'>
+                                <select
+                                    name='field'
+                                    className='form-control'
+                                >
+                                    {FIELDs && FIELDs.map((field) => (
+                                        <option key={field.id} value={field.id}>
+                                            {field.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div className='form-group row'>
+                                {AvailableSLOTs.map((slot, index) => (
+                                    <div key={index} className='col'>
+                                        <div className='name'>{`[${slot.name}] ${slot.startTime.substring(0, 5)} - ${slot.endTime.substring(0, 5)}`}</div>
+                                        <div className='price'>{slot.price.toLocaleString('vi-VN')} VND</div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className='form-group form-payment'>
+                                <select
+                                    name='payment'
+                                    className='form-control'
+                                >
+                                    <option value='Thanh toán qua VNPay'>Thanh toán qua VNPay</option>
+                                    <option value='Thanh toán bằng tiền mặt'>Thanh toán bằng tiền mặt</option>
+                                </select>
+                            </div>
+
+
+
+                            <div className='answer-group'>
+                                {AvailableSLOTs.map((slot) => (
+                                    <label key={slot.id} className='radio-label'>
+                                        <input
+                                            type='checkbox'
+                                            name='choice'
+                                            value={slot.id}
+                                            onChange={handleChange}
+                                            className='hidden-radio'
+                                        />
+                                        <div
+                                            className={
+                                                `radio-box ${true ? 'correct-answer'
+                                                    : (false ? 'incorrect-answer'
+                                                        : '')
+                                                }`
                                             }
-                                            return null;
-                                        })()}
-                                    </div>
+                                        >{slot.name}</div>
+                                    </label>
+                                ))}
+                            </div>
+                            <p>Đã chọn: {SelectedSlots.join(', ')}</p>
 
-                                    <div className='form-group'>
-                                        <label>Hình thức thanh toán</label>
-                                        <div as='select' value={selectedPaymentMethod} onChange={(e) => setSelectedPaymentMethod(e.target.value)}>
-                                            <option value='Thanh toán qua VNPay'>Thanh toán qua VNPay</option>
-                                            {/* {USER && USER.Type === 'VIP' && <option value='Thanh toán bằng tiền mặt'>Thanh toán bằng tiền mặt</option>} */}
-                                        </div>
-                                    </div>
+                            <button type='submit' className='btn'>CHỌN</button>
 
-                                    <h2><b>Tổng: <span style={{ color: '#ee4f2e' }}>{Amount.toLocaleString('vi-VN')}đ</span></b></h2>
-                                    {/* <h2><b>Tổng 2: <span style={{ color: '#ee4f2e' }}>{(SlotId.length * AvailableSLOTs[0].price).toLocaleString('vi-VN')}đ</span></b></h2> */}
-                                    {bookingsHaveTheSameDateAndSlot && bookingsHaveTheSameDateAndSlot.length !== 0 && <div style={{ color: '#ff0000' }}>Slot không khả dụng</div>}
-                                    {bookingsHaveTheSameDateAndSlot && bookingsHaveTheSameDateAndSlot.length === 0 &&
-                                        SlotId.length > 0 &&
-                                        new Date(date) >= new Date().setHours(0, 0, 0, 0) &&
-                                        new Date(date) <= new Date().setHours(0, 0, 0, 0) + 30 * 24 * 60 * 60 * 1000 &&
-                                        <Button type='submit' className='btn'>CHỌN</Button>}
-                                </>
-                            )
-                            :
-                            <Link to='/signinsignup'><button>VUI LÒNG ĐĂNG NHẬP</button></Link>
-                        }
-                    </form>
+                            <div>Tổng: {Amount.toLocaleString('vi-VN')} VND</div>
+                            {/* <h2><b>Tổng 2: <span style={{ color: '#ee4f2e' }}>{(SlotId.length * AvailableSLOTs[0].price).toLocaleString('vi-VN')}đ</span></b></h2> */}
+                            {bookingsHaveTheSameDateAndSlot && bookingsHaveTheSameDateAndSlot.length !== 0 && <div style={{ color: '#ff0000' }}>Slot không khả dụng</div>}
+                            {bookingsHaveTheSameDateAndSlot && bookingsHaveTheSameDateAndSlot.length === 0 &&
+                                SlotId.length > 0 &&
+                                new Date(date) >= new Date().setHours(0, 0, 0, 0) &&
+                                new Date(date) <= new Date().setHours(0, 0, 0, 0) + 30 * 24 * 60 * 60 * 1000 &&
+                                <button type='submit' className='btn'>CHỌN</button>}
+                        </form>
+                        :
+                        <Link to='/login-register'><button>VUI LÒNG ĐĂNG NHẬP</button></Link>
+                    }
                 </div>
             </div>
         </div>

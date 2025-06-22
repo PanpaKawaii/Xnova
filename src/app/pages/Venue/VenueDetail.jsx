@@ -9,7 +9,6 @@ import './VenueDetail.css';
 import VenueFeedback from './VenueFeedback.jsx';
 
 export default function VenueDetail() {
-    console.log('VenueDetail');
     const { user } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
@@ -129,116 +128,6 @@ export default function VenueDetail() {
 
 
 
-    // Tạo Booking và Payment và PaymentMethod////////////////////////////////////////////////////////////////////////////////////////////////////
-    const Booking = async () => {
-        if (!MaxBookingID) {
-            console.error('Please wait for the system');
-            return;
-        }
-        if (!Pod || !id) {
-            console.error('Pod or UserId is not defined');
-            return;
-        }
-        if (!date || SlotId.length === 0) {
-            console.error('Date or SlotId is not defined');
-            return;
-        }
-        if (Confirm == false) {
-            console.error('You have not confirmed yet');
-            return;
-        }
-
-        const bookingData = {
-            id: MaxBookingID + 1,
-            date: date,
-            currentDate: new Date(new Date().getTime() + 7 * 60 * 60 * 1000).toISOString(),
-            status: 'Chưa diễn ra',
-            feedback: '',
-            rating: 0,
-            podId: Pod.id,
-            userId: id,
-            slotIds: SlotId.map(id => parseInt(id, 10)),
-        };
-        console.log('Booking data:', bookingData);
-
-        const paymentData = {
-            id: MaxPaymentID + 1,
-            method: selectedPaymentMethod,
-            amount: Amount,
-            date: new Date(new Date().getTime() + 7 * 60 * 60 * 1000).toISOString(),
-            status: 'Chưa thanh toán',
-            bookingId: MaxBookingID + 1,
-        };
-        console.log('Payment data:', paymentData);
-
-        const paymentMethodData = {
-            id: MaxPaymentID + 1,
-            orderId: MaxBookingID + 1,
-            fullname: USER.name,
-            description: 'Thanh toán qua VNPay cho Booking có ID: ' + MaxBookingID + 1,
-            amount: Amount,
-            status: 'Chưa thanh toán',
-            method: 'Thanh toán qua VNPay',
-            createdDate: new Date(new Date().getTime() + 7 * 60 * 60 * 1000).toISOString(),
-        };
-        console.log('PaymentMethod data:', paymentMethodData);
-
-        console.log('Confirm status:', Confirm);
-
-        try {
-            const response = await fetch('https://localhost:7166/api/Booking', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                },
-                body: JSON.stringify(bookingData),
-            });
-
-            if (!response.ok) throw new Error('Network response was not ok');
-            const result = await response.json();
-            console.log('Booking successful:', result);
-        } catch (error) {
-            console.error('Error during booking:', error);
-        }
-
-        if (selectedPaymentMethod && selectedPaymentMethod === 'Thanh toán bằng tiền mặt') {
-            try {
-                const response = await fetch('https://localhost:7166/api/Payment', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                    },
-                    body: JSON.stringify(paymentData),
-                });
-
-                if (!response.ok) throw new Error('Network response was not ok');
-                const result = await response.json();
-                console.log('Creating Payment successful:', result);
-            } catch (error) {
-                console.error('Error during booking:', error);
-            }
-        } else {
-            try {
-                const response = await fetch('https://localhost:7166/api/Payment/create', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                    },
-                    body: JSON.stringify(paymentMethodData),
-                });
-
-                if (!response.ok) throw new Error('Network response was not ok');
-                const result = await response.json();
-                console.log('Creating PaymentMethod successful:', result);
-                window.location.href = result.paymentUrl;
-            } catch (error) {
-                console.error('Error during booking:', error);
-            }
-        }
-    };
 
     useEffect(() => {
         if (date && SlotId) {
@@ -350,9 +239,6 @@ export default function VenueDetail() {
                                         )}
                                     </div>
                                 </div>
-
-                                <h4><b>Mô tả về sân:</b></h4>
-                                <div>{Venue.Description}</div>
                             </div>
 
                             <BookingForm Venue={Venue} />

@@ -31,7 +31,7 @@
                 font-weight: bold;
             }
 
-            .form-card {
+            form {
                 width: 100%;
                 margin: 20px 0 0;
                 display: flex;
@@ -42,22 +42,28 @@
                     width: 100%;
                     margin: 0 0 10px;
 
-                    .row {
+                    &.row {
                         display: grid;
                         grid-template-columns: repeat(1, minmax(0, 1fr));
                         gap: 12px;
 
                         .col {
                             cursor: pointer;
-                            padding: 8px 4px;
+                            padding: 8px;
+                            border: 1px solid #ccc;
+                            box-sizing: border-box;
                             border-radius: 4px;
                             display: flex;
-                            justify-content: center;
+                            justify-content: end;
                             align-items: center;
-                            gap: 12px;
+
+                            .name {
+                                flex: 1;
+                                text-align: center;
+                            }
 
                             .price {
-                                padding: 4px 8px;
+                                padding: 6px 8px;
                                 color: #fff;
                                 background-color: #28a745;
                                 font-weight: bold;
@@ -71,17 +77,82 @@
             .btn,
             .btn:focus {
                 width: 200px;
-                color: #ffffff;
                 background-color: #fb8b24;
-                font-weight: bold;
                 margin: 20px 0;
                 border: none;
-                border-radius: 7px;
             }
 
             .btn:hover {
                 color: #ffffff;
                 background-color: #d97720;
+            }
+        }
+    }
+
+
+
+    .answer-group {
+        /* padding: 20px 80px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 40px 60px; */
+        display: flex;
+
+        .radio-label {
+            width: auto;
+            height: fit-content;
+            border: 2px solid #ccc;
+            box-sizing: border-box;
+            border-radius: 12px;
+            display: flex;
+            align-self: center;
+            justify-content: center;
+            align-items: start;
+            cursor: pointer;
+            overflow: hidden;
+
+            .text {
+                font-size: 40px;
+            }
+
+            .hidden-radio {
+                display: none;
+            }
+
+            .hidden-radio:checked+.radio-box {
+                color: #fff;
+                background-color: #bbb;
+                transition: all 0.2s ease;
+            }
+
+            .hidden-radio:checked+.correct-answer {
+                color: #28a745;
+                background-color: #d3f9d8;
+                transition: all 0.2s ease;
+            }
+
+            .hidden-radio:checked+.incorrect-answer {
+                color: #dc3545;
+                background-color: #fad7d9;
+                transition: all 0.2s ease;
+            }
+
+            .radio-box {
+                width: 100%;
+                height: 100%;
+                padding: 20px;
+                background-color: #f0f0f0;
+                display: inline-block;
+                cursor: pointer;
+                box-sizing: border-box;
+                border-radius: 4px;
+                font-weight: bold;
+                text-align: center;
+                align-content: center;
+            }
+
+            .radio-box:hover {
+                background-color: #e0e0e0;
             }
         }
     }

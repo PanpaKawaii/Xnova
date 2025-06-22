@@ -40,7 +40,7 @@ export default function VenueFeedback({ Venue, Number }) {
         fetchDataAPI();
     }, [user]);
 
-    const FilterBookng = BOOKINGs
+    const FilterBooking = BOOKINGs
         .filter(booking => {
             const field = FIELDs.find(f => f.id === booking.fieldId);
             return field && field.venueId === Venue.id;
@@ -63,7 +63,7 @@ export default function VenueFeedback({ Venue, Number }) {
             };
         });
 
-    const FeedbackBooking = FilterBookng?.sort((a, b) => new Date(a.date) - new Date(b.date)).slice(0, Math.min(Number, FilterBookng.length))
+    const FeedbackBooking = FilterBooking?.sort((a, b) => new Date(a.date) - new Date(b.date)).slice(0, Math.min(Number, FilterBooking.length))
 
     console.log('FeedbackBooking', FeedbackBooking);
 
