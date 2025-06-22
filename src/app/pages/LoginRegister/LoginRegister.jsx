@@ -9,7 +9,7 @@ import Transparent from '../../assets/Transparent.png';
 import JellyFish from '../../assets/JellyFish.png';
 
 export default function LoginRegister() {
-    console.log('Rerender');
+    console.log('Login-Register');
 
     const moveImage = () => {
         const img = document.getElementById('MovingImage');

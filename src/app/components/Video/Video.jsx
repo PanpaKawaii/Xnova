@@ -4,7 +4,7 @@ import './Video.css';
 import QuickSearch from '../../components/QuickSearch/QuickSearch';
 
 export default function Video() {
-    console.log('Rerender');
+    console.log('Video Rerender');
     return (
         <div className='video-container'>
             <div className='video-content'>
