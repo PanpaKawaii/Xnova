@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { fetchData } from '../../../mocks/CallingAPI.js';
 import StarRating from '../../components/StarRating.jsx';
+import { useAuth } from '../../hooks/AuthContext/AuthContext.jsx';
 import './VenueFeedback.css';
 
 export default function VenueFeedback({ Venue, Number }) {
+    console.log('VenueFeedback');
+    const { user } = useAuth();
 
     const [USERs, setUSERs] = useState([]);
     const [FIELDs, setFIELDs] = useState([]);

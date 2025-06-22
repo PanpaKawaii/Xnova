@@ -1,24 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import Select from 'react-select';
+import { Link } from 'react-router-dom';
 import { fetchData } from '../../../mocks/CallingAPI.js';
 import StarHalfFull from '../../components/StarHalfFull.jsx';
 import StarRating from '../../components/StarRating.jsx';
+import { useAuth } from '../../hooks/AuthContext/AuthContext.jsx';
 import './Venue.css';
 import VenueFeedback from './VenueFeedback.jsx';
 
 export default function Venue() {
+    console.log('Venue');
+    const { user } = useAuth();
 
     const [ID, setID] = useState(null);
     const id = JSON.parse(localStorage.getItem('user'))?.id;
     useEffect(() => {
         setID(id);
     }, [id]);
-
-    const { pathname } = useLocation();
-    useEffect(() => {
-        console.log('pathname:', pathname);
-    }, [pathname]);
 
     const [TYPEs, setTYPEs] = useState([]);
     const [VENUEs, setVENUEs] = useState([]);

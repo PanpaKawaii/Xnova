@@ -7,6 +7,8 @@ import { useAuth } from '../../hooks/AuthContext/AuthContext.jsx';
 import './Invitation.css';
 
 export default function Invitation() {
+    console.log('Invitation');
+    const { user } = useAuth();
 
     const [TYPEs, setTYPEs] = useState([]);
     const [USERs, setUSERs] = useState([]);
@@ -17,8 +19,6 @@ export default function Invitation() {
     const [USERINVITATIONs, setUSERINVITATIONs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
-    const { user } = useAuth();
 
     useEffect(() => {
         const fetchDataAPI = async () => {

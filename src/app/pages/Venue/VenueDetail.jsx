@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { fetchData } from '../../../mocks/CallingAPI.js';
 import BackArrow from '../../components/BackArrow.jsx';
 import StarHalfFull from '../../components/StarHalfFull.jsx';
 import StarRating from '../../components/StarRating.jsx';
+import { useAuth } from '../../hooks/AuthContext/AuthContext.jsx';
 import BookingForm from './BookingForm.jsx';
 import './VenueDetail.css';
 import VenueFeedback from './VenueFeedback.jsx';
 
 export default function VenueDetail() {
-
+    console.log('VenueDetail');
+    const { user } = useAuth();
+    const navigate = useNavigate();
     const location = useLocation();
     const Venue = location.state?.venue;
     console.log('Venue', Venue);
@@ -20,7 +22,6 @@ export default function VenueDetail() {
         const UserIdInt = parseInt(UserId, 10);
         setId(UserIdInt);
     }, [UserId]);
-    const navigate = useNavigate();
 
     const [BOOKINGs, setBOOKINGs] = useState(null);
     const [PODs, setPODs] = useState(null);

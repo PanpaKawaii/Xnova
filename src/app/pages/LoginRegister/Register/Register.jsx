@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
-import CheckValidation from './CheckValidation';
-import CountdownTimer from './CountdownTimer';
 import { postData } from '../../../../mocks/CallingAPI.js';
+import CheckValidation from './CheckValidation.jsx';
+import CountdownTimer from './CountdownTimer.jsx';
 import './Register.css';
 
 export default function Register({ MoveImage }) {
