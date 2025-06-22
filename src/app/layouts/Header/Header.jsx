@@ -20,7 +20,7 @@ export default function Header() {
     console.log('Header===============================');
     console.log('User===============================', user);
     console.log(`User/${user?.id}`);
-    const ID = JSON.parse(localStorage.getItem('user')).id;
+    const ID = JSON.parse(localStorage.getItem('user'))?.id;
 
     useEffect(() => {
         const fetchDataAPI = async () => {
