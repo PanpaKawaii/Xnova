@@ -21,33 +21,34 @@ export default function Invitation() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        const token = user?.token;
         const fetchDataAPI = async () => {
             try {
-                const typeData = await fetchData('Type');
+                const typeData = await fetchData('Type', token);
                 console.log('typeData', typeData);
                 setTYPEs(typeData);
 
-                const userData = await fetchData('User/GetIdAndName');
+                const userData = await fetchData('User/GetIdAndName', token);
                 console.log('userData', userData);
                 setUSERs(userData);
 
-                const venueData = await fetchData('Venue');
+                const venueData = await fetchData('Venue', token);
                 console.log('venueData', venueData);
                 setVENUEs(venueData.filter(s => s.status === 1));
 
-                const fieldData = await fetchData('Field');
+                const fieldData = await fetchData('Field', token);
                 console.log('fieldData', fieldData);
                 setFIELDs(fieldData.filter(s => s.status === 1));
 
-                const bookingData = await fetchData('Booking');
+                const bookingData = await fetchData('Booking', token);
                 console.log('bookingData', bookingData);
                 setBOOKINGs(bookingData.filter(s => s.status === 1));
 
-                const invitationData = await fetchData('Invivation');
+                const invitationData = await fetchData('Invivation', token);
                 console.log('invitationData', invitationData);
                 setINVITATIONs(invitationData.filter(s => s.status === 1));
 
-                const userInvitationData = await fetchData('UserInvivation');
+                const userInvitationData = await fetchData('UserInvivation', token);
                 console.log('userInvitationData', userInvitationData);
                 setUSERINVITATIONs(userInvitationData.filter(s => s.status === 1));
 
@@ -59,7 +60,7 @@ export default function Invitation() {
         };
 
         fetchDataAPI();
-    }, []);
+    }, [user]);
 
     const fieldsWithTypeAndVenue = FIELDs.map(field => {
         const type = TYPEs.find(t => t.id === field.typeId);

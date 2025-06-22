@@ -270,18 +270,20 @@ INSERT INTO [Type] VALUES (N'Badminton')
 INSERT INTO [Type] VALUES (N'Pickleball')
 
 --User (Name, Email, Password, Image, Role, Description, PhoneNumber, Point, Type, Status)
-INSERT INTO [User] VALUES (N'Đặng Ngọc Hải Triều', N'dngngchitriu2004@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Admin', N'abc', N'0123456789', 0, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
-INSERT INTO [User] VALUES (N'Nguyễn Gia Huy', N'nguyengiahuy@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Owner', N'abc', N'0123456789', 100000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
-INSERT INTO [User] VALUES (N'Nguyễn Gia Hoàng', N'nguyengiahoang@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Owner', N'abc', N'0123456789', 200000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
-INSERT INTO [User] VALUES (N'Phạm Thành Danh', N'phamthanhdanh@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Owner', N'abc', N'0123456789', 300000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
-INSERT INTO [User] VALUES (N'Nguyễn Thành Dương', N'nguyenthanhduong37923@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Customer', N'abc', N'0123456789', 1000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
-INSERT INTO [User] VALUES (N'Lê Hữu Thành Tín', N'thanhtyns@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Customer', N'abc', N'0123456789', 2000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
-INSERT INTO [User] VALUES (N'Trương Kim Hằng', N'truongkimhang@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Customer', N'abc', N'0123456789', 3000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
-INSERT INTO [User] VALUES (N'Lê Minh Khoa', N'leminhkhoa@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Customer', N'abc', N'0123456789', 4000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
+INSERT INTO [User] VALUES (N'Đặng Ngọc Hải Triều', N'dngngchitriu2004@gmail.com', N'123456', N'https://i.pinimg.com/736x/b8/1f/36/b81f367b3a125004838570fb61922360.jpg', N'Admin', N'Quản trị viên', N'0123456789', 0, N'VIP', 1)
+INSERT INTO [User] VALUES (N'Chủ Sân', N'owner@gmail.com', N'123456', N'https://i.pinimg.com/736x/3c/ef/b2/3cefb2bda9a14cc8276144a47d29d5b8.jpg', N'Owner', N'Chủ sân', N'0123456789', 1000000, N'VIP', 1)
+INSERT INTO [User] VALUES (N'Khách Hàng', N'customer@gmail.com', N'123456', N'https://i.pinimg.com/736x/cd/78/92/cd7892d335cc9bb399ced88b71474ea7.jpg', N'Customer', N'Khách hàng', N'0123456789', 5000, N'VIP', 1)
+INSERT INTO [User] VALUES (N'Nguyễn Gia Huy', N'nguyengiahuy@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Owner', N'Chủ sân', N'0123456789', 100000, N'Regular', 1)
+INSERT INTO [User] VALUES (N'Nguyễn Gia Hoàng', N'nguyengiahoang@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Owner', N'Chủ sân', N'0123456789', 200000, N'Regular', 1)
+INSERT INTO [User] VALUES (N'Phạm Thành Danh', N'phamthanhdanh@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Owner', N'Chủ sân', N'0123456789', 300000, N'Regular', 1)
+INSERT INTO [User] VALUES (N'Nguyễn Thành Dương', N'nguyenthanhduong37923@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Customer', N'Khách hàng', N'0123456789', 1000, N'Regular', 1)
+INSERT INTO [User] VALUES (N'Lê Hữu Thành Tín', N'thanhtyns@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Customer', N'Khách hàng', N'0123456789', 2000, N'Regular', 1)
+INSERT INTO [User] VALUES (N'Trương Kim Hằng', N'truongkimhang@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Customer', N'Khách hàng', N'0123456789', 3000, N'Regular', 1)
+INSERT INTO [User] VALUES (N'Lê Minh Khoa', N'leminhkhoa@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Customer', N'Khách hàng', N'0123456789', 4000, N'Regular', 1)
 
-INSERT INTO [User] VALUES (N'Nguyễn Phương Linh', N'nplinh946@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Admin', N'abc', N'0123456789', 0, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
-INSERT INTO [User] VALUES (N'Đặng Thành Phước', N'dangthanhphuoc.11.8@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Owner', N'abc', N'0123456789', 1000000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
-INSERT INTO [User] VALUES (N'Dương Đức An', N'duongducan03@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Customer', N'abc', N'0123456789', 5000, N'aaaaaaaaaaaaaaaaaaaaaaa', 1)
+INSERT INTO [User] VALUES (N'Nguyễn Phương Linh', N'nplinh946@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Admin', N'Quản trị viên', N'0123456789', 0, N'VIP', 1)
+INSERT INTO [User] VALUES (N'Đặng Thành Phước', N'dangthanhphuoc.11.8@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Owner', N'Chủ sân', N'0123456789', 1000000, N'VIP', 1)
+INSERT INTO [User] VALUES (N'Dương Đức An', N'duongducan03@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Customer', N'Khách hàng', N'0123456789', 5000, N'VIP', 1)
 
 --Venue (Name, Address, Longitude, Latitude, Contact, Status, UserId)
 INSERT INTO [Venue] VALUES (N'Sunrise Sports Arena', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', N'0', N'0', N'0123456789', 1, 2)--Huy
@@ -292,27 +294,27 @@ INSERT INTO [Venue] VALUES (N'The Arena Zone', N'34 Đường Phan Xích Long, P
 INSERT INTO [Venue] VALUES (N'Mega Sports Hub', N'89 Đường Cộng Hòa, Tân Bình, TP. HCM', N'0', N'0', N'0123456789', 1, 4)--Danh
 
 --Image (Name, Link, Status, VenueId)
-INSERT INTO [Image] VALUES (N'Field 1', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 1)--Huy
-INSERT INTO [Image] VALUES (N'Field 2', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 1)--Huy
-INSERT INTO [Image] VALUES (N'Field 3', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 1)--Huy
-INSERT INTO [Image] VALUES (N'Field 4', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 1)--Huy
-INSERT INTO [Image] VALUES (N'Field 5', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 1)--Huy
-INSERT INTO [Image] VALUES (N'Field 1', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 2)--Hoang
-INSERT INTO [Image] VALUES (N'Field 2', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 2)--Hoang
-INSERT INTO [Image] VALUES (N'Field 3', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 2)--Hoang
-INSERT INTO [Image] VALUES (N'Field 1', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 3)--Hoang
-INSERT INTO [Image] VALUES (N'Field 2', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 3)--Hoang
-INSERT INTO [Image] VALUES (N'Field 3', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 3)--Hoang
-INSERT INTO [Image] VALUES (N'Field 4', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 3)--Hoang
-INSERT INTO [Image] VALUES (N'Field 5', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 3)--Hoang
-INSERT INTO [Image] VALUES (N'Field 6', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 3)--Hoang
-INSERT INTO [Image] VALUES (N'Field 1', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 4)--Danh
-INSERT INTO [Image] VALUES (N'Field 1', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 5)--Danh
-INSERT INTO [Image] VALUES (N'Field 2', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 5)--Danh
-INSERT INTO [Image] VALUES (N'Field 3', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 5)--Danh
-INSERT INTO [Image] VALUES (N'Field 4', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 5)--Danh
-INSERT INTO [Image] VALUES (N'Field 1', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 6)--Danh
-INSERT INTO [Image] VALUES (N'Field 2', N'https://i.pinimg.com/736x/42/70/ff/4270ff28e1b44556e288abae3aec2196.jpg', 1, 6)--Danh
+INSERT INTO [Image] VALUES (N'Field 1', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 1)--Huy
+INSERT INTO [Image] VALUES (N'Field 2', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 1)--Huy
+INSERT INTO [Image] VALUES (N'Field 3', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 1)--Huy
+INSERT INTO [Image] VALUES (N'Field 4', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 1)--Huy
+INSERT INTO [Image] VALUES (N'Field 5', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 1)--Huy
+INSERT INTO [Image] VALUES (N'Field 1', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 2)--Hoang
+INSERT INTO [Image] VALUES (N'Field 2', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 2)--Hoang
+INSERT INTO [Image] VALUES (N'Field 3', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 2)--Hoang
+INSERT INTO [Image] VALUES (N'Field 1', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 3)--Hoang
+INSERT INTO [Image] VALUES (N'Field 2', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 3)--Hoang
+INSERT INTO [Image] VALUES (N'Field 3', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 3)--Hoang
+INSERT INTO [Image] VALUES (N'Field 4', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 3)--Hoang
+INSERT INTO [Image] VALUES (N'Field 5', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 3)--Hoang
+INSERT INTO [Image] VALUES (N'Field 6', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 3)--Hoang
+INSERT INTO [Image] VALUES (N'Field 1', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 4)--Danh
+INSERT INTO [Image] VALUES (N'Field 1', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 5)--Danh
+INSERT INTO [Image] VALUES (N'Field 2', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 5)--Danh
+INSERT INTO [Image] VALUES (N'Field 3', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 5)--Danh
+INSERT INTO [Image] VALUES (N'Field 4', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 5)--Danh
+INSERT INTO [Image] VALUES (N'Field 1', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 6)--Danh
+INSERT INTO [Image] VALUES (N'Field 2', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 6)--Danh
 
 --Field (Name, Description, Status, TypeId, VenueId)
 INSERT INTO [Field] VALUES (N'Football Field 1', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 1, 1)   --Huy   1

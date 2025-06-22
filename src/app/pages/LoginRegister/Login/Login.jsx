@@ -43,7 +43,7 @@ export default function Login({ MoveImage }) {
 
         try {
             setLoading(true);
-            const result = await postData('Login/authenticate', LoginData);
+            const result = await postData('Login/authenticate', LoginData, '');
             console.log('result', result);
             login(result);
 

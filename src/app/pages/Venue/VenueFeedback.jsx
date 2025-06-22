@@ -15,17 +15,18 @@ export default function VenueFeedback({ Venue, Number }) {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        const token = user?.token;
         const fetchDataAPI = async () => {
             try {
-                const fieldData = await fetchData('Field');
+                const fieldData = await fetchData('Field', token);
                 console.log('fieldData', fieldData);
                 setFIELDs(fieldData.filter(s => s.status === 1));
 
-                const userData = await fetchData('User/GetIdAndName');
+                const userData = await fetchData('User/GetIdAndName', token);
                 console.log('userData', userData);
                 setUSERs(userData);
 
-                const bookingData = await fetchData('Booking');
+                const bookingData = await fetchData('Booking', token);
                 console.log('bookingData', bookingData);
                 setBOOKINGs(bookingData.filter(s => s.status === 1));
 
@@ -37,7 +38,7 @@ export default function VenueFeedback({ Venue, Number }) {
         };
 
         fetchDataAPI();
-    }, []);
+    }, [user]);
 
     const FilterBookng = BOOKINGs
         .filter(booking => {

@@ -12,12 +12,6 @@ export default function Venue() {
     console.log('Venue');
     const { user } = useAuth();
 
-    const [ID, setID] = useState(null);
-    const id = JSON.parse(localStorage.getItem('user'))?.id;
-    useEffect(() => {
-        setID(id);
-    }, [id]);
-
     const [TYPEs, setTYPEs] = useState([]);
     const [VENUEs, setVENUEs] = useState([]);
     const [IMAGEs, setIMAGEs] = useState([]);
@@ -28,29 +22,30 @@ export default function Venue() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        const token = user?.token;
         const fetchDataAPI = async () => {
             try {
-                const typeData = await fetchData('Type');
+                const typeData = await fetchData('Type', token);
                 console.log('typeData', typeData);
                 setTYPEs(typeData);
 
-                const venueData = await fetchData('Venue');
+                const venueData = await fetchData('Venue', token);
                 console.log('venueData', venueData);
                 setVENUEs(venueData.filter(s => s.status === 1));
 
-                const imageData = await fetchData('Image');
+                const imageData = await fetchData('Image', token);
                 console.log('imageData', imageData);
                 setIMAGEs(imageData.filter(s => s.status === 1));
 
-                const fieldData = await fetchData('Field');
+                const fieldData = await fetchData('Field', token);
                 console.log('fieldData', fieldData);
                 setFIELDs(fieldData.filter(s => s.status === 1));
 
-                const slotData = await fetchData('Slot');
+                const slotData = await fetchData('Slot', token);
                 console.log('slotData', slotData);
                 setSLOTs(slotData.filter(s => s.status === 1));
 
-                const bookingData = await fetchData('Booking');
+                const bookingData = await fetchData('Booking', token);
                 console.log('bookingData', bookingData);
                 setBOOKINGs(bookingData.filter(s => s.status === 1));
 
@@ -62,7 +57,7 @@ export default function Venue() {
         };
 
         fetchDataAPI();
-    }, []);
+    }, [user]);
 
     // Image
     console.log('venueWithImages');
@@ -224,7 +219,7 @@ export default function Venue() {
                     {RatingForm.map((rating, i) => (
                         <div key={i} className='form-group form-rating'>
                             <label>
-                                <input type='checkbox' id='checkbox1' checked={rating.value} onChange={() => rating.function(p => !p)} />
+                                <input type='checkbox' id={`checkbox${i}`} checked={rating.value} onChange={() => rating.function(p => !p)} />
                                 <div className='number'>({5 - i})</div>
                                 <StarRating Rating={5 - i} Size={'1em'} Color={'#ffd700'} />
                             </label>
@@ -275,7 +270,7 @@ export default function Venue() {
                     <button type='reset' className='btn' onClick={handleReset}>ĐẶT LẠI BỘ LỌC</button>
                 </form>
 
-                {ID &&
+                {user &&
                     <Link to={`../user/booking`}>
                         <button className='btn'>SÂN ĐÃ ĐẶT</button>
                     </Link>

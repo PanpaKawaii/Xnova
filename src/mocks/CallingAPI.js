@@ -3,11 +3,8 @@ const apiKey = import.meta.env.VITE_REACT_APP_API_KEY;
 
 console.log(apiUrl);
 
-const token = JSON.parse(localStorage.getItem('user'))?.token;
-// console.log('token from api', token);
-
 // Hàm gọi API GET
-export const fetchData = async (endpoint) => {
+export const fetchData = async (endpoint, token) => {
     try {
         const response = await fetch(`${apiUrl}${endpoint}`, {
             method: 'GET',
@@ -27,7 +24,7 @@ export const fetchData = async (endpoint) => {
 };
 
 // Hàm gọi API POST
-export const postData = async (endpoint, data) => {
+export const postData = async (endpoint, data, token) => {
     try {
         const response = await fetch(`${apiUrl}${endpoint}`, {
             method: 'POST',
@@ -48,7 +45,7 @@ export const postData = async (endpoint, data) => {
 };
 
 // Hàm gọi API PUT
-export const putData = async (endpoint, data) => {
+export const putData = async (endpoint, data, token) => {
     try {
         const response = await fetch(`${apiUrl}${endpoint}`, {
             method: 'PUT',
@@ -69,7 +66,7 @@ export const putData = async (endpoint, data) => {
 };
 
 // Hàm gọi API DELETE
-export const deleteData = async (endpoint) => {
+export const deleteData = async (endpoint, token) => {
     try {
         const response = await fetch(`${apiUrl}${endpoint}`, {
             method: 'DELETE',
@@ -84,26 +81,6 @@ export const deleteData = async (endpoint) => {
         return await response.json();
     } catch (error) {
         console.error('Error deleting data:', error);
-        throw error;
-    }
-};
-
-// Hàm gọi API GET DATA FROM LOGIN
-export const loginData = async (endpoint, token) => {
-    try {
-        const response = await fetch(`${apiUrl}${endpoint}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-            },
-        });
-        if (!response.ok) {
-            throw new Error(`Error: ${response.statusText}`);
-        }
-        return await response.json();
-    } catch (error) {
-        console.error('Error fetching data:', error);
         throw error;
     }
 };

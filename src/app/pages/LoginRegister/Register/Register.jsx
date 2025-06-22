@@ -47,7 +47,7 @@ export default function Register({ MoveImage }) {
 
         try {
             setLoading(true);
-            const result = await postData('User/register-request', RegisterData);
+            const result = await postData('User/register-request', RegisterData, '');
             console.log('result', result);
 
             setRegisterSuccess('Gửi OTP thành công!');
@@ -104,7 +104,7 @@ export default function Register({ MoveImage }) {
 
         try {
             setLoading(true);
-            const result = await postData('User/register-confirm', CheckOTP);
+            const result = await postData('User/register-confirm', CheckOTP, '');
             console.log('result', result);
 
             // if (data.role && data.role === 'User') {

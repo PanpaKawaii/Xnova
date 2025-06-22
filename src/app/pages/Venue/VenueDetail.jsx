@@ -26,10 +26,8 @@ export default function VenueDetail() {
     const [BOOKINGs, setBOOKINGs] = useState(null);
     const [PODs, setPODs] = useState(null);
     const [TYPEs, setTYPEs] = useState(null);
-    const [UTILITIes, setUTILITIes] = useState(null);
     const [SLOTs, setSLOTs] = useState([]);
     const [STOREs, setSTOREs] = useState(null);
-    const [USERS, setUSERS] = useState(null);
     const [USER, setUSER] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -78,9 +76,6 @@ export default function VenueDetail() {
     const PodId = useParams();
     const Pod = PODs ? PODs.find(obj => { return obj.id == PodId.Id; }) : null;
 
-    // Lấy những Utility của Pod đó
-    const AvailableUTILITIes = UTILITIes ? UTILITIes.filter(utility => utility.pods && utility.pods.some(pod => pod.id === Pod.id)) : [];
-
     // Lấy những Slot có status là Đang hoạt động
     const activeSLOTs = SLOTs ? SLOTs.filter(slot => slot.status === 'Đang hoạt động') : [];
 
@@ -120,22 +115,6 @@ export default function VenueDetail() {
     const unbookedAvailableSLOTs = AvailableSLOTs ? AvailableSLOTs.filter(slot => !uniqueSlotsHaveTheSameDate.some(noslot => noslot.id === slot.id)) : [];
 
 
-    // Lấy đánh giá của POD dựa trên đánh giá của các Booking
-    const getPodBookingRating = (podId) => {
-        const booking = BOOKINGs ? BOOKINGs.filter(booking => booking.podId === podId && booking.rating !== null && booking.rating > 0) : [];
-        const rating = booking.map(booking => booking.rating).reduce((sum, rating) => sum + rating, 0);
-        return (rating / booking.length).toFixed(1);
-    };
-    // Lấy tên người dùng của Booking
-    const getUserNameBooking = (userId) => {
-        const user = USERS ? USERS.find(user => user.id === userId) : null;
-        return user ? user.name : null;
-    };
-    // Lấy ảnh người dùng của Booking
-    const getUserImageBooking = (userId) => {
-        const user = USERS ? USERS.find(user => user.id === userId) : null;
-        return user ? user.image : null;
-    };
 
     useEffect(() => {
         setBookingsHaveTheSameDateAndSlot(getSlotsHaveTheSameDateAndSlot)
@@ -326,12 +305,6 @@ export default function VenueDetail() {
     return (
         <div className='venuedetail-container'>
 
-            {/* <div className='back-button' style={{ position: 'absolute', top: '20px', left: '20px' }}>
-                <Link to='/booking/pod'>
-                    <i className='fa-solid fa-arrow-left' style={{ color: '#fdbc7f', fontSize: '40px' }}></i>
-                </Link>
-            </div> */}
-
             <BackArrow />
 
             <div className='venuedetail-content'>
@@ -354,8 +327,6 @@ export default function VenueDetail() {
 
                         <div className='detail-container'>
                             <div className='short-detail'>
-                                <h3><b>{thisSTORE ? `${thisSTORE.name}: ${thisSTORE.address} / Liên hệ: ${thisSTORE.contact}` : 'Store not found'}</b></h3>
-                                <div>{thisTYPE ? `${thisTYPE.name} / Sức chứa: ${thisTYPE.capacity} người` : 'Type not found'}</div>
 
                                 <div className='favorite'>
                                     <div className='favorite-title'>
