@@ -1,5 +1,6 @@
 .header-container {
-    padding: 14px 40px;
+    padding: 16px 40px;
+    min-height: 72px;
     background-color: #ececec;
     font-weight: bold;
     display: flex;
@@ -7,7 +8,7 @@
     box-sizing: border-box;
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 10;
     font-family: 'Quicksand', Arial, sans-serif;
 
     a {
@@ -29,12 +30,11 @@
 
     .left-bar {
         display: flex;
+        align-items: center;
         gap: 20px;
 
         input {
-            outline: none;
-            padding: 4px 8px;
-            border-radius: 4px;
+            height: 38px;
             border: 1px solid #ccc;
         }
     }
@@ -59,52 +59,54 @@
     }
 
     .dropdown {
-        width: auto;
+        width: fit-content;
         position: relative;
+        background-color: transparent;
+        border: none;
+        display: flex;
+        justify-content: end;
+        align-items: center;
 
-        /* .user-avatar { */
-            /* width: 100%; */
-            background-color: transparent;
-            border: none;
+        img {
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            border-radius: 50%;
+        }
+
+        .menu {
+            width: fit-content;
+            padding: 12px;
             display: flex;
-            justify-content: end;
-            align-items: center;
+            flex-direction: column;
+            gap: 8px;
+            background-color: #ffffff80;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            border-radius: 12px;
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
 
-            img {
-                width: 48px;
-                height: 48px;
-                border: 1px solid #a7a4a486;
-                box-sizing: border-box;
-                border-radius: 50%;
-            }
-
-            .dropdown-menu {
-                width: 200px;
+            .item {
+                cursor: pointer;
+                width: fit-content;
+                max-width: 300px;
                 display: flex;
-                flex-direction: column;
-                align-items: start;
-                background-color: #ffffff80;
-                border: 1px solid #ccc;
-                box-sizing: border-box;
-                position: absolute;
-                top: 100%;
-                right: 0;
-            }
+                align-items: center;
+                gap: 8px;
 
-            .user-information {
-                margin: 0 10px;
-                background-color: #feecd9;
-                align-items: end;
-                text-align: end;
+                &.information-item {
+                    gap: 12px;
 
-                .user-name {
-                    font-weight: bold;
-                }
-
-                .user-role {
-                    color: #6c757d;
+                    .name {
+                        overflow: hidden;
+                        white-space: nowrap;
+                    }
                 }
             }
-        /* } */
+        }
     }
 }
