@@ -16,9 +16,7 @@ export default function Video() {
                     <QuickSearch />
                 </div>
             </div>
-            <div className='quicksearch-absolute'>
-                <QuickSearch />
-            </div>
+            
         </div>
     )
 }
