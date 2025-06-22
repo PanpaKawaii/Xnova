@@ -87,3 +87,23 @@ export const deleteData = async (endpoint) => {
         throw error;
     }
 };
+
+// Hàm gọi API GET DATA FROM LOGIN
+export const loginData = async (endpoint, token) => {
+    try {
+        const response = await fetch(`${apiUrl}${endpoint}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+};

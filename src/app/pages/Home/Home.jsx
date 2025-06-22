@@ -1,9 +1,8 @@
 import React from 'react';
 import './Home.css';
 import Video from '../../components/Video/Video';
-import QuickSearch from '../../components/QuickSearch/QuickSearch';
 import FeaturedVenues from '../../components/FeaturedVenues/FeaturedVenues';
-import Footer from '../../layouts/Header/Footer';
+import Footer from '../../layouts/Footer/Footer';
 import JellyFish from '../../assets/JellyFish.png';
 import SportsTypes from '../../components/SportsTypes/SportsTypes';
 

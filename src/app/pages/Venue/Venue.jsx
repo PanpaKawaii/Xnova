@@ -9,12 +9,11 @@ import VenueFeedback from './VenueFeedback.jsx';
 
 export default function Venue() {
 
-    const [id, setId] = useState(null);
-    const UserId = localStorage.getItem('UserId');
+    const [ID, setID] = useState(null);
+    const id = JSON.parse(localStorage.getItem('user'))?.id;
     useEffect(() => {
-        const UserIdInt = parseInt(UserId, 10);
-        setId(UserIdInt);
-    }, [UserId]);
+        setID(id);
+    }, [id]);
 
     const { pathname } = useLocation();
     useEffect(() => {
@@ -137,26 +136,30 @@ export default function Venue() {
     });
     console.log('venuesWithPrice', venuesWithPrice);
 
-    const [selectedType, setSelectedType] = useState('');
-    const [selectedMinPrice, setSelectedMinPrice] = useState({ value: 0, label: '' });
-    const [selectedMaxPrice, setSelectedMaxPrice] = useState({ value: 0, label: '' });
-    // const filteredVenues = selectedType
-    //     ? venuesWithPrice.filter(venue =>
-    //         venue.types.some(type => type.id === Number(selectedType))
-    //     )
-    //     : venuesWithPrice;
-
-    // const filteredVenues = venuesWithPrice.filter(venue =>
-    //     venue.types.some(type => type.id === Number(selectedType) || !selectedType)
-    // );
+    const [SportType, setSportType] = useState('');
+    const [MinPrice, setMinPrice] = useState('');
+    const [MaxPrice, setMaxPrice] = useState('');
+    const [Rating1, setRating1] = useState(false);
+    const [Rating2, setRating2] = useState(false);
+    const [Rating3, setRating3] = useState(false);
+    const [Rating4, setRating4] = useState(false);
+    const [Rating5, setRating5] = useState(false);
 
     const filteredVenues = venuesWithPrice.filter(venue => {
-        const matchType = !selectedType || venue.types.some(type => type.id === Number(selectedType));
+        const matchType = !SportType || venue.types.some(type => type.id === Number(SportType));
         const matchPrice = (
-            (!selectedMinPrice || venue.prices?.some(p => p >= Number(selectedMinPrice.value))) &&
-            (!selectedMaxPrice || venue.prices?.some(p => p <= Number(selectedMaxPrice.value)))
+            (!MinPrice || venue.prices?.some(p => p >= Number(MinPrice))) &&
+            (!MaxPrice || venue.prices?.some(p => p <= Number(MaxPrice)))
         );
-        return matchType && matchPrice;
+        const matchRating = (
+            (!Rating1 && !Rating2 && !Rating3 && !Rating4 && !Rating5) ||
+            ((Rating1 && venue.rating >= 1 && venue.rating < 2)) ||
+            ((Rating2 && venue.rating >= 2 && venue.rating < 3)) ||
+            ((Rating3 && venue.rating >= 3 && venue.rating < 4)) ||
+            ((Rating4 && venue.rating >= 4 && venue.rating < 5)) ||
+            ((Rating5 && (venue.rating >= 5 || venue.rating == null)))
+        );
+        return matchType && matchPrice && matchRating;
     });
 
     const [VenueShowFeedback, setVenueShowFeedback] = useState(null);
@@ -168,77 +171,40 @@ export default function Venue() {
         }
     }
 
-    const handleChangeMin = (selectedOption) => {
-        setSelectedMinPrice(selectedOption); // Cập nhật giá trị khi người dùng chọn một option
-    };
-    const handleChangeMax = (selectedOption) => {
-        setSelectedMaxPrice(selectedOption); // Cập nhật giá trị khi người dùng chọn một option
-    };
-
-    const customStyles = {
-        control: (base) => ({
-            ...base,
-            backgroundColor: 'lightblue',
-        }),
-        option: (base) => ({
-            ...base,
-            color: 'red',
-        }),
-    };
-
-    // const filteredResults = filteredPods ? filteredPods.filter(pod =>
-    //     (pod.storeId == StoreId.Id || !StoreId.Id) &&
-    //     (pod.storeId == selectedStore || !selectedStore) &&
-    //     (pod.typeId.toString() === selectedType.toString() || !selectedType.toString()) &&
-    //     STOREs.filter(store => store.status === 'Đang hoạt động').some(store => store.id === pod.storeId)
-    // ) : [];
-
-
-
-
-    // // Lấy Utility được chọn
-    // const filteredUtilities = UTILITIes ? UTILITIes.filter(utility =>
-    //     utility.id.toString() === selectedUtility.toString() || !selectedUtility.toString()
-    // ) : [];
-    // // Lấy Pods của Utility được chọn
-    // const Pods = (filteredUtilities && filteredUtilities.length > 0) ? filteredUtilities[0].pods : [];
-    // // Lấy Pods có status là Đang hoạt động
-    // const filteredPods = Pods ? Pods.filter(pod => pod.status === 'Đang hoạt động') : [];
-    // //Lấy Pods trùng khớp với những lựa chọn trên thanh tìm kiếm
-    // const filteredResults = filteredPods ? filteredPods.filter(pod =>
-    //     (pod.storeId == StoreId.Id || !StoreId.Id) &&
-    //     (pod.storeId == selectedStore || !selectedStore) &&
-    //     (pod.typeId.toString() === selectedType.toString() || !selectedType.toString()) &&
-    //     STOREs.filter(store => store.status === 'Đang hoạt động').some(store => store.id === pod.storeId)
-    // ) : [];
+    const RatingForm = [
+        { function: setRating5, value: Rating5, },
+        { function: setRating4, value: Rating4, },
+        { function: setRating3, value: Rating3, },
+        { function: setRating2, value: Rating2, },
+        { function: setRating1, value: Rating1, },
+    ];
 
     const handleSubmit = (e) => {
         e.preventDefault();
     };
 
     const handleReset = () => {
-        setSelectedType('');
-        setSelectedMinPrice('');
-        setSelectedMaxPrice('');
+        setSportType('');
+        setMinPrice('');
+        setMaxPrice('');
+        setRating1(false);
+        setRating2(false);
+        setRating3(false);
+        setRating4(false);
+        setRating5(false);
     };
-
-    // if (loading) return (
-    //     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-    //             <span className='visually-hidden'>Loading...</span>
-    //     </div>
-    // );
-    // if (error) return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>Error: {error.message}</div>;
 
     return (
         <div className='venue-container'>
 
             <div className='search'>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className='filter-form'>
+
                     <div className='form-group form-type'>
                         <select
                             className='form-control'
-                            value={selectedType}
-                            onChange={(e) => setSelectedType(e.target.value)}
+                            value={SportType}
+                            onChange={(e) => setSportType(e.target.value)}
                         >
                             <option value=''>--Môn thể thao--</option>
                             {TYPEs && TYPEs.map((type) => (
@@ -249,36 +215,73 @@ export default function Venue() {
                         </select>
                     </div>
 
-                    <Select
-                        isSearchable={false}
-                        value={selectedMinPrice}
-                        onChange={setSelectedMinPrice}
-                        options={[
-                            { value: 100000, label: '100.000 VND' },
-                            { value: 200000, label: '200.000 VND' },
-                            { value: 300000, label: '300.000 VND' },
-                            { value: 400000, label: '400.000 VND' },
-                            { value: 500000, label: '500.000 VND' },
-                        ]}
-                    />
-                    {selectedMinPrice && <p>You selected min: {selectedMinPrice.label}</p>}
+                    <div className='form-group form-price'>
+                        <input type='number' name='min-price' placeholder='Giá thấp nhất' value={MinPrice} onChange={(e) => setMinPrice(e.target.value)} />
+                    </div>
 
-                    <Select
-                        value={selectedMaxPrice}
-                        onChange={setSelectedMaxPrice}
-                        options={[
-                            { value: 100000, label: '100.000 VND' },
-                            { value: 200000, label: '200.000 VND' },
-                            { value: 300000, label: '300.000 VND' },
-                            { value: 400000, label: '400.000 VND' },
-                            { value: 500000, label: '500.000 VND' },
-                        ]}
-                    />
-                    {selectedMaxPrice && <p>You selected max: {selectedMaxPrice.label}</p>}
+                    <div className='form-group form-price'>
+                        <input type='number' name='max-price' placeholder='Giá cao nhất' value={MaxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
+                    </div>
+
+                    {RatingForm.map((rating, i) => (
+                        <div key={i} className='form-group form-rating'>
+                            <label>
+                                <input type='checkbox' id='checkbox1' checked={rating.value} onChange={() => rating.function(p => !p)} />
+                                <div className='number'>({5 - i})</div>
+                                <StarRating Rating={5 - i} Size={'1em'} Color={'#ffd700'} />
+                            </label>
+                        </div>
+                    ))}
+
+                    {/* <div className='form-group form-rating'>
+                        <label>
+                            <input type='checkbox' id='checkbox1' checked={Rating1} onChange={() => setRating1(p => !p)} />
+                            <StarRating Rating={1} Size={'1.3em'} Color={'#ffd700'} />
+                        </label>
+                    </div>
+                    <div className='form-group form-rating'>
+                        <label>
+                            <input type='checkbox' id='checkbox1' checked={Rating2} onChange={() => setRating2(p => !p)} />
+                            <StarRating Rating={2} Size={'1.3em'} Color={'#ffd700'} />
+                        </label>
+                    </div>
+                    <div className='form-group form-rating'>
+                        <label>
+                            <input type='checkbox' id='checkbox1' checked={Rating3} onChange={() => setRating3(p => !p)} />
+                            <StarRating Rating={3} Size={'1.3em'} Color={'#ffd700'} />
+                        </label>
+                    </div>
+                    <div className='form-group form-rating'>
+                        <label>
+                            <input type='checkbox' id='checkbox1' checked={Rating4} onChange={() => setRating4(p => !p)} />
+                            <StarRating Rating={4} Size={'1.3em'} Color={'#ffd700'} />
+                        </label>
+                    </div>
+                    <div className='form-group form-rating'>
+                        <label>
+                            <input type='checkbox' id='checkbox1' checked={Rating5} onChange={() => setRating5(p => !p)} />
+                            <StarRating Rating={5} Size={'1.3em'} Color={'#ffd700'} />
+                        </label>
+                    </div> */}
+
+                    <div className='form-group form-location'>
+                        <select
+                            className='form-control'
+                        // value={Location}
+                        // onChange={(e) => setLocation(e.target.value)}
+                        >
+                            <option value={10}>--Địa điểm (Coming soon)--</option>
+                        </select>
+                    </div>
 
                     <button type='reset' className='btn' onClick={handleReset}>ĐẶT LẠI BỘ LỌC</button>
                 </form>
-                {id ? <Link to={`../user/booking`}><button className='btn'>SÂN ĐÃ ĐẶT</button></Link> : <></>}
+
+                {ID &&
+                    <Link to={`../user/booking`}>
+                        <button className='btn'>SÂN ĐÃ ĐẶT</button>
+                    </Link>
+                }
             </div>
 
             <div className='booking-pod-container'>
