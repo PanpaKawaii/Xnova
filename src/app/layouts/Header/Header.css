@@ -94,6 +94,7 @@
                 cursor: pointer;
                 width: fit-content;
                 max-width: 300px;
+                min-width: 200px;
                 display: flex;
                 align-items: center;
                 gap: 8px;

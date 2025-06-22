@@ -1,18 +1,18 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { fetchData } from '../../../mocks/CallingAPI.js';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginData } from '../../../mocks/CallingAPI.js';
 import { useAuth } from '../../hooks/AuthContext/AuthContext';
 import './Header.css';
 
 export default function Header() {
     const { user, logout } = useAuth();
+    const navigate = useNavigate();
 
     const [USER, setUSER] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(true);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
@@ -20,12 +20,11 @@ export default function Header() {
 
     console.log('===Header===User===', user);
     console.log(`User/${user?.id}`);
-    const ID = JSON.parse(localStorage.getItem('user'))?.id;
 
     useEffect(() => {
         const fetchDataAPI = async () => {
             try {
-                const userData = await fetchData(`User/${ID}`);
+                const userData = await loginData(`User/${user.id}`, user.token);
                 console.log('userData', userData);
                 setUSER(userData);
 
@@ -37,7 +36,7 @@ export default function Header() {
         };
 
         fetchDataAPI();
-    }, []);
+    }, [user]);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -52,6 +51,10 @@ export default function Header() {
         };
     }, []);
 
+    const handleLogout = () => {
+        logout();
+        navigate('/login-register');
+    }
 
     return (
         <div className='header-container'>
@@ -72,13 +75,13 @@ export default function Header() {
                             <div className='menu'>
                                 <Link to='/user/information' className='item information-item'>
                                     <img src={USER?.image} alt={USER?.name} />
-                                    <div className='name'>{USER?.name}aaaaaaaaaaaaaaaaaaaaaaaa</div>
+                                    <div className='name'>{USER?.name}</div>
                                 </Link>
                                 <Link className='item'>
                                     <i className='fa-solid fa-futbol'></i>
                                     <div>Sân đã đặt</div>
                                 </Link>
-                                <div className='item' onClick={() => logout()}>
+                                <div className='item' onClick={() => handleLogout()}>
                                     <i className='fa-solid fa-sign-out-alt'></i>
                                     <div>Đăng xuất</div>
                                 </div>
