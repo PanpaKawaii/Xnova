@@ -3,7 +3,8 @@ const apiKey = import.meta.env.VITE_REACT_APP_API_KEY;
 
 console.log(apiUrl);
 
-const token = '';
+const token = JSON.parse(localStorage.getItem('user')).token;
+// console.log('token from api', token);
 
 // Hàm gọi API GET
 export const fetchData = async (endpoint) => {
