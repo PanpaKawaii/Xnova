@@ -85,8 +85,108 @@ section h2 {
     color: #333;
 }
 
+/* Introduce Section Styles */
+.introduce-section {
+    margin: 60px auto;
+    max-width: 1200px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    padding: 48px 32px;
+    color: white;
+}
+
+.introduce-content {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.introduce-text {
+    flex: 1;
+}
+
+.introduce-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 24px;
+    color: white;
+    font-weight: 700;
+}
+
+.introduce-text p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    opacity: 0.95;
+}
+
+.introduce-features {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.feature-icon {
+    font-size: 1.5rem;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.introduce-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.introduce-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+.introduce-image img:hover {
+    transform: scale(1.05);
+}
+
 @media (max-width: 800px) {
     .hero-slogan { font-size: 1.5rem; }
     section { padding: 18px 6px; }
     .benefits-list { flex-direction: column; gap: 12px; }
+    
+    .introduce-content {
+        flex-direction: column;
+        gap: 32px;
+        text-align: center;
+    }
+    
+    .introduce-text h2 {
+        font-size: 2rem;
+    }
+    
+    .introduce-section {
+        margin: 40px auto;
+        padding: 32px 24px;
+    }
+    
+    .feature-item {
+        justify-content: center;
+    }
 }

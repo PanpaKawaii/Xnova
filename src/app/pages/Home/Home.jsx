@@ -4,6 +4,8 @@ import Video from '../../components/Video/Video';
 import QuickSearch from '../../components/QuickSearch/QuickSearch';
 import FeaturedVenues from '../../components/FeaturedVenues/FeaturedVenues';
 import Footer from '../../layouts/Header/Footer';
+import JellyFish from '../../assets/JellyFish.png';
+import SportsTypes from '../../components/SportsTypes/SportsTypes';
 
 export default function Home() {
     return (
@@ -12,6 +14,33 @@ export default function Home() {
             <div className='hero-section'>
                 <Video />
             </div>
+
+            {/* Introduce Section */}
+            <section className='introduce-section'>
+                <div className='introduce-content'>
+                    <div className='introduce-text'>
+                        <h2>Giới thiệu về Xnova</h2>
+                        <p>Xnova là nền tảng kết nối cộng đồng thể thao, giúp bạn tìm kiếm và đặt sân thể thao một cách nhanh chóng và thuận tiện. Chúng tôi cam kết mang đến trải nghiệm thể thao tốt nhất cho mọi người.</p>
+                        <div className='introduce-features'>
+                            <div className='feature-item'>
+                                <span className='feature-icon'>🏟️</span>
+                                <span>Đa dạng sân thể thao</span>
+                            </div>
+                            <div className='feature-item'>
+                                <span className='feature-icon'>⚡</span>
+                                <span>Đặt sân nhanh chóng</span>
+                            </div>
+                            <div className='feature-item'>
+                                <span className='feature-icon'>🤝</span>
+                                <span>Kết nối cộng đồng</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='introduce-image'>
+                        <img src={JellyFish} alt="Xnova Sports Platform" />
+                    </div>
+                </div>
+            </section>
 
             {/* Quick Search */}
             <section className='quicksearch-section'>
@@ -23,11 +52,7 @@ export default function Home() {
             <FeaturedVenues />
 
             {/* Sports Types */}
-            <section className='sports-types-section'>
-                <h2>Môn thể thao</h2>
-                {/* TODO: Add sports types icons/cards here */}
-                <div className='sports-types-placeholder'>[Badminton | Football | Tennis | ...]</div>
-            </section>
+            <SportsTypes />
 
             {/* Benefits */}
             <section className='benefits-section'>
