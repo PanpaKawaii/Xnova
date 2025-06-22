@@ -16,6 +16,15 @@ a {
   text-decoration: none;
 }
 
+input {
+  outline: none;
+  padding: 8px 12px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: 'Quicksand', Arial, sans-serif;
+}
+
 .btn {
   cursor: pointer;
   user-select: none;

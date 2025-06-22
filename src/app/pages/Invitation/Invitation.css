@@ -107,13 +107,7 @@
             }
 
             input {
-                padding: 6px 12px;
-                font-size: 16px;
                 border: none;
-                box-sizing: border-box;
-                border-radius: 4px;
-                outline: none;
-                font-family: 'Quicksand', Arial, sans-serif;
             }
         }
     }

@@ -109,13 +109,7 @@
 
                     input {
                         width: 100%;
-                        padding: 8px 12px;
                         border: 1px solid #ccc;
-                        box-sizing: border-box;
-                        border-radius: 4px;
-                        font-size: 16px;
-                        outline: none;
-                        font-family: 'Quicksand', Arial, sans-serif;
                     }
                 }
 
