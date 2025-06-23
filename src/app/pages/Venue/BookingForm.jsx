@@ -49,6 +49,7 @@ export default function BookingForm({ Venue }) {
         fetchDataAPI();
     }, [user]);
 
+    const [Confirm, setConfirm] = useState(false);
     const [SelectedDate, setSelectedDate] = useState('');
     const [SportType, setSportType] = useState('');
     const [SelectedField, setSelectedField] = useState('');
@@ -211,6 +212,7 @@ export default function BookingForm({ Venue }) {
         const Field = Number(e.target.field.value);
         const Date = e.target.date.value;
         const Slots = [...SelectedSlots];
+        setConfirm(true);
         // console.log({ Payment, Field, Date, Slots, Amount });
         BookField(Payment, Field, Date, Slots, Amount);
         // setIsPopupOpen(true);
@@ -277,7 +279,7 @@ export default function BookingForm({ Venue }) {
                                             <option value=''>--Sân thể thao--</option>
                                             {AvailableField.map((field) => (
                                                 <option key={field.id} value={field.id}>
-                                                    {field.id} - {field.name}
+                                                    {field.name}
                                                 </option>
                                             ))}
                                         </select>
@@ -305,7 +307,6 @@ export default function BookingForm({ Venue }) {
                                                         disabled={!SelectedDate || !SportType || AvailableField?.length <= 0 || BookedSlotIds.includes(slot.id)}
                                                     />
                                                     <div className={`radio-box`}>
-                                                        <div className='id'>ID:{slot.id}</div>
                                                         <div className='name'>{`[${slot.name}] ${slot.startTime.substring(0, 5)} - ${slot.endTime.substring(0, 5)}`}</div>
                                                         <div className='price'>{slot.price.toLocaleString('vi-VN')} VND</div>
                                                     </div>
@@ -319,6 +320,7 @@ export default function BookingForm({ Venue }) {
                                             name='payment'
                                             className='form-control'
                                         >
+                                            {/* <option value=''>--Chọn phương thức thanh toán--</option> */}
                                             <option value='Thanh toán qua VNPay'>Thanh toán qua VNPay</option>
                                             <option value='Thanh toán bằng tiền mặt'>Thanh toán bằng tiền mặt</option>
                                         </select>
@@ -348,14 +350,15 @@ export default function BookingForm({ Venue }) {
                                 })()}
                             </div>
 
-                            <button type='submit' className='btn' disabled={!SelectedDate || !SelectedField || SelectedSlots.length <= 0}>CHỌN</button>
+                            <button type='submit' className='btn' disabled={!SelectedDate || !SelectedField || SelectedSlots.length <= 0 || Confirm}>
+                                TỔNG: {Amount.toLocaleString('vi-VN')} VND
+                            </button>
 
                             {/* <div>SelectedDate: {SelectedDate}</div>
                             <div>SportType: {SportType}</div>
                             <div>SelectedField: {SelectedField}</div>
                             <div>Slot chọn: {SelectedSlots.join(', ')}</div> */}
 
-                            <div>Tổng: {Amount.toLocaleString('vi-VN')} VND</div>
                             {bookingsHaveTheSameDateAndSlot && bookingsHaveTheSameDateAndSlot.length !== 0 && <div>Slot không khả dụng</div>}
                             {bookingsHaveTheSameDateAndSlot && bookingsHaveTheSameDateAndSlot.length === 0 &&
                                 SlotId.length > 0 &&
@@ -364,7 +367,7 @@ export default function BookingForm({ Venue }) {
                                 <button type='submit' className='btn' disabled={SelectedSlots?.length > 0}>CHỌN</button>}
                         </form>
                         :
-                        <Link to='/login-register'><button className='btn'>VUI LÒNG ĐĂNG NHẬP</button></Link>
+                        <Link to='/login-register'>Vui lòng đăng nhập</Link>
                     }
                 </div>
             </div>
