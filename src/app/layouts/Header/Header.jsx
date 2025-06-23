@@ -1,12 +1,13 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { loginData } from '../../../mocks/CallingAPI.js';
-import { useAuth } from '../../hooks/AuthContext/AuthContext';
+import { fetchData } from '../../../mocks/CallingAPI.js';
+import { useAuth } from '../../hooks/AuthContext/AuthContext.jsx';
 import './Header.css';
 
 export default function Header() {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
+    console.log('===Header===User===', user);
 
     const [USER, setUSER] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -18,13 +19,11 @@ export default function Header() {
         setIsDropdownOpen(!isDropdownOpen);
     };
 
-    console.log('===Header===User===', user);
-    console.log(`User/${user?.id}`);
-
     useEffect(() => {
+        const token = user?.token;
         const fetchDataAPI = async () => {
             try {
-                const userData = await loginData(`User/${user.id}`, user.token);
+                const userData = await fetchData(`User/${user.id}`, token);
                 console.log('userData', userData);
                 setUSER(userData);
 

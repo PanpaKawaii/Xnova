@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { fetchData } from '../../../mocks/CallingAPI.js';
 import StarRating from '../../components/StarRating.jsx';
+import { useAuth } from '../../hooks/AuthContext/AuthContext.jsx';
 import './VenueFeedback.css';
 
 export default function VenueFeedback({ Venue, Number }) {
+    console.log('VenueFeedback');
+    const { user } = useAuth();
 
     const [USERs, setUSERs] = useState([]);
     const [FIELDs, setFIELDs] = useState([]);
@@ -12,17 +15,18 @@ export default function VenueFeedback({ Venue, Number }) {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        const token = user?.token;
         const fetchDataAPI = async () => {
             try {
-                const fieldData = await fetchData('Field');
+                const fieldData = await fetchData('Field', token);
                 console.log('fieldData', fieldData);
                 setFIELDs(fieldData.filter(s => s.status === 1));
 
-                const userData = await fetchData('User/GetIdAndName');
+                const userData = await fetchData('User/GetIdAndName', token);
                 console.log('userData', userData);
                 setUSERs(userData);
 
-                const bookingData = await fetchData('Booking');
+                const bookingData = await fetchData('Booking', token);
                 console.log('bookingData', bookingData);
                 setBOOKINGs(bookingData.filter(s => s.status === 1));
 
@@ -34,9 +38,9 @@ export default function VenueFeedback({ Venue, Number }) {
         };
 
         fetchDataAPI();
-    }, []);
+    }, [user]);
 
-    const FilterBookng = BOOKINGs
+    const FilterBooking = BOOKINGs
         .filter(booking => {
             const field = FIELDs.find(f => f.id === booking.fieldId);
             return field && field.venueId === Venue.id;
@@ -59,7 +63,7 @@ export default function VenueFeedback({ Venue, Number }) {
             };
         });
 
-    const FeedbackBooking = FilterBookng?.sort((a, b) => new Date(a.date) - new Date(b.date)).slice(0, Math.min(Number, FilterBookng.length))
+    const FeedbackBooking = FilterBooking?.sort((a, b) => new Date(a.date) - new Date(b.date)).slice(0, Math.min(Number, FilterBooking.length))
 
     console.log('FeedbackBooking', FeedbackBooking);
 

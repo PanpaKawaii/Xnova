@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { postData } from '../../../../mocks/CallingAPI.js';
 import { useAuth } from '../../../hooks/AuthContext/AuthContext.jsx';
@@ -6,6 +6,8 @@ import './Login.css';
 
 export default function Login({ MoveImage }) {
     console.log('Login');
+    const { login } = useAuth();
+    const navigate = useNavigate();
 
     const ResetLoginInputs = () => {
         var inputs = document.querySelectorAll('input');
@@ -14,9 +16,6 @@ export default function Login({ MoveImage }) {
         });
         setLoginError({ value: '', name: '' });
     };
-
-    const navigate = useNavigate();
-    const { login } = useAuth();
 
     const [Remember, setRemember] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -44,7 +43,7 @@ export default function Login({ MoveImage }) {
 
         try {
             setLoading(true);
-            const result = await postData('Login/authenticate', LoginData);
+            const result = await postData('Login/authenticate', LoginData, '');
             console.log('result', result);
             login(result);
 

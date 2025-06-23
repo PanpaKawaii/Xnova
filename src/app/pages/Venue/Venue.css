@@ -81,17 +81,22 @@
 
             .form-rating {
                 height: 40px;
-                padding: 0 8px;
                 background-color: #fff;
                 border: 1px solid #ced4da;
                 box-sizing: border-box;
                 overflow: hidden;
 
                 label {
+                    padding: 0 8px;
+                    cursor: pointer;
                     height: 100%;
                     display: flex;
                     align-items: center;
                     gap: 4px;
+
+                    input {
+                        cursor: pointer;
+                    }
 
                     .number {
                         padding: 0 0 4px;

@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { fetchData } from '../../../mocks/CallingAPI.js';
 import BackArrow from '../../components/BackArrow.jsx';
 import StarHalfFull from '../../components/StarHalfFull.jsx';
 import StarRating from '../../components/StarRating.jsx';
+import { useAuth } from '../../hooks/AuthContext/AuthContext.jsx';
 import BookingForm from './BookingForm.jsx';
 import './VenueDetail.css';
 import VenueFeedback from './VenueFeedback.jsx';
 
 export default function VenueDetail() {
-
+    const { user } = useAuth();
+    const navigate = useNavigate();
     const location = useLocation();
     const Venue = location.state?.venue;
     console.log('Venue', Venue);
@@ -20,15 +21,12 @@ export default function VenueDetail() {
         const UserIdInt = parseInt(UserId, 10);
         setId(UserIdInt);
     }, [UserId]);
-    const navigate = useNavigate();
 
     const [BOOKINGs, setBOOKINGs] = useState(null);
     const [PODs, setPODs] = useState(null);
     const [TYPEs, setTYPEs] = useState(null);
-    const [UTILITIes, setUTILITIes] = useState(null);
     const [SLOTs, setSLOTs] = useState([]);
     const [STOREs, setSTOREs] = useState(null);
-    const [USERS, setUSERS] = useState(null);
     const [USER, setUSER] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -77,9 +75,6 @@ export default function VenueDetail() {
     const PodId = useParams();
     const Pod = PODs ? PODs.find(obj => { return obj.id == PodId.Id; }) : null;
 
-    // Lấy những Utility của Pod đó
-    const AvailableUTILITIes = UTILITIes ? UTILITIes.filter(utility => utility.pods && utility.pods.some(pod => pod.id === Pod.id)) : [];
-
     // Lấy những Slot có status là Đang hoạt động
     const activeSLOTs = SLOTs ? SLOTs.filter(slot => slot.status === 'Đang hoạt động') : [];
 
@@ -119,22 +114,6 @@ export default function VenueDetail() {
     const unbookedAvailableSLOTs = AvailableSLOTs ? AvailableSLOTs.filter(slot => !uniqueSlotsHaveTheSameDate.some(noslot => noslot.id === slot.id)) : [];
 
 
-    // Lấy đánh giá của POD dựa trên đánh giá của các Booking
-    const getPodBookingRating = (podId) => {
-        const booking = BOOKINGs ? BOOKINGs.filter(booking => booking.podId === podId && booking.rating !== null && booking.rating > 0) : [];
-        const rating = booking.map(booking => booking.rating).reduce((sum, rating) => sum + rating, 0);
-        return (rating / booking.length).toFixed(1);
-    };
-    // Lấy tên người dùng của Booking
-    const getUserNameBooking = (userId) => {
-        const user = USERS ? USERS.find(user => user.id === userId) : null;
-        return user ? user.name : null;
-    };
-    // Lấy ảnh người dùng của Booking
-    const getUserImageBooking = (userId) => {
-        const user = USERS ? USERS.find(user => user.id === userId) : null;
-        return user ? user.image : null;
-    };
 
     useEffect(() => {
         setBookingsHaveTheSameDateAndSlot(getSlotsHaveTheSameDateAndSlot)
@@ -149,116 +128,6 @@ export default function VenueDetail() {
 
 
 
-    // Tạo Booking và Payment và PaymentMethod////////////////////////////////////////////////////////////////////////////////////////////////////
-    const Booking = async () => {
-        if (!MaxBookingID) {
-            console.error('Please wait for the system');
-            return;
-        }
-        if (!Pod || !id) {
-            console.error('Pod or UserId is not defined');
-            return;
-        }
-        if (!date || SlotId.length === 0) {
-            console.error('Date or SlotId is not defined');
-            return;
-        }
-        if (Confirm == false) {
-            console.error('You have not confirmed yet');
-            return;
-        }
-
-        const bookingData = {
-            id: MaxBookingID + 1,
-            date: date,
-            currentDate: new Date(new Date().getTime() + 7 * 60 * 60 * 1000).toISOString(),
-            status: 'Chưa diễn ra',
-            feedback: '',
-            rating: 0,
-            podId: Pod.id,
-            userId: id,
-            slotIds: SlotId.map(id => parseInt(id, 10)),
-        };
-        console.log('Booking data:', bookingData);
-
-        const paymentData = {
-            id: MaxPaymentID + 1,
-            method: selectedPaymentMethod,
-            amount: Amount,
-            date: new Date(new Date().getTime() + 7 * 60 * 60 * 1000).toISOString(),
-            status: 'Chưa thanh toán',
-            bookingId: MaxBookingID + 1,
-        };
-        console.log('Payment data:', paymentData);
-
-        const paymentMethodData = {
-            id: MaxPaymentID + 1,
-            orderId: MaxBookingID + 1,
-            fullname: USER.name,
-            description: 'Thanh toán qua VNPay cho Booking có ID: ' + MaxBookingID + 1,
-            amount: Amount,
-            status: 'Chưa thanh toán',
-            method: 'Thanh toán qua VNPay',
-            createdDate: new Date(new Date().getTime() + 7 * 60 * 60 * 1000).toISOString(),
-        };
-        console.log('PaymentMethod data:', paymentMethodData);
-
-        console.log('Confirm status:', Confirm);
-
-        try {
-            const response = await fetch('https://localhost:7166/api/Booking', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                },
-                body: JSON.stringify(bookingData),
-            });
-
-            if (!response.ok) throw new Error('Network response was not ok');
-            const result = await response.json();
-            console.log('Booking successful:', result);
-        } catch (error) {
-            console.error('Error during booking:', error);
-        }
-
-        if (selectedPaymentMethod && selectedPaymentMethod === 'Thanh toán bằng tiền mặt') {
-            try {
-                const response = await fetch('https://localhost:7166/api/Payment', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                    },
-                    body: JSON.stringify(paymentData),
-                });
-
-                if (!response.ok) throw new Error('Network response was not ok');
-                const result = await response.json();
-                console.log('Creating Payment successful:', result);
-            } catch (error) {
-                console.error('Error during booking:', error);
-            }
-        } else {
-            try {
-                const response = await fetch('https://localhost:7166/api/Payment/create', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                    },
-                    body: JSON.stringify(paymentMethodData),
-                });
-
-                if (!response.ok) throw new Error('Network response was not ok');
-                const result = await response.json();
-                console.log('Creating PaymentMethod successful:', result);
-                window.location.href = result.paymentUrl;
-            } catch (error) {
-                console.error('Error during booking:', error);
-            }
-        }
-    };
 
     useEffect(() => {
         if (date && SlotId) {
@@ -325,12 +194,6 @@ export default function VenueDetail() {
     return (
         <div className='venuedetail-container'>
 
-            {/* <div className='back-button' style={{ position: 'absolute', top: '20px', left: '20px' }}>
-                <Link to='/booking/pod'>
-                    <i className='fa-solid fa-arrow-left' style={{ color: '#fdbc7f', fontSize: '40px' }}></i>
-                </Link>
-            </div> */}
-
             <BackArrow />
 
             <div className='venuedetail-content'>
@@ -353,8 +216,6 @@ export default function VenueDetail() {
 
                         <div className='detail-container'>
                             <div className='short-detail'>
-                                <h3><b>{thisSTORE ? `${thisSTORE.name}: ${thisSTORE.address} / Liên hệ: ${thisSTORE.contact}` : 'Store not found'}</b></h3>
-                                <div>{thisTYPE ? `${thisTYPE.name} / Sức chứa: ${thisTYPE.capacity} người` : 'Type not found'}</div>
 
                                 <div className='favorite'>
                                     <div className='favorite-title'>
@@ -378,9 +239,6 @@ export default function VenueDetail() {
                                         )}
                                     </div>
                                 </div>
-
-                                <h4><b>Mô tả về sân:</b></h4>
-                                <div>{Venue.Description}</div>
                             </div>
 
                             <BookingForm Venue={Venue} />

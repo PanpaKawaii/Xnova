@@ -38,8 +38,6 @@ export default function CountdownTimer({ DoAction, EmailRef, NameRef, PhoneRef, 
         console.log('Validate: ', Validate);
         if (Validate.value != 'OK') {
             console.log('Validation Is False');
-            setRegisterError(Validate);
-            setRegisterSuccess('');
             return;
         } else {
             setIsActive(true);

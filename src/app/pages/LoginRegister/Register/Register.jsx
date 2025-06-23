@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
-import CheckValidation from './CheckValidation';
-import CountdownTimer from './CountdownTimer';
 import { postData } from '../../../../mocks/CallingAPI.js';
+import CheckValidation from './CheckValidation.jsx';
+import CountdownTimer from './CountdownTimer.jsx';
 import './Register.css';
 
 export default function Register({ MoveImage }) {
@@ -47,7 +47,7 @@ export default function Register({ MoveImage }) {
 
         try {
             setLoading(true);
-            const result = await postData('User/register-request', RegisterData);
+            const result = await postData('User/register-request', RegisterData, '');
             console.log('result', result);
 
             setRegisterSuccess('Gửi OTP thành công!');
@@ -104,7 +104,7 @@ export default function Register({ MoveImage }) {
 
         try {
             setLoading(true);
-            const result = await postData('User/register-confirm', CheckOTP);
+            const result = await postData('User/register-confirm', CheckOTP, '');
             console.log('result', result);
 
             // if (data.role && data.role === 'User') {
@@ -257,9 +257,9 @@ export default function Register({ MoveImage }) {
                         Accept={Accept} />
                 </div>
 
-                {RegisterError && <div className='message error-message'>{RegisterError.value}</div>}
+                {RegisterError.value && <div className='message error-message'>{RegisterError.value}</div>}
                 {RegisterSuccess && <div className='message success-message'>{RegisterSuccess}</div>}
-                {!RegisterError && !RegisterSuccess && <div className='message error-message'></div>}
+                {!RegisterError.value  && !RegisterSuccess && <div className='message'></div>}
             </form>
 
             <form onSubmit={handleSubmitRegister}>
