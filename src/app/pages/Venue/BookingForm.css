@@ -37,10 +37,10 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                gap: 8px;
 
                 .form-group {
                     width: 100%;
-                    margin: 0 0 10px;
                     border-radius: 4px;
                 }
 
@@ -113,31 +113,51 @@
 
                 .form-slot {
                     width: 100%;
+                    padding: 12px 0;
                     display: grid;
                     grid-template-columns: repeat(1, minmax(0, 1fr));
-                    gap: 12px;
+                    gap: 8px;
 
                     label {
+                        user-select: none;
+
                         .hidden-radio {
                             display: none;
                         }
 
                         .hidden-radio:checked+.radio-box {
-                            color: #fff;
-                            background-color: #bbb;
+                            color: #28a745;
+                            border-color: #28a745;
+                            background-color: #d3f9d8;
                             transition: all 0.2s ease;
+                            font-weight: bold;
+                        }
+
+                        .hidden-radio:disabled+.radio-box {
+                            color: #fff;
+                            background-color: #fad7d9;
+                            border: none;
+                            transition: all 0.2s ease;
+                            font-weight: bold;
+                        }
+
+                        .hidden-radio:disabled+.radio-box .price {
+                            color: #fad7d9;
+                            background-color: #fff;
                         }
 
                         .radio-box {
                             width: 100%;
                             padding: 8px;
-                            border: 1px solid #ccc;
+                            background-color: #eee;
+                            border: 2px solid #ccc;
                             box-sizing: border-box;
                             border-radius: 4px;
                             display: flex;
                             justify-content: end;
                             align-items: center;
                             transition: all 0.15s ease;
+                            font-weight: 500;
                             cursor: pointer;
 
                             .name {
@@ -152,10 +172,10 @@
                                 font-weight: bold;
                                 border-radius: 4px;
                             }
-                        }
 
-                        .radio-box:hover {
-                            background-color: #e0e0e0;
+                            &:hover {
+                                background-color: #e0e0e0;
+                            }
                         }
                     }
                 }
@@ -175,6 +195,4 @@
             }
         }
     }
-
-
 }
