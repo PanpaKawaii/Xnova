@@ -7,6 +7,7 @@ import { useAuth } from '../../hooks/AuthContext/AuthContext.jsx';
 import './BookingForm.css';
 
 export default function BookingForm({ Venue }) {
+    console.log('BookingForm');
     const { user } = useAuth();
     const navigate = useNavigate();
 
@@ -14,6 +15,7 @@ export default function BookingForm({ Venue }) {
     const [FIELDs, setFIELDs] = useState([]);
     const [SLOTs, setSLOTs] = useState([]);
     const [BOOKINGs, setBOOKINGs] = useState([]);
+    const [BOOKINGSLOTs, setBOOKINGSLOTs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -31,7 +33,11 @@ export default function BookingForm({ Venue }) {
                 setSLOTs(slotData.filter(s => s.status === 1));
 
                 const bookingData = await fetchData('Booking', token);
-                setBOOKINGs(bookingData.filter(s => s.status === 1));
+                setBOOKINGs(bookingData);
+                // setBOOKINGs(bookingData.filter(s => s.status === 1));
+
+                const bookingSlotData = await fetchData('BookingSlot', token);
+                setBOOKINGSLOTs(bookingSlotData);
 
                 setLoading(false);
             } catch (error) {
@@ -43,9 +49,9 @@ export default function BookingForm({ Venue }) {
         fetchDataAPI();
     }, [user]);
 
-    const [SelectedDate, setSelectedDate] = useState(new Date());
+    const [SelectedDate, setSelectedDate] = useState('');
     const [SportType, setSportType] = useState('');
-
+    const [SelectedField, setSelectedField] = useState('');
     const [SelectedSlots, setSelectedSlots] = useState([]);
     const handleChangeSlot = (e) => {
         const value = Number(e.target.value);
@@ -56,7 +62,6 @@ export default function BookingForm({ Venue }) {
             setSelectedSlots((prev) => prev.filter((v) => v !== value));
         }
     };
-
     const [Amount, setAmount] = useState(0);
     useEffect(() => {
         const TotalPrice = SLOTs
@@ -65,19 +70,41 @@ export default function BookingForm({ Venue }) {
         setAmount(TotalPrice);
     }, [SelectedSlots]);
 
-    const seen = new Set();
-    const AvailableSLOTs = SLOTs.filter(slot => {
-        const field = FIELDs.find(f => f.id === slot.fieldId);
-        if (!field || field.venueId !== Venue.id) return false;
 
-        const key = `${slot.name}|${slot.startTime}|${slot.endTime}|${slot.price}|${slot.status}`;
-        if (seen.has(key)) return false;
+    const AvailableField = FIELDs.filter(field => field.typeId === Number(SportType));
+    const AvailableSLOTs = SLOTs.filter(slot => slot.fieldId === Number(SelectedField));
 
-        seen.add(key);
-        return true;
-    });
+    // const seen = new Set();
+    // const AvailableSLOTs = SLOTs.filter(slot => {
+    //     const field = FIELDs.find(f => f.id === slot.fieldId);
+    //     if (!field || field.venueId !== Venue.id) return false;
+
+    //     const key = `${slot.name}|${slot.startTime}|${slot.endTime}|${slot.price}|${slot.status}`;
+    //     if (seen.has(key)) return false;
+
+    //     seen.add(key);
+    //     return true;
+    // });
+
+
+    console.log('BOOKINGs', BOOKINGs);
+    const SameDateBookings = BOOKINGs.filter(booking =>
+        booking.fieldId === Number(SelectedField) && booking.date == SelectedDate
+    );
+    console.log('SameDateBookings', SameDateBookings);
+    const SameDateBookingIds = SameDateBookings.map(booking => booking.id);
+    console.log('SameDateBookingIds', SameDateBookingIds);
+    const BookedSlotIds = BOOKINGSLOTs
+        .filter(bs => SameDateBookingIds.includes(Number(bs.bookingId)))
+        .map(bs => bs.slotId);
+    console.log('BookedSlotIds', BookedSlotIds);
+
 
     const BookField = async (payment, field, date, slots, amount) => {
+
+        if (!payment || !field || !date || !slots || !amount) {
+            return;
+        }
 
         const BookingData = {
             id: 0,
@@ -206,6 +233,7 @@ export default function BookingForm({ Venue }) {
                                         name='date'
                                         value={SelectedDate}
                                         onChange={(e) => setSelectedDate(e.target.value)}
+                                        disabled={SelectedSlots.length > 0}
                                     />
                                 </div>
 
@@ -224,6 +252,7 @@ export default function BookingForm({ Venue }) {
                                         className='form-control'
                                         value={SportType}
                                         onChange={(e) => setSportType(e.target.value)}
+                                        disabled={SelectedField}
                                     >
                                         <option value=''>--Môn thể thao--</option>
                                         {TYPEs && TYPEs.map((type) => (
@@ -235,16 +264,20 @@ export default function BookingForm({ Venue }) {
                                 </div>
                             </div>
 
-                            {SelectedDate &&
-                                <>
+                            {SelectedDate && SportType &&
+                                <React.Fragment>
                                     <div className='form-group form-field'>
                                         <select
                                             name='field'
+                                            value={SelectedField}
                                             className='form-control'
+                                            onChange={(e) => setSelectedField(e.target.value)}
+                                            disabled={SelectedSlots.length > 0}
                                         >
-                                            {FIELDs && FIELDs.map((field) => (
+                                            <option value=''>--Sân thể thao--</option>
+                                            {AvailableField.map((field) => (
                                                 <option key={field.id} value={field.id}>
-                                                    {field.name}
+                                                    {field.id} - {field.name}
                                                 </option>
                                             ))}
                                         </select>
@@ -259,24 +292,27 @@ export default function BookingForm({ Venue }) {
                                 ))}
                             </div> */}
 
-                                    <div className='form-group form-slot'>
-                                        {AvailableSLOTs.map((slot) => (
-                                            <label key={slot.id} className='radio-label'>
-                                                <input
-                                                    type='checkbox'
-                                                    name='choice'
-                                                    value={slot.id}
-                                                    onChange={handleChangeSlot}
-                                                    className='hidden-radio'
-                                                />
-                                                <div className={`radio-box`}>
-                                                    <div className='name'>{`[${slot.name}] ${slot.startTime.substring(0, 5)} - ${slot.endTime.substring(0, 5)}`}</div>
-                                                    <div className='price'>{slot.price.toLocaleString('vi-VN')} VND</div>
-                                                </div>
-                                            </label>
-                                        ))}
-                                    </div>
-                                    <div>Đã chọn: {SelectedSlots.join(', ')}</div>
+                                    {SelectedField &&
+                                        <div className='form-group form-slot'>
+                                            {AvailableSLOTs.map((slot) => (
+                                                <label key={slot.id} className='radio-label'>
+                                                    <input
+                                                        type='checkbox'
+                                                        name='choice'
+                                                        value={slot.id}
+                                                        onChange={handleChangeSlot}
+                                                        className='hidden-radio'
+                                                        disabled={!SelectedDate || !SportType || AvailableField?.length <= 0 || BookedSlotIds.includes(slot.id)}
+                                                    />
+                                                    <div className={`radio-box`}>
+                                                        <div className='id'>ID:{slot.id}</div>
+                                                        <div className='name'>{`[${slot.name}] ${slot.startTime.substring(0, 5)} - ${slot.endTime.substring(0, 5)}`}</div>
+                                                        <div className='price'>{slot.price.toLocaleString('vi-VN')} VND</div>
+                                                    </div>
+                                                </label>
+                                            ))}
+                                        </div>
+                                    }
 
                                     <div className='form-group form-payment'>
                                         <select
@@ -287,7 +323,7 @@ export default function BookingForm({ Venue }) {
                                             <option value='Thanh toán bằng tiền mặt'>Thanh toán bằng tiền mặt</option>
                                         </select>
                                     </div>
-                                </>
+                                </React.Fragment>
                             }
 
                             <div>
@@ -312,7 +348,12 @@ export default function BookingForm({ Venue }) {
                                 })()}
                             </div>
 
-                            <button type='submit' className='btn'>CHỌN</button>
+                            <button type='submit' className='btn' disabled={!SelectedDate || !SelectedField || SelectedSlots.length <= 0}>CHỌN</button>
+
+                            {/* <div>SelectedDate: {SelectedDate}</div>
+                            <div>SportType: {SportType}</div>
+                            <div>SelectedField: {SelectedField}</div>
+                            <div>Slot chọn: {SelectedSlots.join(', ')}</div> */}
 
                             <div>Tổng: {Amount.toLocaleString('vi-VN')} VND</div>
                             {bookingsHaveTheSameDateAndSlot && bookingsHaveTheSameDateAndSlot.length !== 0 && <div>Slot không khả dụng</div>}
@@ -320,10 +361,10 @@ export default function BookingForm({ Venue }) {
                                 SlotId.length > 0 &&
                                 new Date(date) >= new Date().setHours(0, 0, 0, 0) &&
                                 new Date(date) <= new Date().setHours(0, 0, 0, 0) + 30 * 24 * 60 * 60 * 1000 &&
-                                <button type='submit' className='btn'>CHỌN</button>}
+                                <button type='submit' className='btn' disabled={SelectedSlots?.length > 0}>CHỌN</button>}
                         </form>
                         :
-                        <Link to='/login-register'><button>VUI LÒNG ĐĂNG NHẬP</button></Link>
+                        <Link to='/login-register'><button className='btn'>VUI LÒNG ĐĂNG NHẬP</button></Link>
                     }
                 </div>
             </div>
