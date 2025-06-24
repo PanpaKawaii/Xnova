@@ -265,12 +265,12 @@ CREATE TABLE [UserInvitation] (
 
 
 --Type (Name)
-INSERT INTO [Type] VALUES (N'Football')
-INSERT INTO [Type] VALUES (N'Badminton')
+INSERT INTO [Type] VALUES (N'Bóng đá')
+INSERT INTO [Type] VALUES (N'Cầu lông')
 INSERT INTO [Type] VALUES (N'Pickleball')
 
 --User (Name, Email, Password, Image, Role, Description, PhoneNumber, Point, Type, Status)
-INSERT INTO [User] VALUES (N'Đặng Ngọc Hải Triều', N'dngngchitriu2004@gmail.com', N'123456', N'https://i.pinimg.com/736x/b8/1f/36/b81f367b3a125004838570fb61922360.jpg', N'Admin', N'Quản trị viên', N'0123456789', 0, N'VIP', 1)
+INSERT INTO [User] VALUES (N'Đặng Ngọc Hải Triều', N'dngngchitriu2004@gmail.com', N'123456', N'https://i.pinimg.com/736x/69/ef/0a/69ef0a2e02b85a6428a521ccbe7f942b.jpg', N'Admin', N'Quản trị viên', N'0123456789', 0, N'VIP', 1)
 INSERT INTO [User] VALUES (N'Nguyễn Gia Huy', N'nguyengiahuy@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Owner', N'Chủ sân', N'0123456789', 100000, N'Regular', 1)
 INSERT INTO [User] VALUES (N'Nguyễn Gia Hoàng', N'nguyengiahoang@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Owner', N'Chủ sân', N'0123456789', 200000, N'Regular', 1)
 INSERT INTO [User] VALUES (N'Phạm Thành Danh', N'phamthanhdanh@gmail.com', N'123456', N'https://i.pinimg.com/736x/b0/91/5f/b0915f3c86472ea1ad3d1472cebd6c15.jpg', N'Owner', N'Chủ sân', N'0123456789', 300000, N'Regular', 1)
@@ -288,58 +288,61 @@ INSERT INTO [User] VALUES (N'Chủ Sân', N'owner@gmail.com', N'123456', N'https
 INSERT INTO [User] VALUES (N'Khách Hàng', N'customer@gmail.com', N'123456', N'https://i.pinimg.com/736x/cd/78/92/cd7892d335cc9bb399ced88b71474ea7.jpg', N'Customer', N'Khách hàng', N'0123456789', 5000, N'VIP', 1)
 
 --Venue (Name, Address, Longitude, Latitude, Contact, Status, UserId)
-INSERT INTO [Venue] VALUES (N'Sunrise Sports Arena', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', N'0', N'0', N'0123456789', 1, 2)--Huy
-INSERT INTO [Venue] VALUES (N'Green Field Center', N'456 Đường Nguyễn Văn Cừ, Quận 5, TP. HCM', N'0', N'0', N'0123456789', 1, 3)--Hoang
-INSERT INTO [Venue] VALUES (N'Victory Stadium', N'789 Đường Trần Hưng Đạo, Quận 1, TP. HCM', N'0', N'0', N'0123456789', 1, 3)--Hoang
-INSERT INTO [Venue] VALUES (N'Cityside Court', N'12 Đường Lê Văn Sỹ, Quận 3, TP. HCM', N'0', N'0', N'0123456789', 1, 4)--Danh
-INSERT INTO [Venue] VALUES (N'The Arena Zone', N'34 Đường Phan Xích Long, Phú Nhuận, TP. HCM', N'0', N'0', N'0123456789', 1, 4)--Danh
-INSERT INTO [Venue] VALUES (N'Mega Sports Hub', N'89 Đường Cộng Hòa, Tân Bình, TP. HCM', N'0', N'0', N'0123456789', 1, 4)--Danh
+INSERT INTO [Venue] VALUES (N'Sunrise Sports Arena', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', N'-123', N'118', N'0123456789', 1, 2)--Huy
+INSERT INTO [Venue] VALUES (N'Green Field Center', N'456 Đường Nguyễn Văn Cừ, Quận 5, TP. HCM', N'-155', N'164', N'0123456789', 1, 3)--Hoang
+INSERT INTO [Venue] VALUES (N'Victory Stadium', N'789 Đường Trần Hưng Đạo, Quận 1, TP. HCM', N'110', N'45', N'0123456789', 1, 3)--Hoang
+INSERT INTO [Venue] VALUES (N'Cityside Court', N'12 Đường Lê Văn Sỹ, Quận 3, TP. HCM', N'-127', N'-59', N'0123456789', 1, 4)--Danh
+INSERT INTO [Venue] VALUES (N'The Arena Zone', N'34 Đường Phan Xích Long, Phú Nhuận, TP. HCM', N'-10', N'86', N'0123456789', 1, 4)--Danh
+INSERT INTO [Venue] VALUES (N'Mega Sports Hub', N'89 Đường Cộng Hòa, Tân Bình, TP. HCM', N'-33', N'149', N'0123456789', 1, 4)--Danh
 
 --Image (Name, Link, Status, VenueId)
-INSERT INTO [Image] VALUES (N'Field 1', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 1)--Huy
-INSERT INTO [Image] VALUES (N'Field 2', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 1)--Huy
-INSERT INTO [Image] VALUES (N'Field 3', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 1)--Huy
-INSERT INTO [Image] VALUES (N'Field 4', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 1)--Huy
-INSERT INTO [Image] VALUES (N'Field 5', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 1)--Huy
-INSERT INTO [Image] VALUES (N'Field 1', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 2)--Hoang
-INSERT INTO [Image] VALUES (N'Field 2', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 2)--Hoang
-INSERT INTO [Image] VALUES (N'Field 3', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 2)--Hoang
-INSERT INTO [Image] VALUES (N'Field 1', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 3)--Hoang
-INSERT INTO [Image] VALUES (N'Field 2', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 3)--Hoang
-INSERT INTO [Image] VALUES (N'Field 3', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 3)--Hoang
-INSERT INTO [Image] VALUES (N'Field 4', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 3)--Hoang
-INSERT INTO [Image] VALUES (N'Field 5', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 3)--Hoang
-INSERT INTO [Image] VALUES (N'Field 6', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 3)--Hoang
-INSERT INTO [Image] VALUES (N'Field 1', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 4)--Danh
-INSERT INTO [Image] VALUES (N'Field 1', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 5)--Danh
-INSERT INTO [Image] VALUES (N'Field 2', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 5)--Danh
-INSERT INTO [Image] VALUES (N'Field 3', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 5)--Danh
-INSERT INTO [Image] VALUES (N'Field 4', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 5)--Danh
-INSERT INTO [Image] VALUES (N'Field 1', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 6)--Danh
-INSERT INTO [Image] VALUES (N'Field 2', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 6)--Danh
+INSERT INTO [Image] VALUES (N'San_bong_da_1', N'https://i.pinimg.com/736x/96/a3/f6/96a3f633af27ce12458045c0df6297e1.jpg', 1, 1)--Huy
+INSERT INTO [Image] VALUES (N'San_bong_da_2', N'https://i.pinimg.com/736x/64/46/83/64468365ec615347ff4fadac56a712d9.jpg', 1, 1)--Huy
+INSERT INTO [Image] VALUES (N'San_bong_da_3', N'https://i.pinimg.com/736x/b5/8c/74/b58c745963c709ea6919b78e1ae81f49.jpg', 1, 1)--Huy
+INSERT INTO [Image] VALUES (N'San_bong_da_4', N'https://i.pinimg.com/736x/f9/b6/db/f9b6dbcb2514c805e02884efdfe3923c.jpg', 1, 1)--Huy
+INSERT INTO [Image] VALUES (N'San_bong_da_5', N'https://i.pinimg.com/736x/ed/8f/1e/ed8f1e133801019b8f9b9708644f8b84.jpg', 1, 1)--Huy
+INSERT INTO [Image] VALUES (N'San_Pickleball_1', N'https://i.pinimg.com/736x/e0/de/ea/e0deea8a66f8fa3466fd272e29a7de78.jpg', 1, 2)--Hoang
+INSERT INTO [Image] VALUES (N'San_Pickleball_2', N'https://i.pinimg.com/736x/bb/a1/70/bba1705b55fde042199d3e3025dceea7.jpg', 1, 2)--Hoang
+INSERT INTO [Image] VALUES (N'San_Pickleball_3', N'https://i.pinimg.com/736x/22/d5/9a/22d59a8a66e7c3af8427df3d3e3d2882.jpg', 1, 2)--Hoang
+INSERT INTO [Image] VALUES (N'San_cau_long_1', N'https://i.pinimg.com/736x/9d/6a/e5/9d6ae5c320e991899bb7858a52a85c67.jpg', 1, 3)--Hoang
+INSERT INTO [Image] VALUES (N'San_cau_long_2', N'https://i.pinimg.com/736x/0c/df/c7/0cdfc7f3b355738b6b74f91f525efba0.jpg', 1, 3)--Hoang
+INSERT INTO [Image] VALUES (N'San_cau_long_3', N'https://i.pinimg.com/736x/ba/eb/5f/baeb5fefa04e2ad5b5432e10d022b3ea.jpg', 1, 3)--Hoang
+INSERT INTO [Image] VALUES (N'San_cau_long_4', N'https://i.pinimg.com/736x/5d/69/d5/5d69d52a8b3bdca0f88a7f47c2ba7bc5.jpg', 1, 3)--Hoang
+INSERT INTO [Image] VALUES (N'San_cau_long_5', N'https://i.pinimg.com/736x/61/5a/3a/615a3a34b1e080fcccee86b0e93e59ce.jpg', 1, 3)--Hoang
+INSERT INTO [Image] VALUES (N'San_cau_long_6', N'https://i.pinimg.com/736x/a7/92/99/a7929947752ec96b843afd50cc143a3d.jpg', 1, 3)--Hoang
+INSERT INTO [Image] VALUES (N'San_Pickleball_4', N'https://i.pinimg.com/736x/f5/7f/95/f57f958be5755c1d4bf0d04d96ea33a5.jpg', 1, 4)--Danh
+INSERT INTO [Image] VALUES (N'San_Pickleball_5', N'https://i.pinimg.com/736x/a8/7f/46/a87f4672352f85454db3a931c67b58ba.jpg', 1, 4)--Danh
+INSERT INTO [Image] VALUES (N'San_Pickleball_6', N'https://i.pinimg.com/736x/73/04/8a/73048af2adebe7561d9b778d249a7240.jpg', 1, 4)--Danh
+INSERT INTO [Image] VALUES (N'San_bong_da_6', N'https://i.pinimg.com/736x/91/33/13/9133138d541a0fdf92391ed5ae91aca2.jpg', 1, 5)--Danh
+INSERT INTO [Image] VALUES (N'San_bong_da_7', N'https://i.pinimg.com/736x/ab/2b/e3/ab2be305d3f51d81efb6f322e710e75d.jpg', 1, 5)--Danh
+INSERT INTO [Image] VALUES (N'San_bong_da_8', N'https://i.pinimg.com/736x/20/5d/cb/205dcbf273515b19f6ad91267866b168.jpg', 1, 5)--Danh
+INSERT INTO [Image] VALUES (N'San_bong_da_9', N'https://i.pinimg.com/736x/ab/83/ad/ab83ad7ba9216c414c8215702d890800.jpg', 1, 5)--Danh
+INSERT INTO [Image] VALUES (N'San_cau_long_7', N'https://i.pinimg.com/736x/10/48/ae/1048ae82d59a89761bc527c62748677c.jpg', 1, 6)--Danh
+INSERT INTO [Image] VALUES (N'San_cau_long_8', N'https://i.pinimg.com/736x/23/6b/ee/236bee9a8ad5d4c385e4dc3c8ff39913.jpg', 1, 6)--Danh
+INSERT INTO [Image] VALUES (N'San_cau_long_9', N'https://i.pinimg.com/736x/29/cc/5e/29cc5ec0b17f6ae409a3a3cc9b461b09.jpg', 1, 6)--Danh
 
 --Field (Name, Description, Status, TypeId, VenueId)
-INSERT INTO [Field] VALUES (N'Football Field 1', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 1, 1)   --Huy   1
-INSERT INTO [Field] VALUES (N'Football Field 2', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 1, 1)   --Huy   2
-INSERT INTO [Field] VALUES (N'Football Field 3', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 1, 1)   --Huy   3
-INSERT INTO [Field] VALUES (N'Football Field 4', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 1, 1)   --Huy   4
-INSERT INTO [Field] VALUES (N'Football Field 5', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 1, 1)   --Huy   5
-INSERT INTO [Field] VALUES (N'Pickleball Field 1', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 3, 2) --Hoang 6
-INSERT INTO [Field] VALUES (N'Pickleball Field 2', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 3, 2) --Hoang 7
-INSERT INTO [Field] VALUES (N'Pickleball Field 3', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 3, 2) --Hoang 8
-INSERT INTO [Field] VALUES (N'Badminton Field 1', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 2, 3)  --Hoang 9
-INSERT INTO [Field] VALUES (N'Badminton Field 2', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 2, 3)  --Hoang 10
-INSERT INTO [Field] VALUES (N'Badminton Field 3', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 2, 3)  --Hoang 11
-INSERT INTO [Field] VALUES (N'Badminton Field 4', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 2, 3)  --Hoang 12
-INSERT INTO [Field] VALUES (N'Badminton Field 5', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 2, 3)  --Hoang 13
-INSERT INTO [Field] VALUES (N'Badminton Field 6', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 2, 3)  --Hoang 14
-INSERT INTO [Field] VALUES (N'Pickleball Field 1', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 3, 4) --Danh  15
-INSERT INTO [Field] VALUES (N'Football Field 1', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 1, 5)   --Danh  16
-INSERT INTO [Field] VALUES (N'Football Field 2', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 1, 5)   --Danh  17
-INSERT INTO [Field] VALUES (N'Football Field 3', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 1, 5)   --Danh  18
-INSERT INTO [Field] VALUES (N'Football Field 4', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 1, 5)   --Danh  19
-INSERT INTO [Field] VALUES (N'Badminton Field 1', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 2, 6)  --Danh  20
-INSERT INTO [Field] VALUES (N'Badminton Field 2', N'aaaaaaaaaaaaaaaaaaaaaaa', 1, 2, 6)  --Danh  21
+INSERT INTO [Field] VALUES (N'Sân bóng đá 1', N'Sân bóng đá 1 của Huy', 1, 1, 1)--Huy-1
+INSERT INTO [Field] VALUES (N'Sân bóng đá 2', N'Sân bóng đá 2 của Huy', 1, 1, 1)--Huy-2
+INSERT INTO [Field] VALUES (N'Sân bóng đá 3', N'Sân bóng đá 3 của Huy', 1, 1, 1)--Huy-3
+INSERT INTO [Field] VALUES (N'Sân bóng đá 4', N'Sân bóng đá 4 của Huy', 1, 1, 1)--Huy-4
+INSERT INTO [Field] VALUES (N'Sân bóng đá 5', N'Sân bóng đá 5 của Huy', 1, 1, 1)--Huy-5
+INSERT INTO [Field] VALUES (N'Sân Pickleball 1', N'Sân Pickleball 1 của Hoàng', 1, 3, 2)--Hoang-6
+INSERT INTO [Field] VALUES (N'Sân Pickleball 2', N'Sân Pickleball 2 của Hoàng', 1, 3, 2)--Hoang-7
+INSERT INTO [Field] VALUES (N'Sân Pickleball 3', N'Sân Pickleball 3 của Hoàng', 1, 3, 2)--Hoang-8
+INSERT INTO [Field] VALUES (N'Sân cầu lông 1', N'Sân cầu lông 1 của Hoàng', 1, 2, 3)--Hoang-9
+INSERT INTO [Field] VALUES (N'Sân cầu lông 2', N'Sân cầu lông 2 của Hoàng', 1, 2, 3)--Hoang-10
+INSERT INTO [Field] VALUES (N'Sân cầu lông 3', N'Sân cầu lông 3 của Hoàng', 1, 2, 3)--Hoang-11
+INSERT INTO [Field] VALUES (N'Sân cầu lông 4', N'Sân cầu lông 4 của Hoàng', 1, 2, 3)--Hoang-12
+INSERT INTO [Field] VALUES (N'Sân cầu lông 5', N'Sân cầu lông 5 của Hoàng', 1, 2, 3)--Hoang-13
+INSERT INTO [Field] VALUES (N'Sân cầu lông 6', N'Sân cầu lông 6 của Hoàng', 1, 2, 3)--Hoang-14
+INSERT INTO [Field] VALUES (N'Sân Pickleball 4', N'Sân Pickleball 4 của Danh', 1, 3, 4)--Danh-15
+INSERT INTO [Field] VALUES (N'Sân bóng đá 6', N'Sân bóng đá 6 của Danh', 1, 1, 5)--Danh-16
+INSERT INTO [Field] VALUES (N'Sân bóng đá 7', N'Sân bóng đá 7 của Danh', 1, 1, 5)--Danh-17
+INSERT INTO [Field] VALUES (N'Sân bóng đá 8', N'Sân bóng đá 8 của Danh', 1, 1, 5)--Danh-18
+INSERT INTO [Field] VALUES (N'Sân bóng đá 9', N'Sân bóng đá 9 của Danh', 1, 1, 5)--Danh-19
+INSERT INTO [Field] VALUES (N'Sân cầu lông 7', N'Sân cầu lông 7 của Danh', 1, 2, 6)--Danh-20
+INSERT INTO [Field] VALUES (N'Sân cầu lông 8', N'Sân cầu lông 8 của Danh', 1, 2, 6)--Danh-21
 
 --FavoriteField (SetDate, UserId, FieldId)
 INSERT INTO [FavoriteField] VALUES ('2025-06-04 14:30:00', 5, 16)
@@ -350,137 +353,225 @@ INSERT INTO [FavoriteField] VALUES ('2025-06-04 14:30:00', 6, 15)
 INSERT INTO [FavoriteField] VALUES ('2025-06-04 14:30:00', 7, 9)
 
 --Slot (Name, StartTime, EndTime, Price, Status, FieldId)
-INSERT INTO [Slot] VALUES (N'Slot 1', '07:00:00', '09:00:00', 80000, 1, 1)
-INSERT INTO [Slot] VALUES (N'Slot 1', '07:00:00', '09:00:00', 80000, 1, 2)
-INSERT INTO [Slot] VALUES (N'Slot 1', '07:00:00', '09:00:00', 80000, 1, 3)
-INSERT INTO [Slot] VALUES (N'Slot 1', '07:00:00', '09:00:00', 80000, 1, 4)
-INSERT INTO [Slot] VALUES (N'Slot 1', '07:00:00', '09:00:00', 80000, 1, 5)
-INSERT INTO [Slot] VALUES (N'Slot 1', '07:00:00', '09:00:00', 80000, 1, 6)
-INSERT INTO [Slot] VALUES (N'Slot 1', '07:00:00', '09:00:00', 80000, 1, 7)
-INSERT INTO [Slot] VALUES (N'Slot 1', '07:00:00', '09:00:00', 80000, 1, 8)
-INSERT INTO [Slot] VALUES (N'Slot 1', '07:00:00', '09:00:00', 80000, 1, 9)
-INSERT INTO [Slot] VALUES (N'Slot 1', '07:00:00', '09:00:00', 80000, 1, 10)
-INSERT INTO [Slot] VALUES (N'Slot 1', '07:00:00', '09:00:00', 80000, 1, 11)
-INSERT INTO [Slot] VALUES (N'Slot 1', '07:00:00', '09:00:00', 80000, 1, 12)
-INSERT INTO [Slot] VALUES (N'Slot 1', '07:00:00', '09:00:00', 80000, 1, 13)
-INSERT INTO [Slot] VALUES (N'Slot 1', '07:00:00', '09:00:00', 80000, 1, 14)
-INSERT INTO [Slot] VALUES (N'Slot 1', '07:00:00', '09:00:00', 80000, 1, 15)
-INSERT INTO [Slot] VALUES (N'Slot 1', '07:00:00', '09:00:00', 80000, 1, 16)
-INSERT INTO [Slot] VALUES (N'Slot 1', '07:00:00', '09:00:00', 80000, 1, 17)
-INSERT INTO [Slot] VALUES (N'Slot 1', '07:00:00', '09:00:00', 80000, 1, 18)
-INSERT INTO [Slot] VALUES (N'Slot 1', '07:00:00', '09:00:00', 80000, 1, 19)
-INSERT INTO [Slot] VALUES (N'Slot 1', '07:00:00', '09:00:00', 80000, 1, 20)
-INSERT INTO [Slot] VALUES (N'Slot 1', '07:00:00', '09:00:00', 80000, 1, 21)
+INSERT INTO [Slot] VALUES (N'Slot 1', '06:00:00', '06:30:00', 160000, 1, 1)
+INSERT INTO [Slot] VALUES (N'Slot 1', '06:00:00', '06:30:00', 160000, 1, 2)
+INSERT INTO [Slot] VALUES (N'Slot 1', '06:00:00', '06:30:00', 160000, 1, 3)
+INSERT INTO [Slot] VALUES (N'Slot 1', '06:00:00', '06:30:00', 160000, 1, 4)
+INSERT INTO [Slot] VALUES (N'Slot 1', '06:00:00', '06:30:00', 160000, 1, 5)
+INSERT INTO [Slot] VALUES (N'Slot 1', '06:00:00', '06:30:00', 160000, 1, 6)
+INSERT INTO [Slot] VALUES (N'Slot 1', '06:00:00', '06:30:00', 160000, 1, 7)
+INSERT INTO [Slot] VALUES (N'Slot 1', '06:00:00', '06:30:00', 160000, 1, 8)
+INSERT INTO [Slot] VALUES (N'Slot 1', '06:00:00', '06:30:00', 160000, 1, 9)
+INSERT INTO [Slot] VALUES (N'Slot 1', '06:00:00', '06:30:00', 160000, 1, 10)
+INSERT INTO [Slot] VALUES (N'Slot 1', '06:00:00', '06:30:00', 160000, 1, 11)
+INSERT INTO [Slot] VALUES (N'Slot 1', '06:00:00', '06:30:00', 160000, 1, 12)
+INSERT INTO [Slot] VALUES (N'Slot 1', '06:00:00', '06:30:00', 160000, 1, 13)
+INSERT INTO [Slot] VALUES (N'Slot 1', '06:00:00', '06:30:00', 160000, 1, 14)
+INSERT INTO [Slot] VALUES (N'Slot 1', '06:00:00', '06:30:00', 160000, 1, 15)
+INSERT INTO [Slot] VALUES (N'Slot 1', '06:00:00', '06:30:00', 160000, 1, 16)
+INSERT INTO [Slot] VALUES (N'Slot 1', '06:00:00', '06:30:00', 160000, 1, 17)
+INSERT INTO [Slot] VALUES (N'Slot 1', '06:00:00', '06:30:00', 160000, 1, 18)
+INSERT INTO [Slot] VALUES (N'Slot 1', '06:00:00', '06:30:00', 160000, 1, 19)
+INSERT INTO [Slot] VALUES (N'Slot 1', '06:00:00', '06:30:00', 160000, 1, 20)
+INSERT INTO [Slot] VALUES (N'Slot 1', '06:00:00', '06:30:00', 160000, 1, 21)
 
-INSERT INTO [Slot] VALUES (N'Slot 2', '09:30:00', '11:30:00', 100000, 1, 1)
-INSERT INTO [Slot] VALUES (N'Slot 2', '09:30:00', '11:30:00', 100000, 1, 2)
-INSERT INTO [Slot] VALUES (N'Slot 2', '09:30:00', '11:30:00', 100000, 1, 3)
-INSERT INTO [Slot] VALUES (N'Slot 2', '09:30:00', '11:30:00', 100000, 1, 4)
-INSERT INTO [Slot] VALUES (N'Slot 2', '09:30:00', '11:30:00', 100000, 1, 5)
-INSERT INTO [Slot] VALUES (N'Slot 2', '09:30:00', '11:30:00', 100000, 1, 6)
-INSERT INTO [Slot] VALUES (N'Slot 2', '09:30:00', '11:30:00', 100000, 1, 7)
-INSERT INTO [Slot] VALUES (N'Slot 2', '09:30:00', '11:30:00', 100000, 1, 8)
-INSERT INTO [Slot] VALUES (N'Slot 2', '09:30:00', '11:30:00', 100000, 1, 9)
-INSERT INTO [Slot] VALUES (N'Slot 2', '09:30:00', '11:30:00', 100000, 1, 10)
-INSERT INTO [Slot] VALUES (N'Slot 2', '09:30:00', '11:30:00', 100000, 1, 11)
-INSERT INTO [Slot] VALUES (N'Slot 2', '09:30:00', '11:30:00', 100000, 1, 12)
-INSERT INTO [Slot] VALUES (N'Slot 2', '09:30:00', '11:30:00', 100000, 1, 13)
-INSERT INTO [Slot] VALUES (N'Slot 2', '09:30:00', '11:30:00', 100000, 1, 14)
-INSERT INTO [Slot] VALUES (N'Slot 2', '09:30:00', '11:30:00', 100000, 1, 15)
-INSERT INTO [Slot] VALUES (N'Slot 2', '09:30:00', '11:30:00', 100000, 1, 16)
-INSERT INTO [Slot] VALUES (N'Slot 2', '09:30:00', '11:30:00', 100000, 1, 17)
-INSERT INTO [Slot] VALUES (N'Slot 2', '09:30:00', '11:30:00', 100000, 1, 18)
-INSERT INTO [Slot] VALUES (N'Slot 2', '09:30:00', '11:30:00', 100000, 1, 19)
-INSERT INTO [Slot] VALUES (N'Slot 2', '09:30:00', '11:30:00', 100000, 1, 20)
-INSERT INTO [Slot] VALUES (N'Slot 2', '09:30:00', '11:30:00', 100000, 1, 21)
+INSERT INTO [Slot] VALUES (N'Slot 2', '06:30:00', '07:00:00', 160000, 1, 1)
+INSERT INTO [Slot] VALUES (N'Slot 2', '06:30:00', '07:00:00', 160000, 1, 2)
+INSERT INTO [Slot] VALUES (N'Slot 2', '06:30:00', '07:00:00', 160000, 1, 3)
+INSERT INTO [Slot] VALUES (N'Slot 2', '06:30:00', '07:00:00', 160000, 1, 4)
+INSERT INTO [Slot] VALUES (N'Slot 2', '06:30:00', '07:00:00', 160000, 1, 5)
+INSERT INTO [Slot] VALUES (N'Slot 2', '06:30:00', '07:00:00', 160000, 1, 6)
+INSERT INTO [Slot] VALUES (N'Slot 2', '06:30:00', '07:00:00', 160000, 1, 7)
+INSERT INTO [Slot] VALUES (N'Slot 2', '06:30:00', '07:00:00', 160000, 1, 8)
+INSERT INTO [Slot] VALUES (N'Slot 2', '06:30:00', '07:00:00', 160000, 1, 9)
+INSERT INTO [Slot] VALUES (N'Slot 2', '06:30:00', '07:00:00', 160000, 1, 10)
+INSERT INTO [Slot] VALUES (N'Slot 2', '06:30:00', '07:00:00', 160000, 1, 11)
+INSERT INTO [Slot] VALUES (N'Slot 2', '06:30:00', '07:00:00', 160000, 1, 12)
+INSERT INTO [Slot] VALUES (N'Slot 2', '06:30:00', '07:00:00', 160000, 1, 13)
+INSERT INTO [Slot] VALUES (N'Slot 2', '06:30:00', '07:00:00', 160000, 1, 14)
+INSERT INTO [Slot] VALUES (N'Slot 2', '06:30:00', '07:00:00', 160000, 1, 15)
+INSERT INTO [Slot] VALUES (N'Slot 2', '06:30:00', '07:00:00', 160000, 1, 16)
+INSERT INTO [Slot] VALUES (N'Slot 2', '06:30:00', '07:00:00', 160000, 1, 17)
+INSERT INTO [Slot] VALUES (N'Slot 2', '06:30:00', '07:00:00', 160000, 1, 18)
+INSERT INTO [Slot] VALUES (N'Slot 2', '06:30:00', '07:00:00', 160000, 1, 19)
+INSERT INTO [Slot] VALUES (N'Slot 2', '06:30:00', '07:00:00', 160000, 1, 20)
+INSERT INTO [Slot] VALUES (N'Slot 2', '06:30:00', '07:00:00', 160000, 1, 21)
 
-INSERT INTO [Slot] VALUES (N'Slot 3', '12:00:00', '14:00:00', 120000, 1, 1)
-INSERT INTO [Slot] VALUES (N'Slot 3', '12:00:00', '14:00:00', 120000, 1, 2)
-INSERT INTO [Slot] VALUES (N'Slot 3', '12:00:00', '14:00:00', 120000, 1, 3)
-INSERT INTO [Slot] VALUES (N'Slot 3', '12:00:00', '14:00:00', 120000, 1, 4)
-INSERT INTO [Slot] VALUES (N'Slot 3', '12:00:00', '14:00:00', 120000, 1, 5)
-INSERT INTO [Slot] VALUES (N'Slot 3', '12:00:00', '14:00:00', 120000, 1, 6)
-INSERT INTO [Slot] VALUES (N'Slot 3', '12:00:00', '14:00:00', 120000, 1, 7)
-INSERT INTO [Slot] VALUES (N'Slot 3', '12:00:00', '14:00:00', 120000, 1, 8)
-INSERT INTO [Slot] VALUES (N'Slot 3', '12:00:00', '14:00:00', 120000, 1, 9)
-INSERT INTO [Slot] VALUES (N'Slot 3', '12:00:00', '14:00:00', 120000, 1, 10)
-INSERT INTO [Slot] VALUES (N'Slot 3', '12:00:00', '14:00:00', 120000, 1, 11)
-INSERT INTO [Slot] VALUES (N'Slot 3', '12:00:00', '14:00:00', 120000, 1, 12)
-INSERT INTO [Slot] VALUES (N'Slot 3', '12:00:00', '14:00:00', 120000, 1, 13)
-INSERT INTO [Slot] VALUES (N'Slot 3', '12:00:00', '14:00:00', 120000, 1, 14)
-INSERT INTO [Slot] VALUES (N'Slot 3', '12:00:00', '14:00:00', 120000, 1, 15)
-INSERT INTO [Slot] VALUES (N'Slot 3', '12:00:00', '14:00:00', 120000, 1, 16)
-INSERT INTO [Slot] VALUES (N'Slot 3', '12:00:00', '14:00:00', 120000, 1, 17)
-INSERT INTO [Slot] VALUES (N'Slot 3', '12:00:00', '14:00:00', 120000, 1, 18)
-INSERT INTO [Slot] VALUES (N'Slot 3', '12:00:00', '14:00:00', 120000, 1, 19)
-INSERT INTO [Slot] VALUES (N'Slot 3', '12:00:00', '14:00:00', 120000, 1, 20)
-INSERT INTO [Slot] VALUES (N'Slot 3', '12:00:00', '14:00:00', 120000, 1, 21)
+INSERT INTO [Slot] VALUES (N'Slot 3', '07:00:00', '07:30:00', 80000, 1, 1)
+INSERT INTO [Slot] VALUES (N'Slot 3', '07:00:00', '07:30:00', 80000, 1, 2)
+INSERT INTO [Slot] VALUES (N'Slot 3', '07:00:00', '07:30:00', 80000, 1, 3)
+INSERT INTO [Slot] VALUES (N'Slot 3', '07:00:00', '07:30:00', 80000, 1, 4)
+INSERT INTO [Slot] VALUES (N'Slot 3', '07:00:00', '07:30:00', 80000, 1, 5)
+INSERT INTO [Slot] VALUES (N'Slot 3', '07:00:00', '07:30:00', 80000, 1, 6)
+INSERT INTO [Slot] VALUES (N'Slot 3', '07:00:00', '07:30:00', 80000, 1, 7)
+INSERT INTO [Slot] VALUES (N'Slot 3', '07:00:00', '07:30:00', 80000, 1, 8)
+INSERT INTO [Slot] VALUES (N'Slot 3', '07:00:00', '07:30:00', 80000, 1, 9)
+INSERT INTO [Slot] VALUES (N'Slot 3', '07:00:00', '07:30:00', 80000, 1, 10)
+INSERT INTO [Slot] VALUES (N'Slot 3', '07:00:00', '07:30:00', 80000, 1, 11)
+INSERT INTO [Slot] VALUES (N'Slot 3', '07:00:00', '07:30:00', 80000, 1, 12)
+INSERT INTO [Slot] VALUES (N'Slot 3', '07:00:00', '07:30:00', 80000, 1, 13)
+INSERT INTO [Slot] VALUES (N'Slot 3', '07:00:00', '07:30:00', 80000, 1, 14)
+INSERT INTO [Slot] VALUES (N'Slot 3', '07:00:00', '07:30:00', 80000, 1, 15)
+INSERT INTO [Slot] VALUES (N'Slot 3', '07:00:00', '07:30:00', 80000, 1, 16)
+INSERT INTO [Slot] VALUES (N'Slot 3', '07:00:00', '07:30:00', 80000, 1, 17)
+INSERT INTO [Slot] VALUES (N'Slot 3', '07:00:00', '07:30:00', 80000, 1, 18)
+INSERT INTO [Slot] VALUES (N'Slot 3', '07:00:00', '07:30:00', 80000, 1, 19)
+INSERT INTO [Slot] VALUES (N'Slot 3', '07:00:00', '07:30:00', 80000, 1, 20)
+INSERT INTO [Slot] VALUES (N'Slot 3', '07:00:00', '07:30:00', 80000, 1, 21)
 
-INSERT INTO [Slot] VALUES (N'Slot 4', '14:30:00', '16:30:00', 140000, 1, 1)
-INSERT INTO [Slot] VALUES (N'Slot 4', '14:30:00', '16:30:00', 140000, 1, 2)
-INSERT INTO [Slot] VALUES (N'Slot 4', '14:30:00', '16:30:00', 140000, 1, 3)
-INSERT INTO [Slot] VALUES (N'Slot 4', '14:30:00', '16:30:00', 140000, 1, 4)
-INSERT INTO [Slot] VALUES (N'Slot 4', '14:30:00', '16:30:00', 140000, 1, 5)
-INSERT INTO [Slot] VALUES (N'Slot 4', '14:30:00', '16:30:00', 140000, 1, 6)
-INSERT INTO [Slot] VALUES (N'Slot 4', '14:30:00', '16:30:00', 140000, 1, 7)
-INSERT INTO [Slot] VALUES (N'Slot 4', '14:30:00', '16:30:00', 140000, 1, 8)
-INSERT INTO [Slot] VALUES (N'Slot 4', '14:30:00', '16:30:00', 140000, 1, 9)
-INSERT INTO [Slot] VALUES (N'Slot 4', '14:30:00', '16:30:00', 140000, 1, 10)
-INSERT INTO [Slot] VALUES (N'Slot 4', '14:30:00', '16:30:00', 140000, 1, 11)
-INSERT INTO [Slot] VALUES (N'Slot 4', '14:30:00', '16:30:00', 140000, 1, 12)
-INSERT INTO [Slot] VALUES (N'Slot 4', '14:30:00', '16:30:00', 140000, 1, 13)
-INSERT INTO [Slot] VALUES (N'Slot 4', '14:30:00', '16:30:00', 140000, 1, 14)
-INSERT INTO [Slot] VALUES (N'Slot 4', '14:30:00', '16:30:00', 140000, 1, 15)
-INSERT INTO [Slot] VALUES (N'Slot 4', '14:30:00', '16:30:00', 140000, 1, 16)
-INSERT INTO [Slot] VALUES (N'Slot 4', '14:30:00', '16:30:00', 140000, 1, 17)
-INSERT INTO [Slot] VALUES (N'Slot 4', '14:30:00', '16:30:00', 140000, 1, 18)
-INSERT INTO [Slot] VALUES (N'Slot 4', '14:30:00', '16:30:00', 140000, 1, 19)
-INSERT INTO [Slot] VALUES (N'Slot 4', '14:30:00', '16:30:00', 140000, 1, 20)
-INSERT INTO [Slot] VALUES (N'Slot 4', '14:30:00', '16:30:00', 140000, 1, 21)
+INSERT INTO [Slot] VALUES (N'Slot 4', '07:30:00', '08:00:00', 100000, 1, 1)
+INSERT INTO [Slot] VALUES (N'Slot 4', '07:30:00', '08:00:00', 100000, 1, 2)
+INSERT INTO [Slot] VALUES (N'Slot 4', '07:30:00', '08:00:00', 100000, 1, 3)
+INSERT INTO [Slot] VALUES (N'Slot 4', '07:30:00', '08:00:00', 100000, 1, 4)
+INSERT INTO [Slot] VALUES (N'Slot 4', '07:30:00', '08:00:00', 100000, 1, 5)
+INSERT INTO [Slot] VALUES (N'Slot 4', '07:30:00', '08:00:00', 100000, 1, 6)
+INSERT INTO [Slot] VALUES (N'Slot 4', '07:30:00', '08:00:00', 100000, 1, 7)
+INSERT INTO [Slot] VALUES (N'Slot 4', '07:30:00', '08:00:00', 100000, 1, 8)
+INSERT INTO [Slot] VALUES (N'Slot 4', '07:30:00', '08:00:00', 100000, 1, 9)
+INSERT INTO [Slot] VALUES (N'Slot 4', '07:30:00', '08:00:00', 100000, 1, 10)
+INSERT INTO [Slot] VALUES (N'Slot 4', '07:30:00', '08:00:00', 100000, 1, 11)
+INSERT INTO [Slot] VALUES (N'Slot 4', '07:30:00', '08:00:00', 100000, 1, 12)
+INSERT INTO [Slot] VALUES (N'Slot 4', '07:30:00', '08:00:00', 100000, 1, 13)
+INSERT INTO [Slot] VALUES (N'Slot 4', '07:30:00', '08:00:00', 100000, 1, 14)
+INSERT INTO [Slot] VALUES (N'Slot 4', '07:30:00', '08:00:00', 100000, 1, 15)
+INSERT INTO [Slot] VALUES (N'Slot 4', '07:30:00', '08:00:00', 100000, 1, 16)
+INSERT INTO [Slot] VALUES (N'Slot 4', '07:30:00', '08:00:00', 100000, 1, 17)
+INSERT INTO [Slot] VALUES (N'Slot 4', '07:30:00', '08:00:00', 100000, 1, 18)
+INSERT INTO [Slot] VALUES (N'Slot 4', '07:30:00', '08:00:00', 100000, 1, 19)
+INSERT INTO [Slot] VALUES (N'Slot 4', '07:30:00', '08:00:00', 100000, 1, 20)
+INSERT INTO [Slot] VALUES (N'Slot 4', '07:30:00', '08:00:00', 100000, 1, 21)
 
-INSERT INTO [Slot] VALUES (N'Slot 5', '17:00:00', '19:00:00', 160000, 1, 1)
-INSERT INTO [Slot] VALUES (N'Slot 5', '17:00:00', '19:00:00', 160000, 1, 2)
-INSERT INTO [Slot] VALUES (N'Slot 5', '17:00:00', '19:00:00', 160000, 1, 3)
-INSERT INTO [Slot] VALUES (N'Slot 5', '17:00:00', '19:00:00', 160000, 1, 4)
-INSERT INTO [Slot] VALUES (N'Slot 5', '17:00:00', '19:00:00', 160000, 1, 5)
-INSERT INTO [Slot] VALUES (N'Slot 5', '17:00:00', '19:00:00', 160000, 1, 6)
-INSERT INTO [Slot] VALUES (N'Slot 5', '17:00:00', '19:00:00', 160000, 1, 7)
-INSERT INTO [Slot] VALUES (N'Slot 5', '17:00:00', '19:00:00', 160000, 1, 8)
-INSERT INTO [Slot] VALUES (N'Slot 5', '17:00:00', '19:00:00', 160000, 1, 9)
-INSERT INTO [Slot] VALUES (N'Slot 5', '17:00:00', '19:00:00', 160000, 1, 10)
-INSERT INTO [Slot] VALUES (N'Slot 5', '17:00:00', '19:00:00', 160000, 1, 11)
-INSERT INTO [Slot] VALUES (N'Slot 5', '17:00:00', '19:00:00', 160000, 1, 12)
-INSERT INTO [Slot] VALUES (N'Slot 5', '17:00:00', '19:00:00', 160000, 1, 13)
-INSERT INTO [Slot] VALUES (N'Slot 5', '17:00:00', '19:00:00', 160000, 1, 14)
-INSERT INTO [Slot] VALUES (N'Slot 5', '17:00:00', '19:00:00', 160000, 1, 15)
-INSERT INTO [Slot] VALUES (N'Slot 5', '17:00:00', '19:00:00', 160000, 1, 16)
-INSERT INTO [Slot] VALUES (N'Slot 5', '17:00:00', '19:00:00', 160000, 1, 17)
-INSERT INTO [Slot] VALUES (N'Slot 5', '17:00:00', '19:00:00', 160000, 1, 18)
-INSERT INTO [Slot] VALUES (N'Slot 5', '17:00:00', '19:00:00', 160000, 1, 19)
-INSERT INTO [Slot] VALUES (N'Slot 5', '17:00:00', '19:00:00', 160000, 1, 20)
-INSERT INTO [Slot] VALUES (N'Slot 5', '17:00:00', '19:00:00', 160000, 1, 21)
+INSERT INTO [Slot] VALUES (N'Slot 5', '08:00:00', '08:30:00', 120000, 1, 1)
+INSERT INTO [Slot] VALUES (N'Slot 5', '08:00:00', '08:30:00', 120000, 1, 2)
+INSERT INTO [Slot] VALUES (N'Slot 5', '08:00:00', '08:30:00', 120000, 1, 3)
+INSERT INTO [Slot] VALUES (N'Slot 5', '08:00:00', '08:30:00', 120000, 1, 4)
+INSERT INTO [Slot] VALUES (N'Slot 5', '08:00:00', '08:30:00', 120000, 1, 5)
+INSERT INTO [Slot] VALUES (N'Slot 5', '08:00:00', '08:30:00', 120000, 1, 6)
+INSERT INTO [Slot] VALUES (N'Slot 5', '08:00:00', '08:30:00', 120000, 1, 7)
+INSERT INTO [Slot] VALUES (N'Slot 5', '08:00:00', '08:30:00', 120000, 1, 8)
+INSERT INTO [Slot] VALUES (N'Slot 5', '08:00:00', '08:30:00', 120000, 1, 9)
+INSERT INTO [Slot] VALUES (N'Slot 5', '08:00:00', '08:30:00', 120000, 1, 10)
+INSERT INTO [Slot] VALUES (N'Slot 5', '08:00:00', '08:30:00', 120000, 1, 11)
+INSERT INTO [Slot] VALUES (N'Slot 5', '08:00:00', '08:30:00', 120000, 1, 12)
+INSERT INTO [Slot] VALUES (N'Slot 5', '08:00:00', '08:30:00', 120000, 1, 13)
+INSERT INTO [Slot] VALUES (N'Slot 5', '08:00:00', '08:30:00', 120000, 1, 14)
+INSERT INTO [Slot] VALUES (N'Slot 5', '08:00:00', '08:30:00', 120000, 1, 15)
+INSERT INTO [Slot] VALUES (N'Slot 5', '08:00:00', '08:30:00', 120000, 1, 16)
+INSERT INTO [Slot] VALUES (N'Slot 5', '08:00:00', '08:30:00', 120000, 1, 17)
+INSERT INTO [Slot] VALUES (N'Slot 5', '08:00:00', '08:30:00', 120000, 1, 18)
+INSERT INTO [Slot] VALUES (N'Slot 5', '08:00:00', '08:30:00', 120000, 1, 19)
+INSERT INTO [Slot] VALUES (N'Slot 5', '08:00:00', '08:30:00', 120000, 1, 20)
+INSERT INTO [Slot] VALUES (N'Slot 5', '08:00:00', '08:30:00', 120000, 1, 21)
 
-INSERT INTO [Slot] VALUES (N'Slot 6', '19:30:00', '21:30:00', 160000, 1, 1)
-INSERT INTO [Slot] VALUES (N'Slot 6', '19:30:00', '21:30:00', 160000, 1, 2)
-INSERT INTO [Slot] VALUES (N'Slot 6', '19:30:00', '21:30:00', 160000, 1, 3)
-INSERT INTO [Slot] VALUES (N'Slot 6', '19:30:00', '21:30:00', 160000, 1, 4)
-INSERT INTO [Slot] VALUES (N'Slot 6', '19:30:00', '21:30:00', 160000, 1, 5)
-INSERT INTO [Slot] VALUES (N'Slot 6', '19:30:00', '21:30:00', 160000, 1, 6)
-INSERT INTO [Slot] VALUES (N'Slot 6', '19:30:00', '21:30:00', 160000, 1, 7)
-INSERT INTO [Slot] VALUES (N'Slot 6', '19:30:00', '21:30:00', 160000, 1, 8)
-INSERT INTO [Slot] VALUES (N'Slot 6', '19:30:00', '21:30:00', 160000, 1, 9)
-INSERT INTO [Slot] VALUES (N'Slot 6', '19:30:00', '21:30:00', 160000, 1, 10)
-INSERT INTO [Slot] VALUES (N'Slot 6', '19:30:00', '21:30:00', 160000, 1, 11)
-INSERT INTO [Slot] VALUES (N'Slot 6', '19:30:00', '21:30:00', 160000, 1, 12)
-INSERT INTO [Slot] VALUES (N'Slot 6', '19:30:00', '21:30:00', 160000, 1, 13)
-INSERT INTO [Slot] VALUES (N'Slot 6', '19:30:00', '21:30:00', 160000, 1, 14)
-INSERT INTO [Slot] VALUES (N'Slot 6', '19:30:00', '21:30:00', 160000, 1, 15)
-INSERT INTO [Slot] VALUES (N'Slot 6', '19:30:00', '21:30:00', 160000, 1, 16)
-INSERT INTO [Slot] VALUES (N'Slot 6', '19:30:00', '21:30:00', 160000, 1, 17)
-INSERT INTO [Slot] VALUES (N'Slot 6', '19:30:00', '21:30:00', 160000, 1, 18)
-INSERT INTO [Slot] VALUES (N'Slot 6', '19:30:00', '21:30:00', 160000, 1, 19)
-INSERT INTO [Slot] VALUES (N'Slot 6', '19:30:00', '21:30:00', 160000, 1, 20)
-INSERT INTO [Slot] VALUES (N'Slot 6', '19:30:00', '21:30:00', 160000, 1, 21)
+INSERT INTO [Slot] VALUES (N'Slot 6', '08:30:00', '09:00:00', 140000, 1, 1)
+INSERT INTO [Slot] VALUES (N'Slot 6', '08:30:00', '09:00:00', 140000, 1, 2)
+INSERT INTO [Slot] VALUES (N'Slot 6', '08:30:00', '09:00:00', 140000, 1, 3)
+INSERT INTO [Slot] VALUES (N'Slot 6', '08:30:00', '09:00:00', 140000, 1, 4)
+INSERT INTO [Slot] VALUES (N'Slot 6', '08:30:00', '09:00:00', 140000, 1, 5)
+INSERT INTO [Slot] VALUES (N'Slot 6', '08:30:00', '09:00:00', 140000, 1, 6)
+INSERT INTO [Slot] VALUES (N'Slot 6', '08:30:00', '09:00:00', 140000, 1, 7)
+INSERT INTO [Slot] VALUES (N'Slot 6', '08:30:00', '09:00:00', 140000, 1, 8)
+INSERT INTO [Slot] VALUES (N'Slot 6', '08:30:00', '09:00:00', 140000, 1, 9)
+INSERT INTO [Slot] VALUES (N'Slot 6', '08:30:00', '09:00:00', 140000, 1, 10)
+INSERT INTO [Slot] VALUES (N'Slot 6', '08:30:00', '09:00:00', 140000, 1, 11)
+INSERT INTO [Slot] VALUES (N'Slot 6', '08:30:00', '09:00:00', 140000, 1, 12)
+INSERT INTO [Slot] VALUES (N'Slot 6', '08:30:00', '09:00:00', 140000, 1, 13)
+INSERT INTO [Slot] VALUES (N'Slot 6', '08:30:00', '09:00:00', 140000, 1, 14)
+INSERT INTO [Slot] VALUES (N'Slot 6', '08:30:00', '09:00:00', 140000, 1, 15)
+INSERT INTO [Slot] VALUES (N'Slot 6', '08:30:00', '09:00:00', 140000, 1, 16)
+INSERT INTO [Slot] VALUES (N'Slot 6', '08:30:00', '09:00:00', 140000, 1, 17)
+INSERT INTO [Slot] VALUES (N'Slot 6', '08:30:00', '09:00:00', 140000, 1, 18)
+INSERT INTO [Slot] VALUES (N'Slot 6', '08:30:00', '09:00:00', 140000, 1, 19)
+INSERT INTO [Slot] VALUES (N'Slot 6', '08:30:00', '09:00:00', 140000, 1, 20)
+INSERT INTO [Slot] VALUES (N'Slot 6', '08:30:00', '09:00:00', 140000, 1, 21)
+
+INSERT INTO [Slot] VALUES (N'Slot 7', '09:00:00', '09:30:00', 160000, 1, 1)
+INSERT INTO [Slot] VALUES (N'Slot 7', '09:00:00', '09:30:00', 160000, 1, 2)
+INSERT INTO [Slot] VALUES (N'Slot 7', '09:00:00', '09:30:00', 160000, 1, 3)
+INSERT INTO [Slot] VALUES (N'Slot 7', '09:00:00', '09:30:00', 160000, 1, 4)
+INSERT INTO [Slot] VALUES (N'Slot 7', '09:00:00', '09:30:00', 160000, 1, 5)
+INSERT INTO [Slot] VALUES (N'Slot 7', '09:00:00', '09:30:00', 160000, 1, 6)
+INSERT INTO [Slot] VALUES (N'Slot 7', '09:00:00', '09:30:00', 160000, 1, 7)
+INSERT INTO [Slot] VALUES (N'Slot 7', '09:00:00', '09:30:00', 160000, 1, 8)
+INSERT INTO [Slot] VALUES (N'Slot 7', '09:00:00', '09:30:00', 160000, 1, 9)
+INSERT INTO [Slot] VALUES (N'Slot 7', '09:00:00', '09:30:00', 160000, 1, 10)
+INSERT INTO [Slot] VALUES (N'Slot 7', '09:00:00', '09:30:00', 160000, 1, 11)
+INSERT INTO [Slot] VALUES (N'Slot 7', '09:00:00', '09:30:00', 160000, 1, 12)
+INSERT INTO [Slot] VALUES (N'Slot 7', '09:00:00', '09:30:00', 160000, 1, 13)
+INSERT INTO [Slot] VALUES (N'Slot 7', '09:00:00', '09:30:00', 160000, 1, 14)
+INSERT INTO [Slot] VALUES (N'Slot 7', '09:00:00', '09:30:00', 160000, 1, 15)
+INSERT INTO [Slot] VALUES (N'Slot 7', '09:00:00', '09:30:00', 160000, 1, 16)
+INSERT INTO [Slot] VALUES (N'Slot 7', '09:00:00', '09:30:00', 160000, 1, 17)
+INSERT INTO [Slot] VALUES (N'Slot 7', '09:00:00', '09:30:00', 160000, 1, 18)
+INSERT INTO [Slot] VALUES (N'Slot 7', '09:00:00', '09:30:00', 160000, 1, 19)
+INSERT INTO [Slot] VALUES (N'Slot 7', '09:00:00', '09:30:00', 160000, 1, 20)
+INSERT INTO [Slot] VALUES (N'Slot 7', '09:00:00', '09:30:00', 160000, 1, 21)
+
+INSERT INTO [Slot] VALUES (N'Slot 8', '09:30:00', '10:00:00', 160000, 1, 1)
+INSERT INTO [Slot] VALUES (N'Slot 8', '09:30:00', '10:00:00', 160000, 1, 2)
+INSERT INTO [Slot] VALUES (N'Slot 8', '09:30:00', '10:00:00', 160000, 1, 3)
+INSERT INTO [Slot] VALUES (N'Slot 8', '09:30:00', '10:00:00', 160000, 1, 4)
+INSERT INTO [Slot] VALUES (N'Slot 8', '09:30:00', '10:00:00', 160000, 1, 5)
+INSERT INTO [Slot] VALUES (N'Slot 8', '09:30:00', '10:00:00', 160000, 1, 6)
+INSERT INTO [Slot] VALUES (N'Slot 8', '09:30:00', '10:00:00', 160000, 1, 7)
+INSERT INTO [Slot] VALUES (N'Slot 8', '09:30:00', '10:00:00', 160000, 1, 8)
+INSERT INTO [Slot] VALUES (N'Slot 8', '09:30:00', '10:00:00', 160000, 1, 9)
+INSERT INTO [Slot] VALUES (N'Slot 8', '09:30:00', '10:00:00', 160000, 1, 10)
+INSERT INTO [Slot] VALUES (N'Slot 8', '09:30:00', '10:00:00', 160000, 1, 11)
+INSERT INTO [Slot] VALUES (N'Slot 8', '09:30:00', '10:00:00', 160000, 1, 12)
+INSERT INTO [Slot] VALUES (N'Slot 8', '09:30:00', '10:00:00', 160000, 1, 13)
+INSERT INTO [Slot] VALUES (N'Slot 8', '09:30:00', '10:00:00', 160000, 1, 14)
+INSERT INTO [Slot] VALUES (N'Slot 8', '09:30:00', '10:00:00', 160000, 1, 15)
+INSERT INTO [Slot] VALUES (N'Slot 8', '09:30:00', '10:00:00', 160000, 1, 16)
+INSERT INTO [Slot] VALUES (N'Slot 8', '09:30:00', '10:00:00', 160000, 1, 17)
+INSERT INTO [Slot] VALUES (N'Slot 8', '09:30:00', '10:00:00', 160000, 1, 18)
+INSERT INTO [Slot] VALUES (N'Slot 8', '09:30:00', '10:00:00', 160000, 1, 19)
+INSERT INTO [Slot] VALUES (N'Slot 8', '09:30:00', '10:00:00', 160000, 1, 20)
+INSERT INTO [Slot] VALUES (N'Slot 8', '09:30:00', '10:00:00', 160000, 1, 21)
+
+INSERT INTO [Slot] VALUES (N'Slot 9', '10:00:00', '10:30:00', 160000, 1, 1)
+INSERT INTO [Slot] VALUES (N'Slot 9', '10:00:00', '10:30:00', 160000, 1, 2)
+INSERT INTO [Slot] VALUES (N'Slot 9', '10:00:00', '10:30:00', 160000, 1, 3)
+INSERT INTO [Slot] VALUES (N'Slot 9', '10:00:00', '10:30:00', 160000, 1, 4)
+INSERT INTO [Slot] VALUES (N'Slot 9', '10:00:00', '10:30:00', 160000, 1, 5)
+INSERT INTO [Slot] VALUES (N'Slot 9', '10:00:00', '10:30:00', 160000, 1, 6)
+INSERT INTO [Slot] VALUES (N'Slot 9', '10:00:00', '10:30:00', 160000, 1, 7)
+INSERT INTO [Slot] VALUES (N'Slot 9', '10:00:00', '10:30:00', 160000, 1, 8)
+INSERT INTO [Slot] VALUES (N'Slot 9', '10:00:00', '10:30:00', 160000, 1, 9)
+INSERT INTO [Slot] VALUES (N'Slot 9', '10:00:00', '10:30:00', 160000, 1, 10)
+INSERT INTO [Slot] VALUES (N'Slot 9', '10:00:00', '10:30:00', 160000, 1, 11)
+INSERT INTO [Slot] VALUES (N'Slot 9', '10:00:00', '10:30:00', 160000, 1, 12)
+INSERT INTO [Slot] VALUES (N'Slot 9', '10:00:00', '10:30:00', 160000, 1, 13)
+INSERT INTO [Slot] VALUES (N'Slot 9', '10:00:00', '10:30:00', 160000, 1, 14)
+INSERT INTO [Slot] VALUES (N'Slot 9', '10:00:00', '10:30:00', 160000, 1, 15)
+INSERT INTO [Slot] VALUES (N'Slot 9', '10:00:00', '10:30:00', 160000, 1, 16)
+INSERT INTO [Slot] VALUES (N'Slot 9', '10:00:00', '10:30:00', 160000, 1, 17)
+INSERT INTO [Slot] VALUES (N'Slot 9', '10:00:00', '10:30:00', 160000, 1, 18)
+INSERT INTO [Slot] VALUES (N'Slot 9', '10:00:00', '10:30:00', 160000, 1, 19)
+INSERT INTO [Slot] VALUES (N'Slot 9', '10:00:00', '10:30:00', 160000, 1, 20)
+INSERT INTO [Slot] VALUES (N'Slot 9', '10:00:00', '10:30:00', 160000, 1, 21)
+
+INSERT INTO [Slot] VALUES (N'Slot 10', '10:30:00', '11:00:00', 160000, 1, 1)
+INSERT INTO [Slot] VALUES (N'Slot 10', '10:30:00', '11:00:00', 160000, 1, 2)
+INSERT INTO [Slot] VALUES (N'Slot 10', '10:30:00', '11:00:00', 160000, 1, 3)
+INSERT INTO [Slot] VALUES (N'Slot 10', '10:30:00', '11:00:00', 160000, 1, 4)
+INSERT INTO [Slot] VALUES (N'Slot 10', '10:30:00', '11:00:00', 160000, 1, 5)
+INSERT INTO [Slot] VALUES (N'Slot 10', '10:30:00', '11:00:00', 160000, 1, 6)
+INSERT INTO [Slot] VALUES (N'Slot 10', '10:30:00', '11:00:00', 160000, 1, 7)
+INSERT INTO [Slot] VALUES (N'Slot 10', '10:30:00', '11:00:00', 160000, 1, 8)
+INSERT INTO [Slot] VALUES (N'Slot 10', '10:30:00', '11:00:00', 160000, 1, 9)
+INSERT INTO [Slot] VALUES (N'Slot 10', '10:30:00', '11:00:00', 160000, 1, 10)
+INSERT INTO [Slot] VALUES (N'Slot 10', '10:30:00', '11:00:00', 160000, 1, 11)
+INSERT INTO [Slot] VALUES (N'Slot 10', '10:30:00', '11:00:00', 160000, 1, 12)
+INSERT INTO [Slot] VALUES (N'Slot 10', '10:30:00', '11:00:00', 160000, 1, 13)
+INSERT INTO [Slot] VALUES (N'Slot 10', '10:30:00', '11:00:00', 160000, 1, 14)
+INSERT INTO [Slot] VALUES (N'Slot 10', '10:30:00', '11:00:00', 160000, 1, 15)
+INSERT INTO [Slot] VALUES (N'Slot 10', '10:30:00', '11:00:00', 160000, 1, 16)
+INSERT INTO [Slot] VALUES (N'Slot 10', '10:30:00', '11:00:00', 160000, 1, 17)
+INSERT INTO [Slot] VALUES (N'Slot 10', '10:30:00', '11:00:00', 160000, 1, 18)
+INSERT INTO [Slot] VALUES (N'Slot 10', '10:30:00', '11:00:00', 160000, 1, 19)
+INSERT INTO [Slot] VALUES (N'Slot 10', '10:30:00', '11:00:00', 160000, 1, 20)
+INSERT INTO [Slot] VALUES (N'Slot 10', '10:30:00', '11:00:00', 160000, 1, 21)
 
 --Booking (Date, Rating, Feedback, CurrentDate, Status, UserId, FieldId)
 INSERT INTO [Booking] VALUES ('2025-06-04', 5, N'Perfect!', '2025-06-04 14:30:00', 1, 5, 16)
@@ -576,7 +667,7 @@ INSERT INTO [UserVoucher] VALUES ('2025-06-04 14:30:00', 6, 3)
 INSERT INTO [UserVoucher] VALUES ('2025-06-04 14:30:00', 7, 8)
 
 --Invitation (Name, Booked, JoiningCost, TotalPlayer, AvailablePlayer, Standard, KindOfSport, Location, Longitude, Latitude, Date, StartTime, EndTime, PostingDate, Status, UserId, BookingId)
-INSERT INTO [Invitation] VALUES (N'Find more player', 0, 60000, 2, 1, N'Pro', N'Pickleball', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', N'0', N'0', '2025-04-21', '07:00:00', '09:00:00', '2025-04-19', 1, 5, null);
+INSERT INTO [Invitation] VALUES (N'Find more player', 0, 60000, 3, 1, N'Pro', N'Pickleball', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', N'0', N'0', '2025-04-21', '07:00:00', '09:00:00', '2025-04-19', 1, 5, null);
 INSERT INTO [Invitation] VALUES (N'Find more player', 1, 0, 2, 1, N'New', null, null, null, null, null, '09:30:00', '11:30:00', '2025-06-03', 1, 5, 3);
 INSERT INTO [Invitation] VALUES (N'Find more player', 0, 80000, 5, 1, null, N'Football', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', N'0', N'0', '2025-10-02', '12:00:00', '14:00:00', '2025-10-01', 1, 6, null);
 INSERT INTO [Invitation] VALUES (null, 0, 90000, 9, 1, N'New', N'Badminton', N'123 Đường Hoa Phượng, Quận 7, TP. HCM', N'0', N'0', '2025-11-28', '14:30:00', '16:30:00', '2025-11-27', 1, 5, null);

@@ -4,10 +4,10 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { Link } from 'react-router-dom';
 import { fetchData } from '../../../mocks/CallingAPI.js';
 import { useAuth } from '../../hooks/AuthContext/AuthContext.jsx';
+import PopupJoining from './PopupJoining.jsx';
 import './Invitation.css';
 
 export default function Invitation() {
-    console.log('Invitation');
     const { user } = useAuth();
 
     const [TYPEs, setTYPEs] = useState([]);
@@ -25,31 +25,24 @@ export default function Invitation() {
         const fetchDataAPI = async () => {
             try {
                 const typeData = await fetchData('Type', token);
-                console.log('typeData', typeData);
                 setTYPEs(typeData);
 
                 const userData = await fetchData('User/GetIdAndName', token);
-                console.log('userData', userData);
                 setUSERs(userData);
 
                 const venueData = await fetchData('Venue', token);
-                console.log('venueData', venueData);
                 setVENUEs(venueData.filter(s => s.status === 1));
 
                 const fieldData = await fetchData('Field', token);
-                console.log('fieldData', fieldData);
                 setFIELDs(fieldData.filter(s => s.status === 1));
 
                 const bookingData = await fetchData('Booking', token);
-                console.log('bookingData', bookingData);
                 setBOOKINGs(bookingData.filter(s => s.status === 1));
 
                 const invitationData = await fetchData('Invivation', token);
-                console.log('invitationData', invitationData);
                 setINVITATIONs(invitationData.filter(s => s.status === 1));
 
                 const userInvitationData = await fetchData('UserInvivation', token);
-                console.log('userInvitationData', userInvitationData);
                 setUSERINVITATIONs(userInvitationData.filter(s => s.status === 1));
 
                 setLoading(false);
@@ -116,38 +109,18 @@ export default function Invitation() {
     const [IsMine, setIsMine] = useState(false);
 
     const time = [
-        '07:00:00',
-        '08:00:00',
-        '09:00:00',
-        '10:00:00',
-        '11:00:00',
-        '12:00:00',
-        '13:00:00',
-        '14:00:00',
-        '15:00:00',
-        '16:00:00',
-        '17:00:00',
-        '18:00:00',
-        '19:00:00',
-        '20:00:00',
-        '21:00:00',
-        '22:00:00',
+        '07:00:00', '08:00:00', '09:00:00', '10:00:00',
+        '11:00:00', '12:00:00', '13:00:00', '14:00:00',
+        '15:00:00', '16:00:00', '17:00:00', '18:00:00',
+        '19:00:00', '20:00:00', '21:00:00', '22:00:00',
     ];
 
     const cost = [
         '0 - 10.000',
-        '10.000 - 20.000',
-        '20.000 - 30.000',
-        '30.000 - 40.000',
-        '40.000 - 50.000',
-        '50.000 - 60.000',
-        '60.000 - 70.000',
-        '70.000 - 80.000',
-        '80.000 - 90.000',
-        '90.000 - 100.000',
-        '0 - 50.000',
-        '50.000 - 100.000',
-        '100.000 - 150.000',
+        '10.000 - 20.000', '20.000 - 30.000', '30.000 - 40.000',
+        '40.000 - 50.000', '50.000 - 60.000', '60.000 - 70.000',
+        '70.000 - 80.000', '80.000 - 90.000', '90.000 - 100.000',
+        '0 - 50.000', '50.000 - 100.000', '100.000 - 150.000',
     ];
 
 
@@ -229,6 +202,8 @@ export default function Invitation() {
         setEndTime('');
         setCost('');
     };
+
+    const [JoiningInvitation, setJoiningInvitation] = useState(null);
 
     // const [inputText, setInputText] = useState("");
     // const handleInputChange = (event) => {
@@ -461,11 +436,21 @@ export default function Invitation() {
                                 :
                                 <div className='note no-note'>Không có ghi chú</div>
                             }
-                            <button disabled={invitation.availablePlayer + invitation.userInvitations?.length >= invitation.totalPlayer} className='btn'>THAM GIA</button>
+                            <button
+                                className='btn'
+                                onClick={() => setJoiningInvitation(invitation)}
+                                disabled={invitation.availablePlayer + invitation.userInvitations?.length >= invitation.totalPlayer}
+                            >
+                                THAM GIA
+                            </button>
                         </div>
                     </div>
                 ))}
             </div>
+
+            {JoiningInvitation &&
+                <PopupJoining invitation={JoiningInvitation} closePopup={setJoiningInvitation} />
+            }
         </div>
     )
 }
