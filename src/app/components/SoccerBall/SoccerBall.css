@@ -1,0 +1,48 @@
+.scene-ball {
+    width: 300px;
+    height: 300px;
+    perspective: 800px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-self: center;
+    /* transform: scale(5); */
+    margin: 200px 0 0;
+
+    .ball {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        transform-style: preserve-3d;
+        transition: all 1s ease;
+        transform: rotateX(0deg) rotateY(80deg) rotateZ(0deg);
+        /* transform: rotateX(0) rotateY(0) rotateZ(0); */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: spin 10s linear infinite;
+
+        .face {
+            position: absolute;
+            width: 100px;
+            height: 95.106px;
+            background: #ff000080;
+            opacity: 0.9;
+            transition: all 1s ease;
+
+            clip-path: polygon(50% 0%, 100% 38.197%, 80.902% 100%, 19.098% 100%, 0% 38.197%);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .face-white {
+            width: 123.607px;
+            height: 123.607px;
+
+            clip-path: polygon(25% 6.699%, 75% 6.699%, 100% 50%, 75% 93.301%, 25% 93.301%, 0% 50%);
+        }
+    }
+}
