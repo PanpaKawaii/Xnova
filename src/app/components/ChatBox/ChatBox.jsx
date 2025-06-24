@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { postData } from '../../../mocks/CallingAPI.js';
+import { useAuth } from '../../hooks/AuthContext/AuthContext.jsx';
 import './ChatBox.css';
 
 export default function ChatBox() {
+    const { user } = useAuth();
 
     const [Messages, setMessages] = useState([]);
     const [WidthFull, setWidthFull] = useState(false);
@@ -22,34 +25,20 @@ export default function ChatBox() {
             message: newMessage,
         };
 
-        const fetchData = async () => {
-            setLoading(p => true);
+        const token = user?.token;
+        try {
+            setLoading(true);
+            const result = await postData('Chat/ask', SendMessage, token);
+            console.log('result', result);
 
-            try {
-                const answerResponse = await fetch('https://localhost:7166/api/Chat/ask',
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJuZ3V5ZW52YW5hbkBnbWFpbC5jb20iLCJqdGkiOiI0OWQ2YjMyOC1iN2ZjLTQyYjgtODFhOS1kN2I3MTdlMjk3ZDgiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJVc2VyIiwiZXhwIjoxNzUxMTI4ODY0LCJpc3MiOiJQb2RCb29raW5nIiwiYXVkIjoiUG9kV2ViIn0.05uZfimQVJtRXJErhq2SUwRAc-pzoOl5JtXikxwlZ6o`
-                        },
-                        body: JSON.stringify(SendMessage),
-                    }
-                );
-                if (!answerResponse.ok) throw new Error('Network response was not ok');
-                const answerData = await answerResponse.json();
-                setMessages((prev) => [...prev, answerData.reply]);
+            setMessages((prev) => [...prev, result.reply]);
 
-                console.log('answerData:', answerData);
-
-                setLoading(false);
-            } catch (error) {
-                setError(error);
-                setLoading(false);
-            }
-        };
-
-        fetchData();
+            setLoading(false);
+        } catch (error) {
+            setMessages((prev) => [...prev, 'Kết nối không ổn định, bạn hãy thử lại sau nhé!']);
+            setError(error);
+            setLoading(false);
+        }
     }
 
     const chatContainerRef = useRef(null);
@@ -76,12 +65,10 @@ export default function ChatBox() {
         width: '360px',
         height: '440px',
     }
-
     const StyleHeight = {
         width: '360px',
         height: '90vh',
     }
-
     const StyleFull = {
         width: 'calc(100% - 16px)',
         height: '90vh',
@@ -89,9 +76,6 @@ export default function ChatBox() {
 
     return (
         <div className='chat-box-container'>
-
-            {/* <div>HeightFull: {HeightFull ? 'TRUE' : 'FALSE'}</div>
-            <div>DisplayChat: {DisplayChat ? 'TRUE' : 'FALSE'}</div> */}
 
             {!DisplayChat &&
                 <div className='open-icon' onClick={() => setDisplayChat(true)}>
@@ -119,14 +103,9 @@ export default function ChatBox() {
                         </div>
                     </div>
 
-                    <div
-                        ref={chatContainerRef}
-                        className='chat-content'
-                    >
+                    <div ref={chatContainerRef} className='chat-content'>
                         {Messages.map((msg, idx) => (
-                            <div
-                                key={idx}
-                                className='message'
+                            <div key={idx} className='message'
                                 style={{
                                     alignSelf: idx % 2 === 0 ? 'flex-end' : 'flex-start',
                                 }}
@@ -134,21 +113,19 @@ export default function ChatBox() {
                                 {msg}
                             </div>
                         ))}
-                        {loading && <div
-                            className='message'
-                            style={{ alignSelf: 'flex-start' }}
-                        >
-                            ...
-                        </div>}
+                        {loading &&
+                            <div className='message' style={{ alignSelf: 'flex-start' }}>
+                                ...
+                            </div>
+                        }
                     </div>
 
                     <form onSubmit={handleSend}>
                         <div className='form-name form-group'>
-                            <input type='text' id='chat' name='chat' placeholder='Chat here' />
+                            <input type='text' id='chat' name='chat' placeholder='Câu hỏi của bạn' />
                         </div>
-                        <button className='btn'>Send</button>
+                        <button className='btn'>GỬI</button>
                     </form>
-
                 </div>
             }
         </div>
