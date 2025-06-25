@@ -9,7 +9,6 @@ import './Venue.css';
 import VenueFeedback from './VenueFeedback.jsx';
 
 export default function Venue() {
-    console.log('Venue');
     const { user } = useAuth();
 
     const [TYPEs, setTYPEs] = useState([]);
@@ -26,27 +25,21 @@ export default function Venue() {
         const fetchDataAPI = async () => {
             try {
                 const typeData = await fetchData('Type', token);
-                console.log('typeData', typeData);
                 setTYPEs(typeData);
 
                 const venueData = await fetchData('Venue', token);
-                console.log('venueData', venueData);
                 setVENUEs(venueData.filter(s => s.status === 1));
 
                 const imageData = await fetchData('Image', token);
-                console.log('imageData', imageData);
                 setIMAGEs(imageData.filter(s => s.status === 1));
 
                 const fieldData = await fetchData('Field', token);
-                console.log('fieldData', fieldData);
                 setFIELDs(fieldData.filter(s => s.status === 1));
 
                 const slotData = await fetchData('Slot', token);
-                console.log('slotData', slotData);
                 setSLOTs(slotData.filter(s => s.status === 1));
 
                 const bookingData = await fetchData('Booking', token);
-                console.log('bookingData', bookingData);
                 setBOOKINGs(bookingData.filter(s => s.status === 1));
 
                 setLoading(false);
@@ -225,37 +218,6 @@ export default function Venue() {
                             </label>
                         </div>
                     ))}
-
-                    {/* <div className='form-group form-rating'>
-                        <label>
-                            <input type='checkbox' id='checkbox1' checked={Rating1} onChange={() => setRating1(p => !p)} />
-                            <StarRating Rating={1} Size={'1.3em'} Color={'#ffd700'} />
-                        </label>
-                    </div>
-                    <div className='form-group form-rating'>
-                        <label>
-                            <input type='checkbox' id='checkbox1' checked={Rating2} onChange={() => setRating2(p => !p)} />
-                            <StarRating Rating={2} Size={'1.3em'} Color={'#ffd700'} />
-                        </label>
-                    </div>
-                    <div className='form-group form-rating'>
-                        <label>
-                            <input type='checkbox' id='checkbox1' checked={Rating3} onChange={() => setRating3(p => !p)} />
-                            <StarRating Rating={3} Size={'1.3em'} Color={'#ffd700'} />
-                        </label>
-                    </div>
-                    <div className='form-group form-rating'>
-                        <label>
-                            <input type='checkbox' id='checkbox1' checked={Rating4} onChange={() => setRating4(p => !p)} />
-                            <StarRating Rating={4} Size={'1.3em'} Color={'#ffd700'} />
-                        </label>
-                    </div>
-                    <div className='form-group form-rating'>
-                        <label>
-                            <input type='checkbox' id='checkbox1' checked={Rating5} onChange={() => setRating5(p => !p)} />
-                            <StarRating Rating={5} Size={'1.3em'} Color={'#ffd700'} />
-                        </label>
-                    </div> */}
 
                     <div className='form-group form-location'>
                         <select

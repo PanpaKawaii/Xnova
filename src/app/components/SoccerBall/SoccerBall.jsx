@@ -30,7 +30,27 @@ export default function SoccerBall() {
                                 `,
                             }}
                         >
-                            Face{index + 1}
+                            {/* Face{index + 1} */}
+                            {[...Array(5)].map((_, index) => (
+                                <div
+                                    key={index}
+                                    className={`tri f${index + 1}`}
+                                    style={{
+                                        background: `#28a74540`,
+                                        transform: `
+                                        translateY(${5}px)
+                                        rotateZ(${index % 5 * 72}deg)
+                                        `,
+                                        hover: {
+                                            transform: `
+                                            translateY(${10}px)
+                                            `
+                                        }
+                                    }}
+                                >
+                                    Face{index + 1}
+                                </div>
+                            ))}
                         </div>
                     ))}
                     {[...Array(20)].map((_, index) => (

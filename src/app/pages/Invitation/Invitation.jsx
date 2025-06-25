@@ -39,7 +39,7 @@ export default function Invitation() {
                 const bookingData = await fetchData('Booking', token);
                 setBOOKINGs(bookingData.filter(s => s.status === 1));
 
-                const invitationData = await fetchData('Invivation', token);
+                const invitationData = await fetchData('Invitation', token);
                 setINVITATIONs(invitationData.filter(s => s.status === 1));
 
                 const userInvitationData = await fetchData('UserInvivation', token);
@@ -404,7 +404,7 @@ export default function Invitation() {
                         <div className='currentdate-booked'>
                             <div className='currentdate'>{invitation.postingDate}</div>
                             {invitation.booked ?
-                                <Link to='/venue/1' className='booked'>
+                                <Link to={`/venue/${invitation.booking?.field?.venueId}`} className='booked'>
                                     <div>ĐÃ ĐẶT SÂN</div>
                                     <i className='fa-solid fa-angle-right'></i>
                                 </Link>

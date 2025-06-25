@@ -74,6 +74,11 @@ export default function BookingForm({ Venue }) {
 
     const AvailableField = FIELDs.filter(field => field.typeId === Number(SportType));
     const AvailableSLOTs = SLOTs.filter(slot => slot.fieldId === Number(SelectedField));
+    // const AvailableTYPEs = FIELDs.filter(field => field.some(f => f.typeId));
+    // Lấy ra tất cả các typeId duy nhất từ mảng Venue
+
+    // Lọc mảng TYPEs
+    const AvailableTYPEs = TYPEs.filter(type => [...new Set(FIELDs.map(f => f.typeId))].includes(type.id));
 
     // const seen = new Set();
     // const AvailableSLOTs = SLOTs.filter(slot => {
@@ -257,7 +262,7 @@ export default function BookingForm({ Venue }) {
                                         disabled={SelectedField}
                                     >
                                         <option value=''>--Môn thể thao--</option>
-                                        {TYPEs && TYPEs.map((type) => (
+                                        {AvailableTYPEs && AvailableTYPEs.map((type) => (
                                             <option key={type.id} value={type.id}>
                                                 {type.name}
                                             </option>
