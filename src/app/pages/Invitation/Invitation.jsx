@@ -455,7 +455,7 @@ export default function Invitation() {
             }
 
             {CreatingInvitaion &&
-                <PopupCreating closePopup={setCreatingInvitaion} />
+                <PopupCreating TYPEs={TYPEs} closePopup={setCreatingInvitaion} />
             }
         </div>
     )

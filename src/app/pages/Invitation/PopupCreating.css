@@ -1,0 +1,117 @@
+.form-container {
+    width: 800px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    position: relative;
+
+    i {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .book-yet {
+        display: flex;
+    }
+
+    .not-booked {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+
+        .left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .map {
+            width: 400px;
+            height: 300px;
+            background-color: red;
+            border-radius: 20px;
+        }
+    }
+
+    .bottom {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 8px;
+
+        .text {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+
+            .form-name {
+                flex: 3;
+            }
+
+            .form-standard {
+                flex: 2;
+            }
+        }
+
+        .number {
+            display: flex;
+            gap: 12px;
+
+            .form-cost {
+                flex: 1;
+            }
+
+            .form-total,
+            .form-available {
+                width: 80px;
+            }
+
+            .form-start,
+            .form-end {
+                width: 140px;
+            }
+        }
+    }
+
+    .btn-create {
+        width: 100%;
+        border: none;
+        transition: all 0.2s;
+
+        &:hover {
+            background-color: #0056b3;
+        }
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+
+        label {
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+
+            &:focus {
+                outline: none;
+                border-color: #007bff;
+                box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+            }
+        }
+    }
+}
