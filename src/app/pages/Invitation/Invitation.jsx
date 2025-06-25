@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { fetchData } from '../../../mocks/CallingAPI.js';
 import { useAuth } from '../../hooks/AuthContext/AuthContext.jsx';
 import PopupJoining from './PopupJoining.jsx';
+import PopupCreating from './PopupCreating.jsx';
 import './Invitation.css';
 
 export default function Invitation() {
@@ -204,6 +205,7 @@ export default function Invitation() {
     };
 
     const [JoiningInvitation, setJoiningInvitation] = useState(null);
+    const [CreatingInvitaion, setCreatingInvitaion] = useState(false);
 
     // const [inputText, setInputText] = useState("");
     // const handleInputChange = (event) => {
@@ -260,7 +262,7 @@ export default function Invitation() {
                         </label>
                     </div>
                 </form>
-                <button className='btn'>TẠO BÀI ĐĂNG</button>
+                <button className='btn' onClick={() => setCreatingInvitaion(true)}>TẠO BÀI ĐĂNG</button>
             </div>
 
             <form onSubmit={handleSubmit} className='filter-form'>
@@ -450,6 +452,10 @@ export default function Invitation() {
 
             {JoiningInvitation &&
                 <PopupJoining invitation={JoiningInvitation} closePopup={setJoiningInvitation} />
+            }
+
+            {CreatingInvitaion &&
+                <PopupCreating closePopup={setCreatingInvitaion} />
             }
         </div>
     )

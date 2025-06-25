@@ -1,13 +1,13 @@
 .bookingform-container {
-    width: 400px;
+    width: 680px;
 
     .payment-card {
-        width: 400px;
+        width: 100%;
         display: flex;
         justify-content: end;
 
         .card {
-            width: 400px;
+            width: 100%;
             height: auto;
             min-height: 220px;
             padding: 20px;
@@ -112,11 +112,12 @@
                     }
                 }
 
-                .form-slot {
+                .form-slot,
+                .form-field {
                     width: 100%;
                     padding: 12px 0;
                     display: grid;
-                    grid-template-columns: repeat(1, minmax(0, 1fr));
+                    grid-template-columns: repeat(3, minmax(0, 1fr));
                     gap: 8px;
 
                     label {
@@ -155,10 +156,10 @@
                             box-sizing: border-box;
                             border-radius: 4px;
                             display: flex;
-                            justify-content: end;
+                            flex-direction: column;
                             align-items: center;
+                            gap: 8px;
                             transition: all 0.15s ease;
-                            font-weight: 500;
                             cursor: pointer;
 
                             .name {
@@ -167,9 +168,12 @@
                             }
 
                             .price {
+                                width: 100%;
                                 padding: 6px 8px;
                                 color: #fff;
                                 background-color: #28a745;
+                                box-sizing: border-box;
+                                text-align: center;
                                 font-weight: bold;
                                 border-radius: 4px;
                             }
