@@ -1,6 +1,5 @@
 .venuedetail-container {
     width: 100%;
-    background-color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,13 +19,13 @@
 
         .images {
             height: fit-content;
-            padding: 8px;
+            padding: 5px;
             margin: 0 0 40px;
-            background-color: #fff;
+            background-color: #a3e635;
             box-shadow: 0 0 8px #66666640;
             border-radius: 16px;
             display: flex;
-            gap: 8px;
+            gap: 5px;
 
             img {
                 width: 100%;
@@ -49,7 +48,7 @@
                 flex: 2;
                 display: flex;
                 flex-direction: column;
-                gap: 8px;
+                gap: 5px;
 
                 .image-2-1 {
                     flex: 1;

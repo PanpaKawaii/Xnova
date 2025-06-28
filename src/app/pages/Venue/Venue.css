@@ -3,6 +3,10 @@
     height: auto;
     min-height: 70vh;
 
+    &.custom-cursor {
+        cursor: url('../../../../public/BadmintonCursor.png'), auto;
+    }
+
     .search {
         width: 100%;
         padding: 20px;
@@ -129,7 +133,7 @@
         max-width: 1400px;
         justify-self: center;
         border-collapse: collapse;
-        color: #999;
+        color: #fff;
 
         thead {
             height: 50px;
@@ -216,6 +220,22 @@
 
             .text-middle {
                 text-align: center;
+            }
+
+            .td-types {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+
+                .type {
+                    margin: 0 0 4px;
+                    padding: 4px 6px;
+                    box-sizing: border-box;
+                    border-radius: 4px;
+                    background-color: #a3e63540;
+                    color: #a3e635;
+                    font-weight: bold;
+                }
             }
 
             .image {

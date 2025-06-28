@@ -181,7 +181,7 @@ export default function Venue() {
     };
 
     return (
-        <div className='venue-container'>
+        <div className='venue-container custom-cursor'>
 
             <div className='search'>
                 <form onSubmit={handleSubmit} className='filter-form'>
@@ -280,17 +280,17 @@ export default function Venue() {
                                             <button className='btn view-btn' onClick={() => handleVenueShowFeedback(venue.id)}>View feedback</button>
                                         </td>
                                         <td className='text-middle'>
-                                            <div>
+                                            <div className='td-types'>
                                                 {venue.types?.map(type => (
-                                                    <div key={type.id}>{type.name}</div>
+                                                    <div className='type' key={type.id}>{type.name}</div>
                                                 ))}
 
                                             </div>
                                         </td>
                                         <td>
-                                            <div>Phone: {venue.contact}</div>
-                                            <div>Address: {venue.address}</div>
-                                            <div>Longitude: {venue.longitude} - Latitude: {venue.latitude}</div>
+                                            <div><i className='fa-solid fa-phone'></i> {venue.contact}</div>
+                                            <div><i className='fa-solid fa-location-dot'></i> {venue.address}</div>
+                                            <div><i className='fa-solid fa-map'></i> Kinh độ: {venue.longitude} - Vĩ độ: {venue.latitude}</div>
                                         </td>
                                         <td>
                                             <Link to={`../../../venue/${venue.id}`} state={{ venue }}>
