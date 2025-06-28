@@ -93,7 +93,7 @@
                         border-radius: 4px;
                         outline: none;
                         transition: all 0.15s ease-in-out;
-                        font-family: 'Quicksand', Arial, sans-serif;
+                        font-family: Inter, system-ui, sans-serif;
 
                         option {
                             padding: 4px 8px;

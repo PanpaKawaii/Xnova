@@ -219,27 +219,27 @@ export default function BookingForm({ Venue }) {
             console.log('result', result);
 
             if (result.id) {
-                for (let index = 0; index < slots.length; index++) {
-                    const BookingSlotData = {
-                        id: 0,
-                        bookingId: result.id,
-                        slotId: slots[index],
-                    }
-                    console.log('BookingSlotData:', BookingSlotData);
+                // for (let index = 0; index < slots.length; index++) {
+                //     const BookingSlotData = {
+                //         id: 0,
+                //         bookingId: result.id,
+                //         slotId: slots[index],
+                //     }
+                //     console.log('BookingSlotData:', BookingSlotData);
 
-                    const resultBookingSlot = await postData('BookingSlot', BookingSlotData, token);
-                    console.log('resultBookingSlot', resultBookingSlot);
-                }
+                //     const resultBookingSlot = await postData('BookingSlot', BookingSlotData, token);
+                //     console.log('resultBookingSlot', resultBookingSlot);
+                // }
 
                 const PaymentMethodData = {
                     id: 0,
                     orderId: result.id,
-                    fullname: 'user?.name',
-                    description: payment,
+                    fullname: '',
+                    description: '',
                     amount: amount,
-                    status: 'Chưa thanh toán',
-                    method: 'VNPay',
-                    createdDate: new Date(new Date().getTime() + 7 * 60 * 60 * 1000).toISOString(),
+                    status: '',
+                    method: '',
+                    createdDate: '',
                 };
                 console.log('PaymentMethodData:', PaymentMethodData);
 

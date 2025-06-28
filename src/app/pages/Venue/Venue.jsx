@@ -192,7 +192,7 @@ export default function Venue() {
                             value={SportType}
                             onChange={(e) => setSportType(e.target.value)}
                         >
-                            <option value=''>--Môn thể thao--</option>
+                            <option value='' className='default'>--Môn thể thao--</option>
                             {TYPEs && TYPEs.map((type) => (
                                 <option key={type.id} value={type.id}>
                                     {type.name}
@@ -213,7 +213,7 @@ export default function Venue() {
                         <div key={i} className='form-group form-rating'>
                             <label>
                                 <input type='checkbox' id={`checkbox${i}`} checked={rating.value} onChange={() => rating.function(p => !p)} />
-                                <div className='number'>({5 - i})</div>
+                                <div className='number'>{5 - i} - </div>
                                 <StarRating Rating={5 - i} Size={'1em'} Color={'#ffd700'} />
                             </label>
                         </div>
@@ -267,14 +267,14 @@ export default function Venue() {
                                             {(venue.rating && venue.rating) > 0 ? (
                                                 <div className='half-star'>
                                                     <span className='rating-value'>{venue.rating.toFixed(1)}</span>
-                                                    <StarHalfFull Rating={venue.rating} Size={'1.3em'} Color={'#ffd700'} />
+                                                    <StarHalfFull Rating={venue.rating} Size={'0.9em'} Color={'#ffd700'} />
                                                 </div>
                                             ) : (
                                                 <>
-                                                    <StarRating Rating={5} Size={'1.3em'} Color={'#ffd700'} /> (Recommend)
+                                                    <StarRating Rating={5} Size={'1em'} Color={'#ffd700'} /> (Recommend)
                                                 </>
                                             )}
-                                            <div>
+                                            <div className='price'>
                                                 {venue.prices.length ? Math.min(...venue.prices).toLocaleString('vi-VN') : null} - {venue.prices.length ? Math.max(...venue.prices).toLocaleString('vi-VN') : null} VND/slot
                                             </div>
                                             <button className='btn view-btn' onClick={() => handleVenueShowFeedback(venue.id)}>View feedback</button>
@@ -315,7 +315,7 @@ export default function Venue() {
                                 </React.Fragment>
                             ))
                         ) : (
-                            <tr><td colSpan='6'>Không tìm thấy khu vực nào.</td></tr>
+                            <tr><td colSpan='6' className='no-venue-found'>Không tìm thấy khu vực nào.</td></tr>
                         )}
                     </tbody>
                 </table>

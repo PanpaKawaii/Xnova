@@ -18,7 +18,7 @@
     align-items: center;
     padding: 0 20px;
     background-color: #fdfdfd;
-    font-family: 'Quicksand', Arial, sans-serif;
+    font-family: Inter, system-ui, sans-serif;
 
     .card-box {
         width: 800px;

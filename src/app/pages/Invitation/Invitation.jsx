@@ -43,7 +43,7 @@ export default function Invitation() {
                 const invitationData = await fetchData('Invitation', token);
                 setINVITATIONs(invitationData.filter(s => s.status === 1));
 
-                const userInvitationData = await fetchData('UserInvivation', token);
+                const userInvitationData = await fetchData('UserInvitation', token);
                 setUSERINVITATIONs(userInvitationData.filter(s => s.status === 1));
 
                 setLoading(false);
