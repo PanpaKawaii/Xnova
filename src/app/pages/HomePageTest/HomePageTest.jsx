@@ -6,11 +6,11 @@ import CTA from './CTA';
 
 export default function HomePageTest() {
     return (
-        <div>
+        <>
             <Hero />
             <Benefits />
             <Testimonials />
             <CTA />
-        </div>
+        </>
     )
 }

@@ -61,45 +61,47 @@ export default function Benefits() {
     ];
 
     return (
-        <section className="why-section">
-            <div className="green-circle"></div>
-            <div className="purple-circle"></div>
+        <section className='why-section'>
+            <div className='green-circle'></div>
+            <div className='purple-circle'></div>
 
-            <div className="container">
-                <div className="header">
-                    <h2 className="title">
+            <div className='container'>
+                <div className='header'>
+                    <h2 className='title'>
                         Why Choose
-                        <span className="gradient-text">Xnova</span>
+                        <span className='gradient-text'>Xnova</span>
                     </h2>
-                    <p className="subtitle">
+                    <p className='subtitle'>
                         Experience the future of football field booking with cutting-edge technology and unmatched convenience
                     </p>
                 </div>
 
-                <div className="benefits-grid">
-                    <div className="benefit-card animate-slide-up">
-                        <div className="icon-wrapper green">
+                <div className='benefits-grid'>
+                    {[...Array(6)].map((_, i) => (
+                        <div key={i} className='benefit-card'>
+                            <div className='icon-wrapper green'></div>
+                            <h3 className='benefit-title'>Fast Booking</h3>
+                            <p className='benefit-desc'>Instantly reserve fields with our optimized interface.</p>
                         </div>
-                        <h3 className="benefit-title">Fast Booking</h3>
-                        <p className="benefit-desc">Instantly reserve fields with our optimized interface.</p>
-                    </div>
+                    ))}
                 </div>
 
-                <div className="features-grid">
-                    <div className="feature-card animate-fade-in">
-                        <div className="feature-badge">100+ Fields</div>
-                        <div className="feature-header">
-                            <div className="feature-icon green">
+                <div className='features-grid'>
+                    {[...Array(6)].map((_, i) => (
+                        <div key={i} className='feature-card'>
+                            <div className='feature-badge'>100+ Fields</div>
+                            <div className='feature-header'>
+                                <div className='feature-icon green'></div>
+                                <h3 className='feature-title'>Premium Locations</h3>
                             </div>
-                            <h3 className="feature-title">Premium Locations</h3>
+                            <p className='feature-desc'>Access top-rated stadiums across your city easily.</p>
+                            <div className='feature-bar'>
+                                <div className='feature-bar-fill'></div>
+                            </div>
                         </div>
-                        <p className="feature-desc">Access top-rated stadiums across your city easily.</p>
-                        <div className="feature-bar">
-                            <div className="feature-bar-fill"></div>
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </div>
         </section>
-    );
+    )
 }

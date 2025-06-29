@@ -61,75 +61,75 @@ export default function Testimonials() {
     }, []);
 
     return (
-        <section className="testimonial-section">
-            <div className="bg-gradient-overlay"></div>
-            <div className="bg-purple-circle"></div>
-            <div className="bg-green-circle"></div>
+        <section className='testimonial-section'>
+            <div className='bg-gradient-overlay'></div>
+            <div className='bg-purple-circle'></div>
+            <div className='bg-green-circle'></div>
 
-            <div className="content-wrapper">
-                <div className="header">
-                    <h2 className="heading">
-                        What Players <span className="gradient-text">Say</span>
+            <div className='content-wrapper'>
+                <div className='header'>
+                    <h2 className='heading'>
+                        What Players <span className='gradient-text'>Say</span>
                     </h2>
-                    <p className="subheading">
+                    <p className='subheading'>
                         Join thousands of satisfied players who have transformed their football experience with Xnova
                     </p>
                 </div>
 
-                <div className="testimonial-card-wrapper">
-                    <div className="testimonial-card">
-                        <div className="quote-icon"></div>
+                <div className='testimonial-card-wrapper'>
+                    <div className='testimonial-card'>
+                        <div className='quote-icon'></div>
 
-                        <div className="stars">
-                            <span className="star">★</span>
+                        <div className='stars'>
+                            <span className='star'><i className='fa-solid fa-star'></i></span>
                         </div>
 
-                        <blockquote className="quote-text">
-                            "This is a sample testimonial text from a happy user."
+                        <blockquote className='quote-text'>
+                            'This is a sample testimonial text from a happy user.'
                         </blockquote>
 
-                        <div className="author">
-                            <div className="avatar-wrapper">
-                                <img className="avatar" src="avatar.jpg" alt="User Name" />
-                                <div className="avatar-glow"></div>
+                        <div className='author'>
+                            <div className='avatar-wrapper'>
+                                <img className='avatar' src='avatar.jpg' alt='User Name' />
+                                <div className='avatar-glow'></div>
                             </div>
-                            <div className="author-info">
+                            <div className='author-info'>
                                 <h4>User Name</h4>
-                                <p className="role">Midfielder</p>
-                                <p className="location">Ho Chi Minh City</p>
+                                <p className='role'>Midfielder</p>
+                                <p className='location'>Ho Chi Minh City</p>
                             </div>
                         </div>
                     </div>
 
-                    <button className="nav-button left">&#10094;</button>
-                    <button className="nav-button right">&#10095;</button>
+                    <button className='nav-button left'>&#10094;</button>
+                    <button className='nav-button right'>&#10095;</button>
 
-                    <div className="dots">
-                        <button className="dot active"></button>
-                        <button className="dot"></button>
-                        <button className="dot"></button>
+                    <div className='dots'>
+                        <button className='dot active'></button>
+                        <button className='dot'></button>
+                        <button className='dot'></button>
                     </div>
                 </div>
 
-                <div className="stats">
-                    <div className="stat">
-                        <div className="value green">4.9</div>
-                        <div className="label">Average Rating</div>
+                <div className='stats'>
+                    <div className='stat'>
+                        <div className='value green'>4.9</div>
+                        <div className='label'>Average Rating</div>
                     </div>
-                    <div className="stat">
-                        <div className="value purple">15k+</div>
-                        <div className="label">Happy Customers</div>
+                    <div className='stat'>
+                        <div className='value purple'>15k+</div>
+                        <div className='label'>Happy Customers</div>
                     </div>
-                    <div className="stat">
-                        <div className="value yellow">98%</div>
-                        <div className="label">Satisfaction Rate</div>
+                    <div className='stat'>
+                        <div className='value yellow'>98%</div>
+                        <div className='label'>Satisfaction Rate</div>
                     </div>
-                    <div className="stat">
-                        <div className="value blue">24/7</div>
-                        <div className="label">Support</div>
+                    <div className='stat'>
+                        <div className='value blue'>24/7</div>
+                        <div className='label'>Support</div>
                     </div>
                 </div>
             </div>
         </section>
-    );
+    )
 }
