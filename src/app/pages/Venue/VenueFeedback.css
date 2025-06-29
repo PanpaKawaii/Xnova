@@ -6,6 +6,7 @@
     .feedback-col {
         display: flex;
         flex-direction: column;
+        background-color: #101526;
         border: 1px solid #ccc;
         box-sizing: border-box;
         border-radius: 12px;
@@ -36,8 +37,10 @@
                 padding: 0 0 0 12px;
 
                 .name {
+                    color: #fff;
+                    margin: 0 0 4px;
                     font-size: 18px;
-                    font-weight: bold;
+                    font-weight: 600;
                     word-break: break-word;
                 }
 

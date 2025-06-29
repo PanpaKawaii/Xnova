@@ -1,0 +1,409 @@
+.hero-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('../../assets/eb0a7cbc947834e591b5cc18ab6da9fc1.png') center no-repeat;
+    background-size: cover;
+    overflow: hidden;
+
+    /* .gradient-background {
+        position: absolute;
+        inset: 0;
+    } */
+
+    .black-shadow-left {
+        position: absolute;
+        top: -50vh;
+        left: -40rem;
+        width: 90rem;
+        height: 200vh;
+        background-color: rgba(0, 0, 0, 1);
+        filter: blur(500px);
+    }
+
+    /* .green-pulse-circle {
+        position: absolute;
+        top: 5rem;
+        right: 2.5rem;
+        width: 18rem;
+        height: 18rem;
+        background-color: rgba(0, 255, 128, 0.1);
+        border-radius: 50%;
+        filter: blur(48px);
+        animation: pulse-slow 3s infinite;
+    } */
+
+    /* .purple-pulse-circle {
+        position: absolute;
+        bottom: 5rem;
+        right: 2.5rem;
+        width: 24rem;
+        height: 24rem;
+        background-color: rgba(192, 132, 252, 0.1);
+        border-radius: 50%;
+        filter: blur(48px);
+        animation: pulse-slow 3s infinite;
+        animation-delay: 1s;
+    } */
+
+    .container {
+        position: relative;
+        z-index: 10;
+        max-width: 112rem;
+        margin: 0 auto;
+        padding: 15rem 1rem;
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            align-items: center;
+
+            .left-column {
+                text-align: left;
+                animation: slide-up 1s ease-out;
+
+                /* .trust-info {
+                    display: flex;
+                    justify-content: center;
+                    gap: 0.5rem;
+                    margin-bottom: 1.5rem;
+                }
+
+                .trust-text {
+                    color: #d1d5db;
+                    font-size: 0.875rem;
+                } */
+
+                .main-heading {
+                    font-size: 3rem;
+                    font-weight: bold;
+                    margin: 0 0 1.5rem;
+
+                    .white-text {
+                        color: white;
+                    }
+
+                    .lime-text {
+                        color: #A8FF00;
+                    }
+                }
+
+                @media (min-width: 768px) {
+                    .main-heading {
+                        font-size: 4.5rem;
+                    }
+                }
+
+                .description {
+                    font-size: 1.25rem;
+                    color: #fff;
+                    margin-bottom: 2rem;
+                    max-width: 42rem;
+                }
+
+                .actions {
+                    display: flex;
+                    justify-content: flex-start;
+                    gap: 1rem;
+
+                    .btn-booking {
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        background: #A8FF00;
+                        color: #0f0f0f;
+                        padding: 1rem 2rem;
+                        border-radius: 9999px;
+                        font-weight: 600;
+                        font-size: 1.125rem;
+                        transition: all 0.3s ease;
+
+                        &:hover {
+                            background: linear-gradient(to right, #a3e635, #00ff80);
+                            transform: scale(1.05);
+                            box-shadow: 0 10px 30px rgba(0, 255, 128, 0.25);
+                        }
+                    }
+
+                    .btn-play {
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        border: 2px solid #c084fc;
+                        color: #c084fc;
+                        padding: 1rem 2rem;
+                        border-radius: 9999px;
+                        font-weight: 600;
+                        font-size: 1.125rem;
+                        transition: all 0.3s ease;
+
+                        &:hover {
+                            background-color: #c084fc;
+                            color: white;
+                            box-shadow: 0 10px 30px rgba(192, 132, 252, 0.25);
+                        }
+                    }
+                }
+
+                @media (max-width: 640px) {
+                    .actions {
+                        flex-direction: column;
+                        justify-content: center;
+                    }
+                }
+
+                .stats {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 2rem;
+                    margin-top: 3rem;
+                    padding-top: 2rem;
+                    border-top: 1px solid #1f2937;
+
+                    .stat-number {
+                        font-size: 1.875rem;
+                        font-weight: bold;
+                        margin-bottom: 0.5rem;
+
+                        &.green {
+                            color: #A8FF00;
+                        }
+
+                        &.purple {
+                            color: #c084fc;
+                        }
+
+                        &.yellow {
+                            color: #facc15;
+                        }
+                    }
+
+                    .stat-label {
+                        color: #9ca3af;
+                        font-size: 0.875rem;
+                    }
+                }
+            }
+
+            @media (max-width: 1024px) {
+                .left-column {
+                    text-align: center;
+                }
+            }
+
+            .right-column {
+                position: relative;
+                animation: slide-up 1s ease-out;
+
+                .booking-card {
+                    position: relative;
+                    z-index: 10;
+                    background: linear-gradient(to bottom right, #1f1f1fe0, #374151e0);
+                    padding: 2rem;
+                    border-radius: 1.5rem;
+                    border: 1px solid #374151;
+                    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+
+                    .badge {
+                        position: absolute;
+                        top: 1rem;
+                        right: 1rem;
+                        background: #A8FF00;
+                        color: #0f0f0f;
+                        padding: 0.25rem 0.75rem;
+                        border-radius: 9999px;
+                        font-size: 0.875rem;
+                        font-weight: 600;
+                    }
+
+                    .card-header {
+                        h3 {
+                            font-size: 1.5rem;
+                            font-weight: bold;
+                            color: white;
+                            margin-bottom: 0.5rem;
+                        }
+
+                        .location {
+                            color: #fff;
+                            margin: 0 0 8px;
+                        }
+                    }
+
+                    .card-details {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 1rem;
+                        margin-bottom: 1.5rem;
+
+                        .card-item {
+                            border-radius: 1rem;
+                            padding: 1rem;
+                            border: 1px solid;
+
+                            &.green-bg {
+                                background: rgba(168, 255, 0, 0.5);
+                                border-color: rgba(0, 255, 128, 0.2);
+                            }
+
+                            &.purple-bg {
+                                background: rgba(192, 132, 252, 0.5);
+                                border-color: rgba(192, 132, 252, 0.2);
+                            }
+
+                            .label {
+                                margin: 0 0 0.5rem;
+                                font-size: 1.125rem;
+                                font-weight: 600;
+
+                                &.green {
+                                    color: #A8FF00;
+                                }
+
+                                &.purple {
+                                    color: #c084fc;
+                                }
+                            }
+
+                            .value {
+                                color: white;
+                                font-size: 1.5rem;
+                                font-weight: bold;
+                            }
+
+                            .sub {
+                                color: #fff;
+                                font-size: 0.875rem;
+                            }
+                        }
+                    }
+
+                    .players-needed {
+                        background: rgba(55, 65, 81, 0.5);
+                        border-radius: 1rem;
+                        padding: 1rem;
+                        margin-bottom: 1.5rem;
+
+                        .info {
+                            display: flex;
+                            justify-content: space-between;
+                            margin-bottom: 0.5rem;
+                            color: #d1d5db;
+                        }
+
+                        .progress-bar {
+                            background: #4b5563;
+                            border-radius: 9999px;
+                            height: 0.5rem;
+                            width: 100%;
+
+                            .progress-fill {
+                                background: linear-gradient(to right, #00ff80, #a3e635);
+                                height: 0.5rem;
+                                border-radius: 9999px;
+                                width: 75%;
+                            }
+                        }
+                    }
+
+                    .join-btn {
+                        width: 100%;
+                        background: #A8FF00;
+                        color: #0f0f0f;
+                        padding: 0.75rem 1rem;
+                        font-weight: 600;
+                        font-size: 1rem;
+                        border: none;
+                        border-radius: 0.75rem;
+                        transition: all 0.3s ease;
+
+                        &:hover {
+                            background-color: linear-gradient(to right, #a3e635, #00ff80);
+                            box-shadow: 0 0 28px rgba(0, 255, 128, 0.25);
+                        }
+                    }
+                }
+
+                .float-box {
+                    position: absolute;
+                    padding: 1rem;
+                    border-radius: 1rem;
+                    backdrop-filter: blur(10px);
+
+                    &.purple-float {
+                        top: -2rem;
+                        left: -2rem;
+                        background: rgba(192, 132, 252, 0.2);
+                        border: 1px solid rgba(192, 132, 252, 0.3);
+                    }
+
+                    &.green-float {
+                        bottom: -2rem;
+                        right: -2rem;
+                        background: rgba(0, 255, 128, 0.2);
+                        border: 1px solid rgba(0, 255, 128, 0.3);
+                    }
+
+                    &.animate-float {
+                        animation: float 3s infinite ease-in-out;
+
+                        &.delay {
+                            animation-delay: 1s;
+                        }
+
+                        i {
+                            font-size: 24px;
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .grid-container {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+    }
+}
+
+@keyframes slide-up {
+    0% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse-slow {
+
+    0%,
+    100% {
+        opacity: 0.7;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}

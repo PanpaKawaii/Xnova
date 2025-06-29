@@ -17,11 +17,11 @@
         transform-style: preserve-3d;
         transition: all 1s ease;
         transform: rotateX(0deg) rotateY(80deg) rotateZ(0deg);
-        /* transform: rotateX(0) rotateY(0) rotateZ(0); */
+        transform: rotateX(0) rotateY(0) rotateZ(0);
         display: flex;
         justify-content: center;
         align-items: center;
-        animation: spin 10s linear infinite;
+        /* animation: spin 100s linear infinite; */
 
         .face {
             position: absolute;
@@ -36,6 +36,21 @@
             display: flex;
             justify-content: center;
             align-items: center;
+
+            .tri {
+                position: absolute;
+                width: 61.803px;
+                height: 95.106px;
+                background: #ff000080;
+                opacity: 0.9;
+                transition: all 1s ease;
+
+                clip-path: polygon(50% 50%, 100% 94.6%, 0% 94.6%);
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
         }
 
         .face-white {

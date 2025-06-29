@@ -1,11 +1,10 @@
 .venuedetail-container {
     width: 100%;
-    background-color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    font-family: 'Quicksand', Arial, sans-serif;
+    font-family: Inter, system-ui, sans-serif;
 
     .venuedetail-content {
         width: 100%;
@@ -20,13 +19,13 @@
 
         .images {
             height: fit-content;
-            padding: 8px;
+            padding: 5px;
             margin: 0 0 40px;
-            background-color: #fff;
+            background-color: #a3e635;
             box-shadow: 0 0 8px #66666640;
             border-radius: 16px;
             display: flex;
-            gap: 8px;
+            gap: 5px;
 
             img {
                 width: 100%;
@@ -49,7 +48,7 @@
                 flex: 2;
                 display: flex;
                 flex-direction: column;
-                gap: 8px;
+                gap: 5px;
 
                 .image-2-1 {
                     flex: 1;
@@ -70,19 +69,20 @@
         }
 
         .detail-container {
+            width: 100%;
             padding: 0 0 40px;
             margin: 0 0 40px;
             display: flex;
             justify-content: space-between;
+            gap: 20px;
             border-bottom: 1px solid #ccc;
+            box-sizing: border-box;
 
             .short-detail {
-
-                h4 {
-                    margin: 30px 0 10px;
-                }
+                flex: 1;
 
                 .favorite {
+                    width: 100%;
                     padding: 20px 0;
                     background-color: #fff;
                     border-radius: 10px;
@@ -95,12 +95,12 @@
 
                     .favorite-title {
                         flex: 1;
+                        font-size: 20px;
+                        font-weight: bold;
                         display: flex;
                         justify-content: center;
                         align-items: center;
                         gap: 8px;
-                        font-size: 20px;
-                        font-weight: bold;
                     }
 
                     .favorite-text {
@@ -111,23 +111,6 @@
                     .favorite-rating {
                         flex: 1;
                         display: flex;
-                        justify-content: center;
-                    }
-                }
-
-                .utility-container {
-                    display: flex;
-                    flex-wrap: wrap;
-                    padding: 20px 0;
-
-                    p {
-                        margin: 0;
-                    }
-
-                    .icon {
-                        width: 20px;
-                        margin: 0 10px;
-                        display: inline-flex;
                         justify-content: center;
                     }
                 }
@@ -169,7 +152,7 @@
             }
         }
 
-        .overlay {
+        /* .overlay {
             position: fixed;
             top: 0;
             bottom: 0;
@@ -269,6 +252,6 @@
                     color: #ff0000;
                 }
             }
-        }
+        } */
     }
 }

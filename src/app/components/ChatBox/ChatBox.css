@@ -10,7 +10,7 @@
     justify-content: end;
     padding: 8px;
     box-sizing: border-box;
-    font-family: 'Quicksand', Arial, sans-serif;
+    font-family: Inter, system-ui, sans-serif;
     z-index: 10;
 
     .open-icon {

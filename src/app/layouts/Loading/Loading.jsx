@@ -3,11 +3,10 @@ import './Loading.css';
 
 export default function Loading() {
     return (
-        <div className='loading-container'>
+        <div className='loadingcircle-container'>
             <div className='arrow-container'>
                 <div className='arrow'></div>
                 <div className='white'></div>
-                <div className='head'></div>
             </div>
         </div>
     )

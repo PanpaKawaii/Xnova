@@ -1,7 +1,7 @@
 .header-container {
     padding: 16px 40px;
     min-height: 72px;
-    background-color: #ececec;
+    background-color: #101526;
     font-weight: bold;
     display: flex;
     justify-content: space-between;
@@ -9,7 +9,7 @@
     position: sticky;
     top: 0;
     z-index: 10;
-    font-family: 'Quicksand', Arial, sans-serif;
+    font-family: Inter, system-ui, sans-serif;
 
     a {
         color: #000;

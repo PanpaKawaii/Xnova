@@ -9,7 +9,6 @@ import './Venue.css';
 import VenueFeedback from './VenueFeedback.jsx';
 
 export default function Venue() {
-    console.log('Venue');
     const { user } = useAuth();
 
     const [TYPEs, setTYPEs] = useState([]);
@@ -26,27 +25,21 @@ export default function Venue() {
         const fetchDataAPI = async () => {
             try {
                 const typeData = await fetchData('Type', token);
-                console.log('typeData', typeData);
                 setTYPEs(typeData);
 
                 const venueData = await fetchData('Venue', token);
-                console.log('venueData', venueData);
                 setVENUEs(venueData.filter(s => s.status === 1));
 
                 const imageData = await fetchData('Image', token);
-                console.log('imageData', imageData);
                 setIMAGEs(imageData.filter(s => s.status === 1));
 
                 const fieldData = await fetchData('Field', token);
-                console.log('fieldData', fieldData);
                 setFIELDs(fieldData.filter(s => s.status === 1));
 
                 const slotData = await fetchData('Slot', token);
-                console.log('slotData', slotData);
                 setSLOTs(slotData.filter(s => s.status === 1));
 
                 const bookingData = await fetchData('Booking', token);
-                console.log('bookingData', bookingData);
                 setBOOKINGs(bookingData.filter(s => s.status === 1));
 
                 setLoading(false);
@@ -188,7 +181,7 @@ export default function Venue() {
     };
 
     return (
-        <div className='venue-container'>
+        <div className='venue-container custom-cursor'>
 
             <div className='search'>
                 <form onSubmit={handleSubmit} className='filter-form'>
@@ -199,7 +192,7 @@ export default function Venue() {
                             value={SportType}
                             onChange={(e) => setSportType(e.target.value)}
                         >
-                            <option value=''>--Môn thể thao--</option>
+                            <option value='' className='default'>--Môn thể thao--</option>
                             {TYPEs && TYPEs.map((type) => (
                                 <option key={type.id} value={type.id}>
                                     {type.name}
@@ -220,42 +213,11 @@ export default function Venue() {
                         <div key={i} className='form-group form-rating'>
                             <label>
                                 <input type='checkbox' id={`checkbox${i}`} checked={rating.value} onChange={() => rating.function(p => !p)} />
-                                <div className='number'>({5 - i})</div>
+                                <div className='number'>{5 - i} - </div>
                                 <StarRating Rating={5 - i} Size={'1em'} Color={'#ffd700'} />
                             </label>
                         </div>
                     ))}
-
-                    {/* <div className='form-group form-rating'>
-                        <label>
-                            <input type='checkbox' id='checkbox1' checked={Rating1} onChange={() => setRating1(p => !p)} />
-                            <StarRating Rating={1} Size={'1.3em'} Color={'#ffd700'} />
-                        </label>
-                    </div>
-                    <div className='form-group form-rating'>
-                        <label>
-                            <input type='checkbox' id='checkbox1' checked={Rating2} onChange={() => setRating2(p => !p)} />
-                            <StarRating Rating={2} Size={'1.3em'} Color={'#ffd700'} />
-                        </label>
-                    </div>
-                    <div className='form-group form-rating'>
-                        <label>
-                            <input type='checkbox' id='checkbox1' checked={Rating3} onChange={() => setRating3(p => !p)} />
-                            <StarRating Rating={3} Size={'1.3em'} Color={'#ffd700'} />
-                        </label>
-                    </div>
-                    <div className='form-group form-rating'>
-                        <label>
-                            <input type='checkbox' id='checkbox1' checked={Rating4} onChange={() => setRating4(p => !p)} />
-                            <StarRating Rating={4} Size={'1.3em'} Color={'#ffd700'} />
-                        </label>
-                    </div>
-                    <div className='form-group form-rating'>
-                        <label>
-                            <input type='checkbox' id='checkbox1' checked={Rating5} onChange={() => setRating5(p => !p)} />
-                            <StarRating Rating={5} Size={'1.3em'} Color={'#ffd700'} />
-                        </label>
-                    </div> */}
 
                     <div className='form-group form-location'>
                         <select
@@ -305,30 +267,30 @@ export default function Venue() {
                                             {(venue.rating && venue.rating) > 0 ? (
                                                 <div className='half-star'>
                                                     <span className='rating-value'>{venue.rating.toFixed(1)}</span>
-                                                    <StarHalfFull Rating={venue.rating} Size={'1.3em'} Color={'#ffd700'} />
+                                                    <StarHalfFull Rating={venue.rating} Size={'0.9em'} Color={'#ffd700'} />
                                                 </div>
                                             ) : (
                                                 <>
-                                                    <StarRating Rating={5} Size={'1.3em'} Color={'#ffd700'} /> (Recommend)
+                                                    <StarRating Rating={5} Size={'1em'} Color={'#ffd700'} /> (Recommend)
                                                 </>
                                             )}
-                                            <div>
+                                            <div className='price'>
                                                 {venue.prices.length ? Math.min(...venue.prices).toLocaleString('vi-VN') : null} - {venue.prices.length ? Math.max(...venue.prices).toLocaleString('vi-VN') : null} VND/slot
                                             </div>
                                             <button className='btn view-btn' onClick={() => handleVenueShowFeedback(venue.id)}>View feedback</button>
                                         </td>
                                         <td className='text-middle'>
-                                            <div>
+                                            <div className='td-types'>
                                                 {venue.types?.map(type => (
-                                                    <div key={type.id}>{type.name}</div>
+                                                    <div className='type' key={type.id}>{type.name}</div>
                                                 ))}
 
                                             </div>
                                         </td>
                                         <td>
-                                            <div>Phone: {venue.contact}</div>
-                                            <div>Address: {venue.address}</div>
-                                            <div>Longitude: {venue.longitude} - Latitude: {venue.latitude}</div>
+                                            <div><i className='fa-solid fa-phone'></i> {venue.contact}</div>
+                                            <div><i className='fa-solid fa-location-dot'></i> {venue.address}</div>
+                                            <div><i className='fa-solid fa-map'></i> Kinh độ: {venue.longitude} - Vĩ độ: {venue.latitude}</div>
                                         </td>
                                         <td>
                                             <Link to={`../../../venue/${venue.id}`} state={{ venue }}>
@@ -353,7 +315,7 @@ export default function Venue() {
                                 </React.Fragment>
                             ))
                         ) : (
-                            <tr><td colSpan='6'>Không tìm thấy khu vực nào.</td></tr>
+                            <tr><td colSpan='6' className='no-venue-found'>Không tìm thấy khu vực nào.</td></tr>
                         )}
                     </tbody>
                 </table>

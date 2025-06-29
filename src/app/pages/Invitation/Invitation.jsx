@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { fetchData } from '../../../mocks/CallingAPI.js';
 import { useAuth } from '../../hooks/AuthContext/AuthContext.jsx';
 import PopupJoining from './PopupJoining.jsx';
+import PopupCreating from './PopupCreating.jsx';
 import './Invitation.css';
 
 export default function Invitation() {
@@ -39,10 +40,10 @@ export default function Invitation() {
                 const bookingData = await fetchData('Booking', token);
                 setBOOKINGs(bookingData.filter(s => s.status === 1));
 
-                const invitationData = await fetchData('Invivation', token);
+                const invitationData = await fetchData('Invitation', token);
                 setINVITATIONs(invitationData.filter(s => s.status === 1));
 
-                const userInvitationData = await fetchData('UserInvivation', token);
+                const userInvitationData = await fetchData('UserInvitation', token);
                 setUSERINVITATIONs(userInvitationData.filter(s => s.status === 1));
 
                 setLoading(false);
@@ -204,6 +205,7 @@ export default function Invitation() {
     };
 
     const [JoiningInvitation, setJoiningInvitation] = useState(null);
+    const [CreatingInvitaion, setCreatingInvitaion] = useState(false);
 
     // const [inputText, setInputText] = useState("");
     // const handleInputChange = (event) => {
@@ -260,7 +262,7 @@ export default function Invitation() {
                         </label>
                     </div>
                 </form>
-                <button className='btn'>TẠO BÀI ĐĂNG</button>
+                <button className='btn' onClick={() => setCreatingInvitaion(true)}>TẠO BÀI ĐĂNG</button>
             </div>
 
             <form onSubmit={handleSubmit} className='filter-form'>
@@ -404,7 +406,7 @@ export default function Invitation() {
                         <div className='currentdate-booked'>
                             <div className='currentdate'>{invitation.postingDate}</div>
                             {invitation.booked ?
-                                <Link to='/venue/1' className='booked'>
+                                <Link to={`/venue/${invitation.booking?.field?.venueId}`} className='booked'>
                                     <div>ĐÃ ĐẶT SÂN</div>
                                     <i className='fa-solid fa-angle-right'></i>
                                 </Link>
@@ -450,6 +452,10 @@ export default function Invitation() {
 
             {JoiningInvitation &&
                 <PopupJoining invitation={JoiningInvitation} closePopup={setJoiningInvitation} />
+            }
+
+            {CreatingInvitaion &&
+                <PopupCreating TYPEs={TYPEs} closePopup={setCreatingInvitaion} />
             }
         </div>
     )

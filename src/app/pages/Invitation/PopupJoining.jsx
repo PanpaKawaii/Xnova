@@ -47,7 +47,7 @@ export default function PopupJoining({ invitation, closePopup }) {
     return (
         <div className='row'>
             <div id='popupJoining' className='overlay'>
-                <div className='col popup'>
+                <div className='col popup-joining'>
                     {loading ?
                         <Loading />
                         :
