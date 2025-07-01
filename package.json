@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@types/lodash.debounce": "^4.0.9",
-    "bootstrap": "^5.3.6",
+    "bootstrap": "^5.3.7",
     "lodash.debounce": "^4.0.8",
     "react": "^19.1.0",
     "react-datepicker": "^8.4.0",
@@ -19,7 +19,8 @@
     "react-router-dom": "^7.6.1",
     "react-select": "^5.10.1",
     "react-virtualized-auto-sizer": "^1.0.26",
-    "react-window": "^1.8.11"
+    "react-window": "^1.8.11",
+    "three": "^0.177.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
