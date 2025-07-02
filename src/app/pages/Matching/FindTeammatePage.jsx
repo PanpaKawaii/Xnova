@@ -218,7 +218,6 @@ export const FindTeammatePage = () => {
         className="hero-section"
       >
         <div className="hero-background" />
-        <div className="hero-overlay" />
         
         <div className="hero-content">
           <div className="animate-hero">
