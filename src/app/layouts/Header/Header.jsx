@@ -57,7 +57,7 @@ export default function Header() {
 
     return (
         <div className='header-container'>
-            <Link to='/' className='logo'>LOGO</Link>
+            <Link to='/' className='logohome'>LOGO</Link>
             <div className='items'>
                 <Link to='/venue' className='item'><i className='fa-solid fa-futbol'></i>Book</Link>
                 <Link to='/player' className='item'><i className='fa-solid fa-person-running'></i>Play</Link>

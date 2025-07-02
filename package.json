@@ -12,6 +12,7 @@
   "dependencies": {
     "@types/lodash.debounce": "^4.0.9",
     "bootstrap": "^5.3.6",
+    "framer-motion": "^12.20.1",
     "lodash.debounce": "^4.0.8",
     "react": "^19.1.0",
     "react-datepicker": "^8.4.0",

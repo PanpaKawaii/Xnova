@@ -11,6 +11,19 @@ export default function BookingForm({ Venue }) {
     const { user } = useAuth();
     const navigate = useNavigate();
 
+
+    const [bookingStep, setBookingStep] = useState(1);
+    const generateDates = () => {
+        const dates = [];
+        for (let i = 0; i < 28; i++) {
+            const date = new Date();
+            date.setDate(date.getDate() + i);
+            dates.push(date);
+        }
+        return dates;
+    };
+
+
     const [TYPEs, setTYPEs] = useState([]);
     const [FIELDs, setFIELDs] = useState([]);
     const [SLOTs, setSLOTs] = useState([]);
@@ -51,16 +64,26 @@ export default function BookingForm({ Venue }) {
 
     const [Confirm, setConfirm] = useState(false);
     const [SelectedDate, setSelectedDate] = useState('');
-    const [SportType, setSportType] = useState('');
 
-    const [SelectedFields, setSelectedFields] = useState([]);
+    const [SportType, setSportType] = useState('');
+    const handleChangeType = (e) => {
+        const value = Number(e.target.value);
+
+        if (e.target.checked) {
+            setSportType(value);
+        } else {
+            setSportType('');
+        }
+    };
+
+    const [SelectedField, setSelectedField] = useState('');
     const handleChangeField = (e) => {
         const value = Number(e.target.value);
 
         if (e.target.checked) {
-            setSelectedFields((prev) => [...prev, value]);
+            setSelectedField(value);
         } else {
-            setSelectedFields((prev) => prev.filter((v) => v !== value));
+            setSelectedField('');
         }
     };
 
@@ -84,7 +107,7 @@ export default function BookingForm({ Venue }) {
     }, [SelectedSlots]);
 
 
-    const AvailableField = FIELDs.filter(field => field.typeId === Number(SportType));
+    const AvailableField = FIELDs.filter(field => field.typeId === Number(SportType) || !SportType);
     // const AvailableSlots = SLOTs.filter(slot => slot.fieldId === Number(SelectedFields));
 
     // const AvailableTYPEs = FIELDs.filter(field => field.some(f => f.typeId));
@@ -181,7 +204,7 @@ export default function BookingForm({ Venue }) {
 
     console.log('BOOKINGs', BOOKINGs);
     const SameDateBookings = BOOKINGs.filter(booking =>
-        SelectedFields.includes(booking.fieldId) && booking.date == SelectedDate
+        SelectedField == booking.fieldId && booking.date == SelectedDate
     );
     console.log('SameDateBookings', SameDateBookings);
     const SameDateBookingIds = SameDateBookings.map(booking => booking.id);
@@ -302,8 +325,8 @@ export default function BookingForm({ Venue }) {
     const handleBookField = async (e) => {
         e.preventDefault();
         const Payment = e.target.payment.value;
-        const Field = Number(e.target.field.value);
-        const Date = e.target.date.value;
+        const Field = SelectedField;
+        const Date = SelectedDate;
         const Slots = [...SelectedSlots];
         setConfirm(true);
         // console.log({ Payment, Field, Date, Slots, Amount });
@@ -312,18 +335,15 @@ export default function BookingForm({ Venue }) {
         // window.location.href = '#popupConfirm';
     };
 
-    const [bookingsHaveTheSameDateAndSlot, setBookingsHaveTheSameDateAndSlot] = useState(null);
-
     return (
         <div className='bookingform-container'>
-            <div className='payment-card'>
-                <div className='card'>
-                    <div className='payment-card-title'>Bảng đặt sân</div>
-                    {user ?
-                        <form onSubmit={handleBookField}>
-                            <div className='form-date-type'>
+            <div className='select-card card'>
+                <div className='select-card-title'>ĐẶT SÂN <span>CỦA BẠN</span></div>
+                {user ?
+                    <form onSubmit={handleBookField}>
+                        {/* <div className='form-date-type'> */}
 
-                                {/* <div className='form-group form-date'>
+                        {/* <div className='form-group form-date'>
                                     <DatePicker
                                         selected={SelectedDate}
                                         name='date'
@@ -333,143 +353,164 @@ export default function BookingForm({ Venue }) {
                                     />
                                 </div> */}
 
-                                <div className='form-group form-date'>
+                        {/* <div className='form-group form-date'>
+                                <input
+                                    type='date'
+                                    name='date'
+                                    value={SelectedDate}
+                                    onChange={(e) => setSelectedDate(e.target.value)}
+                                    disabled={SelectedFields.length > 0 || SelectedSlots.length > 0}
+                                />
+                            </div>
+
+                            <div className='form-group form-type'>
+                                <select
+                                    className='form-control'
+                                    value={SportType}
+                                    onChange={(e) => setSportType(e.target.value)}
+                                    disabled={SelectedFields.length > 0 || SelectedSlots.length > 0}
+                                >
+                                    <option value=''>--Môn thể thao--</option>
+                                    {AvailableTYPEs && AvailableTYPEs.map((type) => (
+                                        <option key={type.id} value={type.id}>
+                                            {type.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div> */}
+
+                        <div className='labels'>CHỌN <span>NGÀY</span></div>
+                        <div className='form-group form-date'>
+                            {generateDates().map((date, index) => {
+                                const dateStr = date.toISOString().split('T')[0];
+
+                                return (
+                                    <label key={index} className='radio-label'>
+                                        <input
+                                            type='checkbox'
+                                            name='choice'
+                                            value={dateStr}
+                                            checked={dateStr == SelectedDate}
+                                            onChange={() => setSelectedDate(dateStr)}
+                                            className='hidden-radio'
+                                            disabled={SelectedField || SelectedSlots.length > 0}
+                                        />
+                                        <div className={`radio-box`}>
+                                            <div className='weekday'>{date.toLocaleDateString('vn', { weekday: 'short' })}</div>
+                                            <div className='date'>{date.getDate()}/{date.getMonth()}</div>
+                                            <i className='fa-solid fa-circle-check'></i>
+                                        </div>
+                                    </label>
+                                );
+                            })}
+                        </div>
+
+                        <div className='labels'>CHỌN <span>MÔN THỂ THAO</span></div>
+                        <div className='form-group form-type'>
+                            {AvailableTYPEs.map((type) => (
+                                <label key={type.id} className='radio-label'>
                                     <input
-                                        type='date'
-                                        name='date'
-                                        value={SelectedDate}
-                                        onChange={(e) => setSelectedDate(e.target.value)}
-                                        disabled={SelectedFields.length > 0 || SelectedSlots.length > 0}
+                                        type='checkbox'
+                                        name='choice'
+                                        value={type.id}
+                                        checked={type.id == SportType}
+                                        onChange={handleChangeType}
+                                        className='hidden-radio'
+                                        disabled={SelectedField || SelectedSlots.length > 0}
                                     />
-                                </div>
+                                    <div className={`radio-box`}>
+                                        <div className='name'>ID{type.id} {type.name}</div>
+                                        <i className='fa-solid fa-circle-check'></i>
+                                    </div>
+                                </label>
+                            ))}
+                        </div>
 
-                                <div className='form-group form-type'>
-                                    <select
-                                        className='form-control'
-                                        value={SportType}
-                                        onChange={(e) => setSportType(e.target.value)}
-                                        disabled={SelectedFields.length > 0 || SelectedSlots.length > 0}
-                                    >
-                                        <option value=''>--Môn thể thao--</option>
-                                        {AvailableTYPEs && AvailableTYPEs.map((type) => (
-                                            <option key={type.id} value={type.id}>
-                                                {type.name}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>
+                        <div className='labels'>CHỌN <span>SÂN</span></div>
+                        <div className='form-group form-field'>
+                            {AvailableField.map((field) => (
+                                <label key={field.id} className='radio-label'>
+                                    <input
+                                        type='checkbox'
+                                        name='choice'
+                                        value={field.id}
+                                        checked={field.id == SelectedField}
+                                        onChange={handleChangeField}
+                                        className='hidden-radio'
+                                        disabled={!SelectedDate || !SportType || AvailableField?.length <= 0 || SelectedSlots.length > 0}
+                                    />
+                                    <div className={`radio-box`}>
+                                        <div className='name'>ID{field.id} {field.name}</div>
+                                        <i className='fa-solid fa-circle-check'></i>
+                                    </div>
+                                </label>
+                            ))}
+                        </div>
 
-                            <React.Fragment>
+                        <div className='labels'>CHỌN <span>KHUNG GIỜ</span></div>
+                        <div className='form-group form-slot'>
+                            {AvailableSlots.map((slot) => (
+                                <label key={slot.id} className='radio-label'>
+                                    <input
+                                        type='checkbox'
+                                        name='choice'
+                                        value={slot.id}
+                                        onChange={handleChangeSlot}
+                                        className='hidden-radio'
+                                        disabled={!SelectedField || BookedSlots.filter(bs => bs.name == slot.name).length > 0}
+                                    />
+                                    <div className={`radio-box`}>
+                                        <div className='name'>{`ID${slot.id} [${slot.name}] ${slot.startTime.substring(0, 5)} - ${slot.endTime.substring(0, 5)}`}</div>
+                                        <div className='price'>{slot.price.toLocaleString('vi-VN')} VND</div>
+                                        <i className='fa-solid fa-circle-check'></i>
+                                    </div>
+                                </label>
+                            ))}
+                        </div>
 
-                                {/* <div className='form-group form-field'>
-                                        <select
-                                            name='field'
-                                            value={SelectedFields}
-                                            className='form-control'
-                                            onChange={(e) => setSelectedFields(e.target.value)}
-                                        >
-                                            <option value=''>--Sân thể thao--</option>
-                                            {AvailableField.map((field) => (
-                                                <option key={field.id} value={field.id}>
-                                                    {field.name}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </div> */}
+                        <div className='form-group form-payment'>
+                            <select
+                                name='payment'
+                                className='form-control'
+                            >
+                                {/* <option value=''>--Chọn phương thức thanh toán--</option> */}
+                                <option value='Thanh toán qua VNPay'>Thanh toán qua VNPay</option>
+                                <option value='Thanh toán bằng tiền mặt'>Thanh toán bằng tiền mặt</option>
+                            </select>
+                        </div>
 
-                                <div className='form-group form-field'>
-                                    {AvailableField.map((field) => (
-                                        <label key={field.id} className='radio-label'>
-                                            <input
-                                                type='checkbox'
-                                                name='choice'
-                                                value={field.id}
-                                                onChange={handleChangeField}
-                                                className='hidden-radio'
-                                                disabled={!SelectedDate || !SportType || AvailableField?.length <= 0}
-                                            />
-                                            <div className={`radio-box`}>
-                                                <div className='name'>ID{field.id} {field.name}</div>
-                                            </div>
-                                        </label>
-                                    ))}
-                                </div>
+                        {/* <div>SelectedDate: {SelectedDate}</div>
+                        <div>SportType: {SportType}</div>
+                        <div>SelectedField: {SelectedField}</div> */}
+                        {/* <div>SelectedFields: {SelectedFields.join(', ')}</div> */}
+                        {/* <div>SelectedSlots: {SelectedSlots.join(', ')}</div> */}
+                    </form>
+                    :
+                    <Link to='/login-register'>Vui lòng đăng nhập</Link>
+                }
+            </div>
 
-                                <div className='form-group form-slot'>
-                                    {AvailableSlots.map((slot) => (
-                                        <label key={slot.id} className='radio-label'>
-                                            <input
-                                                type='checkbox'
-                                                name='choice'
-                                                value={slot.id}
-                                                onChange={handleChangeSlot}
-                                                className='hidden-radio'
-                                                disabled={!SelectedDate || !SportType || AvailableField?.length <= 0 || BookedSlots.filter(bs => bs.name == slot.name).length > 0}
-                                            />
-                                            <div className={`radio-box`}>
-                                                <div className='name'>{`ID${slot.id} [${slot.name}] ${slot.startTime.substring(0, 5)} - ${slot.endTime.substring(0, 5)}`}</div>
-                                                <div className='price'>{slot.price.toLocaleString('vi-VN')} VND</div>
-                                            </div>
-                                        </label>
-                                    ))}
-                                </div>
-
-                                <div className='form-group form-payment'>
-                                    <select
-                                        name='payment'
-                                        className='form-control'
-                                    >
-                                        {/* <option value=''>--Chọn phương thức thanh toán--</option> */}
-                                        <option value='Thanh toán qua VNPay'>Thanh toán qua VNPay</option>
-                                        <option value='Thanh toán bằng tiền mặt'>Thanh toán bằng tiền mặt</option>
-                                    </select>
-                                </div>
-                            </React.Fragment>
-
-                            <div>
-                                {(() => {
-                                    const selectedDate = new Date(SelectedDate);
-                                    const currentDate = new Date();
-                                    currentDate.setHours(0, 0, 0, 0);
-
-                                    if (selectedDate < currentDate) {
-                                        return (
-                                            <div className='text-danger'>
-                                                Vui lòng chọn ngày từ ngày hôm nay trở đi.
-                                            </div>
-                                        );
-                                    } else if (selectedDate > new Date(currentDate.getTime() + 30 * 24 * 60 * 60 * 1000)) {
-                                        return (
-                                            <div className='text-warning'>
-                                                Đặt phòng chỉ có thể đặt trong vòng 30 ngày tới.
-                                            </div>
-                                        );
-                                    } else return null;
-                                })()}
-                            </div>
-
-                            <button type='submit' className='btn' disabled={!SelectedDate || !SelectedFields || SelectedSlots.length <= 0 || Confirm}>
-                                TỔNG: {Amount.toLocaleString('vi-VN')} VND
-                            </button>
-
-                            <div>SelectedDate: {SelectedDate}</div>
-                            <div>SportType: {SportType}</div>
-                            {/* <div>SelectedFields: {SelectedFields}</div> */}
-                            <div>SelectedFields: {SelectedFields.join(', ')}</div>
-                            <div>SelectedSlots: {SelectedSlots.join(', ')}</div>
-
-                            {bookingsHaveTheSameDateAndSlot && bookingsHaveTheSameDateAndSlot.length !== 0 && <div>Slot không khả dụng</div>}
-                            {bookingsHaveTheSameDateAndSlot && bookingsHaveTheSameDateAndSlot.length === 0 &&
-                                SlotId.length > 0 &&
-                                new Date(date) >= new Date().setHours(0, 0, 0, 0) &&
-                                new Date(date) <= new Date().setHours(0, 0, 0, 0) + 30 * 24 * 60 * 60 * 1000 &&
-                                <button type='submit' className='btn' disabled={SelectedSlots?.length > 0}>CHỌN</button>}
-                        </form>
-                        :
-                        <Link to='/login-register'>Vui lòng đăng nhập</Link>
-                    }
+            <div className='confirm-card card'>
+                <div className='title'>TỔNG HỢP</div>
+                <div className='row'>
+                    <span className='label'>Ngày:</span>
+                    <span className='value'>{SelectedDate}</span>
                 </div>
+                <div className='row'>
+                    <span className='label'>Sân:</span>
+                    <span className='value'>{FIELDs.find(f => f.id == SelectedField)?.name}</span>
+                </div>
+                <div className='row'>
+                    <span className='label'>Slots:</span>
+                    <span className='value'>{SLOTs.filter(slot => SelectedSlots.includes(slot.id)).map((sl, i) => (
+                        <span key={i}>{sl.name}, </span>
+                    ))}</span>
+                </div>
+
+                <button type='submit' className='btn' disabled={!SelectedDate || !SelectedField || SelectedSlots.length <= 0 || Confirm}>
+                    TỔNG: {Amount.toLocaleString('vi-VN')} VND
+                </button>
             </div>
         </div>
     )
