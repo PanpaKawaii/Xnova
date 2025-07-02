@@ -11,12 +11,8 @@
   },
   "dependencies": {
     "@types/lodash.debounce": "^4.0.9",
-<<<<<<< HEAD
     "bootstrap": "^5.3.6",
     "framer-motion": "^12.20.1",
-=======
-    "bootstrap": "^5.3.7",
->>>>>>> da9d8debd314c3da53484d6d29e1a37a63c5eead
     "lodash.debounce": "^4.0.8",
     "lucide-react": "^0.525.0",
     "react": "^19.1.0",
