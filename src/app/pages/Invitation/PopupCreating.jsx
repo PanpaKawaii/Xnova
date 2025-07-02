@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './PopupCreating.css';
+import { CheckSquare, Square } from 'lucide-react';
 
 const getTodayString = () => {
     const today = new Date();
@@ -72,37 +73,36 @@ export default function PopupCreating({ TYPEs, closePopup }) {
                     <i className='fa-solid fa-xmark' onClick={() => closePopup(false)}></i>
                     <div className='heading'>Tạo bài đăng mới</div>
                     <form onSubmit={handleSubmit}>
-
-                        <div className='book-yet'>
-                            <div className='form-group form-check'>
-                                <label htmlFor='checkbook'>
-                                    <input type='checkbox' id='checkbook' name='booked' checked={FormData.booked} onChange={handleChange} />
-                                    ĐÃ ĐẶT SÂN? {IsBook}
-                                </label>
-                            </div>
-                            {FormData.booked === 1 &&
-                                <>
-                                    <label>ID Booking</label>
-                                    <div className='form-group'>
-                                        <input type='number' id='bookingId' name='bookingId' value={FormData.bookingId} onChange={handleChange} />
-                                    </div>
-                                    <div className='form-group form-type'>
-                                        <select
-                                            className='form-control'
-                                            value={FormData.bookingId}
-                                            onChange={handleChange}
-                                        >
-                                            <option value=''>--Chọn sân đã đặt--</option>
-                                            {[] && [].map((field) => (
-                                                <option key={field.id} value={field.id}>
-                                                    {field.name}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                </>
-                            }
+                        <div className='book-yet' role="button" tabIndex={0} onClick={() => setFormData(prev => ({ ...prev, booked: prev.booked ? 0 : 1 }))} style={{cursor: 'pointer', userSelect: 'none', display: 'flex', alignItems: 'center', gap: 8}}>
+                            {FormData.booked ? (
+                              <CheckSquare size={20} color="#A8FF00" style={{marginRight: 8}} />
+                            ) : (
+                              <Square size={20} color="#A8FF00" style={{marginRight: 8}} />
+                            )}
+                            <span style={{fontWeight: 600, color: '#222'}}>Đã đặt sân?</span>
                         </div>
+                        {FormData.booked === 1 && (
+                            <>
+                                <label>ID Booking</label>
+                                <div className='form-group'>
+                                    <input type='number' id='bookingId' name='bookingId' value={FormData.bookingId} onChange={handleChange} />
+                                </div>
+                                <div className='form-group form-type'>
+                                    <select
+                                        className='form-control'
+                                        value={FormData.bookingId}
+                                        onChange={handleChange}
+                                    >
+                                        <option value=''>--Chọn sân đã đặt--</option>
+                                        {[] && [].map((field) => (
+                                            <option key={field.id} value={field.id}>
+                                                {field.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </>
+                        )}
 
                         {FormData.booked === 0 &&
                             <div className='not-booked'>
@@ -125,14 +125,14 @@ export default function PopupCreating({ TYPEs, closePopup }) {
                                     <div className='form-group'>
                                         <input type='text' id='location' name='location' placeholder='Địa chỉ' value={FormData.location} onChange={handleChange} />
                                     </div>
-                                    <div className='long-lat'>
+                                    {/* <div className='long-lat'>
                                         <div className='form-group form-longitude'>
                                             <input type='text' id='longitude' name='longitude' placeholder='Kinh độ' value={FormData.longitude} onChange={handleChange} disabled />
                                         </div>
                                         <div className='form-group form-latitude'>
                                             <input type='text' id='latitude' name='latitude' placeholder='Vĩ độ' value={FormData.latitude} onChange={handleChange} disabled />
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <div className='form-group'>
                                         <input type='date' id='date' name='date' placeholder='Ngày đặt' value={FormData.date} onChange={handleChange} />
                                     </div>

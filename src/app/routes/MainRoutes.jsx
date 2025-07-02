@@ -8,6 +8,7 @@ import Home from '../pages/Home/Home'
 import Venue from '../pages/Venue/Venue'
 import VenueDetail from '../pages/Venue/VenueDetail'
 import { FindTeammatePage } from '../pages/Matching/FindTeammatePage'
+import InvitationBox from '../pages/Invitation/Invitation'
 import PaymentStatus from '../pages/Payment/PaymentStatus'
 import TestPage from '../pages/TestPage'
 import ScrollToTop from '../hooks/ScrollToTop/useScrollToTop'
@@ -23,6 +24,7 @@ export default function MainRoutes() {
             <Header />
             <Routes>
                 <Route path='/test' element={<TestPage />} />
+                <Route path='/invitation' element={<InvitationBox />} />
                 <Route path='/' element={<Home />} />
                 <Route path='/venue' element={<Venue />} />
                 <Route path='/venue/:id' element={<VenueDetail />} />

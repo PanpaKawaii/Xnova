@@ -23,6 +23,7 @@ import {
   TrendingUp
 } from 'lucide-react';
 import './FindTeammatePage.css';
+import PopupCreating from '../../pages/Invitation/PopupCreating';
 
 export const FindTeammatePage = () => {
   const [selectedSkillLevel, setSelectedSkillLevel] = useState('');
@@ -31,6 +32,7 @@ export const FindTeammatePage = () => {
   const [selectedMatch, setSelectedMatch] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [showPlayerProfile, setShowPlayerProfile] = useState(null);
+  const [showPopupCreating, setShowPopupCreating] = useState(false);
 
   const heroRef = useScrollAnimation();
   const filtersRef = useScrollAnimation();
@@ -39,24 +41,24 @@ export const FindTeammatePage = () => {
   const communityRef = useScrollAnimation();
 
   const skillLevels = [
-    { value: 'beginner', label: 'Beginner', icon: Target, color: 'skill-green' },
-    { value: 'intermediate', label: 'Intermediate', icon: Zap, color: 'skill-blue' },
-    { value: 'advanced', label: 'Advanced', icon: Trophy, color: 'skill-purple' },
-    { value: 'pro', label: 'Professional', icon: Crown, color: 'skill-yellow' }
+    { value: 'beginner', label: 'Người mới', icon: Target, color: 'skill-green' },
+    { value: 'intermediate', label: 'Trung bình', icon: Zap, color: 'skill-blue' },
+    { value: 'advanced', label: 'Nâng cao', icon: Trophy, color: 'skill-purple' },
+    { value: 'pro', label: 'Chuyên nghiệp', icon: Crown, color: 'skill-yellow' }
   ];
 
   const locations = [
-    'District 1, Ho Chi Minh City',
-    'District 3, Ho Chi Minh City',
-    'District 7, Ho Chi Minh City',
-    'Binh Thanh District, Ho Chi Minh City',
-    'Thu Duc City, Ho Chi Minh City'
+    'Quận 1, TP. Hồ Chí Minh',
+    'Quận 3, TP. Hồ Chí Minh',
+    'Quận 7, TP. Hồ Chí Minh',
+    'Quận Bình Thạnh, TP. Hồ Chí Minh',
+    'TP. Thủ Đức, TP. Hồ Chí Minh'
   ];
 
   const timeSlots = [
-    'Morning (6:00 - 12:00)',
-    'Afternoon (12:00 - 18:00)',
-    'Evening (18:00 - 22:00)'
+    'Sáng (6:00 - 12:00)',
+    'Chiều (12:00 - 18:00)',
+    'Tối (18:00 - 22:00)'
   ];
 
   const matches = [
@@ -222,20 +224,20 @@ export const FindTeammatePage = () => {
         <div className="hero-content">
           <div className="animate-hero">
             <h1 className="hero-title">
-              Find Your Perfect
-              <span className="hero-highlight">Football Team</span>
+              Tìm kiếm đội bóng
+              <span className="hero-highlight">phù hợp với bạn</span>
             </h1>
             <p className="hero-description">
-              Connect with players at your skill level, join exciting matches, and build lasting friendships through the beautiful game.
+              Kết nối với những người chơi cùng trình độ, tham gia các trận đấu hấp dẫn và xây dựng tình bạn lâu dài qua bóng đá.
             </p>
             <div className="hero-buttons">
               <Button size="lg" glow className="button-join">
                 <Users className="button-icon" size={20} />
-                Join Community
+                Tham gia cộng đồng
               </Button>
-              <Button variant="outline" size="lg" className="button-create">
+              <Button variant="outline" size="lg" className="button-create" onClick={() => setShowPopupCreating(true)}>
                 <Heart className="button-icon" size={20} />
-                Create Match
+                Tạo trận đấu
               </Button>
             </div>
           </div>
@@ -249,7 +251,7 @@ export const FindTeammatePage = () => {
             <div className="filter-icon-container">
               <Filter size={24} className="filter-icon" />
             </div>
-            <h2 className="filter-title">Find Your Match</h2>
+            <h2 className="filter-title">Tìm kiếm trận đấu</h2>
           </div>
 
           <div className="filter-grid">
@@ -258,7 +260,7 @@ export const FindTeammatePage = () => {
               <Search className="search-icon" size={20} />
               <input
                 type="text"
-                placeholder="Search matches or players..."
+                placeholder="Tìm kiếm trận đấu hoặc người chơi..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="search-input"
@@ -271,7 +273,7 @@ export const FindTeammatePage = () => {
               onChange={(e) => setSelectedSkillLevel(e.target.value)}
               className="select-input"
             >
-              <option value="">All Skill Levels</option>
+              <option value="">Tất cả trình độ</option>
               {skillLevels.map((level) => (
                 <option key={level.value} value={level.value}>
                   {level.label}
@@ -285,7 +287,7 @@ export const FindTeammatePage = () => {
               onChange={(e) => setSelectedLocation(e.target.value)}
               className="select-input"
             >
-              <option value="">All Locations</option>
+              <option value="">Tất cả địa điểm</option>
               {locations.map((location) => (
                 <option key={location} value={location}>
                   {location}
@@ -299,7 +301,7 @@ export const FindTeammatePage = () => {
               onChange={(e) => setSelectedTime(e.target.value)}
               className="select-input"
             >
-              <option value="">Any Time</option>
+              <option value="">Bất kỳ thời gian</option>
               {timeSlots.map((time) => (
                 <option key={time} value={time}>
                   {time}
@@ -317,7 +319,7 @@ export const FindTeammatePage = () => {
                 <div className="title-icon-container">
                   <Trophy size={24} className="title-icon" />
                 </div>
-                Available Matches ({filteredMatches.length})
+                Các trận đấu khả dụng ({filteredMatches.length})
               </h2>
 
               <div className="matches-list">
@@ -349,7 +351,7 @@ export const FindTeammatePage = () => {
                             </div>
                             <div className="detail-item">
                               <Users size={16} />
-                              <span>{match.currentPlayers}/22 players</span>
+                              <span>{match.currentPlayers}/22 người</span>
                             </div>
                           </div>
                         </div>
@@ -375,21 +377,21 @@ export const FindTeammatePage = () => {
                             <div className="organizer-name">{match.organizer.name}</div>
                             <div className="organizer-rating">
                               <Star size={14} className="rating-star" fill="currentColor" />
-                              <span>{match.organizer.rating} rating</span>
+                              <span>{match.organizer.rating} đánh giá</span>
                             </div>
                           </div>
                         </div>
 
                         <div className="match-actions">
                           <div className={`status-badge ${match.playersNeeded === 0 ? 'status-full' : 'status-open'}`}>
-                            {match.playersNeeded === 0 ? 'Full' : `${match.playersNeeded} spots left`}
+                            {match.playersNeeded === 0 ? 'Đã đủ' : `${match.playersNeeded} chỗ trống`}
                           </div>
                           <Button 
                             size="sm" 
                             disabled={match.playersNeeded === 0}
                             className="join-button"
                           >
-                            Join Match
+                            Tham gia trận đấu
                           </Button>
                         </div>
                       </div>
@@ -407,7 +409,7 @@ export const FindTeammatePage = () => {
                 <div className="title-icon-container">
                   <UserPlus size={24} className="title-icon" />
                 </div>
-                Top Players
+                Người chơi nổi bật
               </h2>
 
               <div className="players-list">
@@ -461,19 +463,19 @@ export const FindTeammatePage = () => {
                 <Globe size={48} className="globe-icon" />
               </div>
               <h2 className="community-title">
-                Join the Xnova Player Community
+                Tham gia cộng đồng Xnova
               </h2>
               <p className="community-description">
-                Connect with over 10,000+ football enthusiasts, organize matches, and take your game to the next level.
+                Kết nối với hơn 10.000+ người yêu bóng đá, tổ chức trận đấu và nâng tầm kỹ năng của bạn.
               </p>
               <div className="community-buttons">
                 <Button size="lg" variant="secondary" glow>
                   <TrendingUp className="button-icon" size={20} />
-                  Join Community
+                  Tham gia cộng đồng
                 </Button>
                 <Button size="lg" variant="outline" className="create-match-button">
                   <Award className="button-icon" size={20} />
-                  Create Match
+                  Tạo trận đấu
                 </Button>
               </div>
             </div>
@@ -493,7 +495,8 @@ export const FindTeammatePage = () => {
               <h2 className="modal-title">{selectedMatch.title}</h2>
               <div className={`skill-badge ${getSkillColor(selectedMatch.skillLevel)}`}>
                 {React.createElement(getSkillIcon(selectedMatch.skillLevel), { size: 20 })}
-                {selectedMatch.skillLevel.charAt(0).toUpperCase() + selectedMatch.skillLevel.slice(1)} Level
+                {selectedMatch.skillLevel.charAt(0).toUpperCase() + selectedMatch.skillLevel.slice(1)}
+                {' '}Trình độ
               </div>
             </div>
 
@@ -502,14 +505,14 @@ export const FindTeammatePage = () => {
                 <div className="info-item">
                   <Calendar className="info-icon" size={20} />
                   <div>
-                    <div className="info-label">Date</div>
+                    <div className="info-label">Ngày</div>
                     <div className="info-value">{new Date(selectedMatch.date).toLocaleDateString()}</div>
                   </div>
                 </div>
                 <div className="info-item">
                   <Clock className="info-icon" size={20} />
                   <div>
-                    <div className="info-label">Time</div>
+                    <div className="info-label">Giờ</div>
                     <div className="info-value">{selectedMatch.time}</div>
                   </div>
                 </div>
@@ -518,14 +521,14 @@ export const FindTeammatePage = () => {
                 <div className="info-item">
                   <MapPin className="info-icon" size={20} />
                   <div>
-                    <div className="info-label">Location</div>
+                    <div className="info-label">Địa điểm</div>
                     <div className="info-value">{selectedMatch.location}</div>
                   </div>
                 </div>
                 <div className="info-item">
                   <Users className="info-icon" size={20} />
                   <div>
-                    <div className="info-label">Players</div>
+                    <div className="info-label">Số người</div>
                     <div className="info-value">{selectedMatch.currentPlayers}/22</div>
                   </div>
                 </div>
@@ -533,7 +536,7 @@ export const FindTeammatePage = () => {
             </div>
 
             <div className="organizer-section">
-              <h3 className="organizer-title">Match Organizer</h3>
+              <h3 className="organizer-title">Người tổ chức</h3>
               <div className="organizer-content">
                 <img
                   src={selectedMatch.organizer.avatar}
@@ -544,7 +547,7 @@ export const FindTeammatePage = () => {
                   <div className="organizer-name">{selectedMatch.organizer.name}</div>
                   <div className="organizer-rating">
                     <Star size={14} className="rating-star" fill="currentColor" />
-                    <span>{selectedMatch.organizer.rating} rating</span>
+                    <span>{selectedMatch.organizer.rating} đánh giá</span>
                   </div>
                 </div>
                 <Button size="sm" variant="outline">
@@ -556,7 +559,7 @@ export const FindTeammatePage = () => {
 
             <div className="price-section">
               <div className="price-info">
-                <span className="price-label">Entry Fee:</span>
+                <span className="price-label">Phí tham gia:</span>
                 <span className="price-value">{formatPrice(selectedMatch.price)}</span>
               </div>
             </div>
@@ -568,7 +571,7 @@ export const FindTeammatePage = () => {
                 glow
                 disabled={selectedMatch.playersNeeded === 0}
               >
-                {selectedMatch.playersNeeded === 0 ? 'Match Full' : 'Join Match'}
+                {selectedMatch.playersNeeded === 0 ? 'Đã đủ người' : 'Tham gia trận đấu'}
               </Button>
               <Button variant="outline" size="lg">
                 <MessageCircle size={20} />
@@ -595,7 +598,7 @@ export const FindTeammatePage = () => {
               <h2 className="modal-title">{showPlayerProfile.name}</h2>
               <div className={`skill-badge ${getSkillColor(showPlayerProfile.skillLevel)}`}>
                 {React.createElement(getSkillIcon(showPlayerProfile.skillLevel), { size: 20 })}
-                {showPlayerProfile.skillLevel.charAt(0).toUpperCase() + showPlayerProfile.skillLevel.slice(1)} Player
+                {showPlayerProfile.skillLevel.charAt(0).toUpperCase() + showPlayerProfile.skillLevel.slice(1)} Người chơi
               </div>
             </div>
 
@@ -605,7 +608,7 @@ export const FindTeammatePage = () => {
                   <Star className="rating-star" size={20} fill="currentColor" />
                   <span>{showPlayerProfile.rating}</span>
                 </div>
-                <div className="stat-label">Rating</div>
+                <div className="stat-label">Đánh giá</div>
               </div>
               <div className="stat-item">
                 <div className="stat-value">
@@ -616,14 +619,14 @@ export const FindTeammatePage = () => {
             </div>
 
             <div className="bio-section">
-              <h3 className="bio-title">About</h3>
+              <h3 className="bio-title">Giới thiệu</h3>
               <p className="bio-text">{showPlayerProfile.bio}</p>
             </div>
 
             <div className="modal-actions">
               <Button className="invite-button" size="lg" glow>
                 <UserPlus size={20} className="button-icon" />
-                Invite to Match
+                Mời vào trận đấu
               </Button>
               <Button variant="outline" size="lg">
                 <MessageCircle size={20} />
@@ -632,6 +635,11 @@ export const FindTeammatePage = () => {
           </div>
         )}
       </Modal>
+
+      {/* PopupCreating */}
+      {showPopupCreating && (
+        <PopupCreating TYPEs={[]} closePopup={setShowPopupCreating} />
+      )}
     </div>
   );
 };
