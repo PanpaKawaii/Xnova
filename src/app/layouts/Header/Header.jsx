@@ -2,21 +2,31 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { fetchData } from '../../../mocks/CallingAPI.js';
 import { useAuth } from '../../hooks/AuthContext/AuthContext.jsx';
+import UserInformation from '../../pages/UserInfor/UserInformation.jsx';
 import './Header.css';
 
 export default function Header() {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
     console.log('===Header===User===', user);
-
     const [USER, setUSER] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isUserInfoOpen, setIsUserInfoOpen] = useState(false);
     const dropdownRef = useRef(null);
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
+    };
+
+    const openUserInfo = () => {
+        setIsUserInfoOpen(true);
+        setIsDropdownOpen(false);
+    };
+
+    const closeUserInfo = () => {
+        setIsUserInfoOpen(false);
     };
 
     useEffect(() => {
@@ -72,10 +82,10 @@ export default function Header() {
 
                         {isDropdownOpen &&
                             <div className='menu'>
-                                <Link to='/user/information' className='item information-item'>
+                                <div className='item information-item' onClick={openUserInfo}>
                                     <img src={USER?.image} alt={USER?.name} />
                                     <div className='name'>{USER?.name}</div>
-                                </Link>
+                                </div>
                                 <Link className='item'>
                                     <i className='fa-solid fa-futbol'></i>
                                     <div>Sân đã đặt</div>
@@ -93,6 +103,12 @@ export default function Header() {
                     </Link>
                 }
             </div>
+            {isUserInfoOpen && (
+                <UserInformation 
+                    user={USER} 
+                    onClose={closeUserInfo}
+                />
+            )}
         </div>
     )
 }

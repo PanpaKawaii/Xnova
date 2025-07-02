@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { fetchData, postData } from '../../../mocks/CallingAPI.js';
 import './FeaturedVenues.css';
 
 export default function FeaturedVenues() {
@@ -17,14 +18,11 @@ export default function FeaturedVenues() {
         const fetchVenuesAndTypes = async () => {
             try {
                 setLoading(true);
-                const [venuesRes, typesRes] = await Promise.all([
-                    fetch('https://localhost:7226/api/Venue'),
-                    fetch('https://localhost:7226/api/Type')
+                // Sử dụng fetchData không cần token
+                const [venuesData, typesData] = await Promise.all([
+                    fetchData('Venue'),
+                    fetchData('Type')
                 ]);
-                if (!venuesRes.ok) throw new Error('Failed to fetch venues');
-                if (!typesRes.ok) throw new Error('Failed to fetch types');
-                const venuesData = await venuesRes.json();
-                const typesData = await typesRes.json();
                 setVENUEs(venuesData);
                 setTypes(typesData);
                 setError(null);
@@ -36,6 +34,7 @@ export default function FeaturedVenues() {
         };
         fetchVenuesAndTypes();
     }, []);
+    
 
     // Function to get average rating for a venue (from all its fields)
     const getVenueRating = (venue) => {
@@ -260,4 +259,4 @@ export default function FeaturedVenues() {
             </div>
         </section>
     );
-} 
+}
