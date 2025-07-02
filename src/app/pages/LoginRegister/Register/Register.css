@@ -13,7 +13,7 @@
                     i {
                         &.dobble-icon {
                             left: -8px;
-                            color: #999;
+                            color: #444;
                         }
                     }
                 }
@@ -24,7 +24,8 @@
                     .provision {
                         padding: 4px 6px;
                         border-radius: 6px;
-                        color: #666;
+                        color: #fff;
+                        background-color: #374151;
                         border: 1px solid #ccc;
                         box-sizing: border-box;
                         text-decoration: none;
@@ -32,8 +33,6 @@
                     }
 
                     .label-accept {
-                        color: #000;
-                        font-weight: bold;
                         border-bottom: 2px solid transparent;
                         box-sizing: border-box;
                     }
