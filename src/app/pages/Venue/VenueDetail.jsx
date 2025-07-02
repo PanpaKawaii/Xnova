@@ -98,32 +98,6 @@ export default function VenueDetail() {
                         </div>
 
                         <div className='detail-container'>
-                            <div className='short-detail'>
-
-                                <div className='favorite'>
-                                    <div className='favorite-title'>
-                                        <i className='fa-regular fa-heart'></i>Favorite<i className='fa-regular fa-heart'></i>
-                                    </div>
-                                    <div className='favorite-text'>
-                                        {Venue.rating ?
-                                            <div>Khách đánh giá đây là một trong những sân thể thao được yêu thích nhất trên Xnova</div>
-                                            :
-                                            <div>Đây là một trong những sân thể thao tâm đắc nhất của Xnova</div>
-                                        }
-                                    </div>
-                                    <div className='favorite-rating'>
-                                        {(Venue.rating && Venue.rating) > 0 ? (
-                                            <StarHalfFull Rating={Venue.rating} Size={'1.3em'} Color={'#ffd700'} />
-                                        ) : (
-                                            <div>
-                                                <StarRating Rating={5} Size={'1.3em'} Color={'#ffd700'} />
-                                                (Recommend)
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-
                             <BookingForm Venue={Venue} />
                         </div>
 

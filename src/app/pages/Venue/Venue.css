@@ -4,7 +4,7 @@
     min-height: 70vh;
 
     &.custom-cursor {
-        cursor: url('../../../../public/BadmintonCursor.png'), auto;
+        cursor: url('/BadmintonCursor.png'), auto;
     }
 
     .search {
