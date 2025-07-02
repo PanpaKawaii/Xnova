@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import './UserInformation.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 const PRESET_AVATARS = [
   'https://i.pravatar.cc/160?img=1',
