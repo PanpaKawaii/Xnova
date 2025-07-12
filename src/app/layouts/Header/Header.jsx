@@ -5,6 +5,8 @@ import { useAuth } from '../../hooks/AuthContext/AuthContext.jsx';
 import UserInformation from '../../pages/UserInfor/UserInformation.jsx';
 import './Header.css';
 
+import LOGO from '../../assets/LOGO.png';
+
 export default function Header() {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
@@ -67,7 +69,7 @@ export default function Header() {
 
     return (
         <div className='header-container'>
-            <Link to='/' className='logohome'>LOGO</Link>
+            <Link to='/' className='logohome'><img src={LOGO} alt='LOGO'></img></Link>
             <div className='items'>
                 <Link to='/venue' className='item'><i className='fa-solid fa-futbol'></i>Book</Link>
                 <Link to='/player' className='item'><i className='fa-solid fa-person-running'></i>Play</Link>

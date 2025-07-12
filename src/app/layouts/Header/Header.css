@@ -1,5 +1,5 @@
 .header-container {
-    padding: 16px 40px;
+    padding: 0 40px;
     min-height: 72px;
     background-color: #101526;
     font-weight: bold;
@@ -12,8 +12,7 @@
     font-family: Inter, system-ui, sans-serif;
 
     a {
-        color: #000;
-        text-decoration: none;
+        color: #a3e635;
     }
 
     .logohome,
@@ -23,13 +22,23 @@
         align-content: center;
         text-decoration: none;
 
+        &.logohome {
+            width: 100px;
+
+            img {
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+            }
+        }
+
         i {
             width: 40px;
             font-size: 24px;
             align-content: center;
         }
     }
-
+    
     .items {
         width: 500px;
         display: flex;
@@ -37,7 +46,7 @@
         font-size: 18px;
 
         .item {
-            color: #555;
+        color: #a3e635;
             display: flex;
             align-items: center;
             text-decoration: none;

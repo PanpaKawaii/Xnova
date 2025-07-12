@@ -98,7 +98,7 @@ export default function VenueDetail() {
                         </div>
 
                         <div className='detail-container'>
-                            <div className='short-detail'>
+                            {/* <div className='short-detail'>
 
                                 <div className='favorite'>
                                     <div className='favorite-title'>
@@ -122,7 +122,7 @@ export default function VenueDetail() {
                                         )}
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
 
                             <BookingForm Venue={Venue} />
                         </div>

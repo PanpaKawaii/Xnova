@@ -23,16 +23,16 @@ export default function MainRoutes() {
             <ScrollToTop />
             <Header />
             <Routes>
+                <Route path='/' element={<HomePageTest />} />
                 <Route path='/test' element={<TestPage />} />
                 <Route path='/invitation' element={<InvitationBox />} />
-                <Route path='/' element={<Home />} />
                 <Route path='/venue' element={<Venue />} />
                 <Route path='/venue/:id' element={<VenueDetail />} />
                 <Route path='/player' element={<FindTeammatePage />} />
                 <Route path='/paymentstatus' element={<PaymentStatus />} />
                 <Route path='/login-register' element={<LoginRegister />} />
                 <Route path='/soccerball' element={<SoccerBall />} />
-                <Route path='/homepagetest' element={<HomePageTest />} />
+                <Route path='/oldhomepage' element={<Home />} />
                 <Route path='/loadinganimation' element={<LoadingAnimation />} />
                 <Route path='*' element={<></>} />
             </Routes>

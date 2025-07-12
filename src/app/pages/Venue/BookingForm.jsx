@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Link, useNavigate } from 'react-router-dom';
@@ -262,13 +262,13 @@ export default function BookingForm({ Venue }) {
                     amount: amount,
                     status: '',
                     method: '',
-                    createdDate: '',
+                    createdDate: new Date,
                 };
                 console.log('PaymentMethodData:', PaymentMethodData);
 
                 const resultPaymentMethod = await postData('Payment/create', PaymentMethodData, token);
                 console.log('resultPaymentMethod', resultPaymentMethod);
-                window.location.href = resultPaymentMethod.paymentUrl;
+                // window.location.href = resultPaymentMethod.paymentUrl;
             }
         } catch (error) {
             setError(error);
@@ -329,10 +329,18 @@ export default function BookingForm({ Venue }) {
         const Date = SelectedDate;
         const Slots = [...SelectedSlots];
         setConfirm(true);
-        // console.log({ Payment, Field, Date, Slots, Amount });
+        console.log({ Payment, Field, Date, Slots, Amount });
         BookField(Payment, Field, Date, Slots, Amount);
         // setIsPopupOpen(true);
         // window.location.href = '#popupConfirm';
+    };
+
+    const formRef = useRef(null);
+    const handleSubmitFromOutSide = () => {
+        console.log('Submit Form');
+        if (formRef.current) {
+            formRef.current.requestSubmit();
+        }
     };
 
     return (
@@ -340,7 +348,7 @@ export default function BookingForm({ Venue }) {
             <div className='select-card card'>
                 <div className='select-card-title'>ĐẶT SÂN <span>CỦA BẠN</span></div>
                 {user ?
-                    <form onSubmit={handleBookField}>
+                    <form ref={formRef} onSubmit={handleBookField}>
                         {/* <div className='form-date-type'> */}
 
                         {/* <div className='form-group form-date'>
@@ -508,7 +516,11 @@ export default function BookingForm({ Venue }) {
                     ))}</span>
                 </div>
 
-                <button type='submit' className='btn' disabled={!SelectedDate || !SelectedField || SelectedSlots.length <= 0 || Confirm}>
+                <button type='submit' className='btn' disabled={!SelectedDate || !SelectedField || SelectedSlots.length <= 0
+                    // || Confirm
+                }
+                onClick={() => handleSubmitFromOutSide()}
+                >
                     TỔNG: {Amount.toLocaleString('vi-VN')} VND
                 </button>
             </div>
